@@ -1,7 +1,7 @@
 # grogu
 Din Grogu (/ˈɡroʊɡu/), colloquially referred to as Baby Yoda or simply Grogu, is a character from the Star Wars Disney+ original television series The Mandalorian and The Book of Boba Fett. 
 
-Model - *GMKtec NucBox G3 Plus Intel - Twin Lake N150 *\
+Model - *GMKtec NucBox G3 Plus Intel - Twin Lake N150*\
 Proc -	*Intel 'Twin Lake' N150 (4 cores, 4 threads, boost 3,6GHz)*\
 GPU -	*Intel Graphics (geïntegreerd)*\
 Mem -	*16GB (1x 16GB) DDR4-3200 SO-DIMM*\
