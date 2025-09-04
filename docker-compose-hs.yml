@@ -1,0 +1,19 @@
+########################### NETWORKS
+networks:
+  default:
+    driver: bridge
+  socket_proxy:
+    name: socket_proxy
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.14.0/24
+include:
+  ########################### SERVICES
+  # HOSTNAME defined in .env file
+  - compose/$HOSTNAME/socket-proxy.yml
+  - compose/$HOSTNAME/portainer.yml
+  - compose/$HOSTNAME/dozzle.yml
+  - compose/$HOSTNAME/docker-gc.yml
+  - compose/$HOSTNAME/uptime-kuma.yml
+
