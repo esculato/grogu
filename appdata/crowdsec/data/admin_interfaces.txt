@@ -1,0 +1,42 @@
+#usual suspects
+/phpmyadmin
+/pma
+/admin
+/wp-admin
+/manager
+/wp-login
+/solr/
+/phpinfo
+#cve-2020-8958
+/boaform/
+#kcfinder file manager
+/kcfinder/upload.php
+#cisco asa
+/+cscoe+/
+#ivanti cve(s)
+/dana-na/
+#metasploit
+/repeater.php
+#sitecore
+/sitecore/admin/login.aspx
+/sitecore/login/default.aspx
+/sitecore/admin/cache.aspx
+#solr
+/solr/
+#sphider
+/sphider/admin/admin.php
+#sitefinity
+/sitefinity/authenticate/swt
+#scriptcase
+/scriptcase/devel/iface/
+/scriptcase/prod/lib/php/
+#odoo
+/web/database/manager
+#slocum
+/sfmc/login
+#seeddms
+/dms/out/out.login.php
+#axis
+/rsso/admin/
+#rcdevs
+/admin/login_uid.php

@@ -8,12 +8,37 @@ networks:
     ipam:
       config:
         - subnet: 192.168.14.0/24
+  t3_proxy:
+    name: t3_proxy
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.15.0/24
+
+########################### SECRETS
+secrets:
+  basic_auth_credentials:
+    file: $DOCKERDIR/secrets/basic_auth_credentials
+  cf_dns_api_token:
+    file: $DOCKERDIR/secrets/cf_dns_api_token
+  authelia_jwt_secret:
+    file: $DOCKERDIR/secrets/authelia_jwt_secret
+  authelia_session_secret:
+    file: $DOCKERDIR/secrets/authelia_session_secret
+  authelia_storage_encryption_key:
+    file: $DOCKERDIR/secrets/authelia_storage_encryption_key
+
 include:
   ########################### SERVICES
-  # HOSTNAME defined in .env file
-  - compose/$HOSTNAME/socket-proxy.yml
-  - compose/$HOSTNAME/portainer.yml
-  - compose/$HOSTNAME/dozzle.yml
-  - compose/$HOSTNAME/docker-gc.yml
-  - compose/$HOSTNAME/uptime-kuma.yml
+  # HOSTNAME_HS / HOSTNAME_MS defined in .env file
+  - compose/$HOSTNAME_HS/socket-proxy.yml
+  - compose/$HOSTNAME_HS/traefik.yml
+  - compose/$HOSTNAME_HS/authelia.yml
+  - compose/$HOSTNAME_HS/crowdsec.yml
+  - compose/$HOSTNAME_HS/cloudflare-bouncer.yml
+  - compose/$HOSTNAME_HS/traefik-bouncer.yml
+  - compose/$HOSTNAME_HS/portainer.yml
+  - compose/$HOSTNAME_HS/dozzle.yml
+  - compose/$HOSTNAME_HS/docker-gc.yml
+  - compose/$HOSTNAME_HS/uptime-kuma.yml
 

@@ -1,0 +1,16 @@
+services:
+  # CrowdSec Bouncer - Traefik
+  traefik-bouncer:
+    image: fbonalair/traefik-crowdsec-bouncer
+    container_name: traefik-bouncer
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    profiles: ["core", "all"]
+    networks:
+      - default
+    environment:
+      GIN_MODE: release # default is debug (more logs)
+      CROWDSEC_BOUNCER_API_KEY: KLjPFT6iTF9sA03K+5zZa/6CSJqDcQWIJ51U9JGOw/Y
+      CROWDSEC_AGENT_HOST: crowdsec:8080 # CrowdSec host and port
+      CROWDSEC_BOUNCER_LOG_LEVEL: 2 # https://pkg.go.dev/github.com/rs/zerolog#readme-leveled-logging

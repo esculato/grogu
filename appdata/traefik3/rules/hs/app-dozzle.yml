@@ -1,0 +1,17 @@
+http:
+  routers:
+    dozzle-rtr:
+      rule: "Host(`dozzle.{{env "DOMAINNAME"}}`)"
+      entryPoints:
+        - websecure-internal
+        - websecure-external
+      middlewares:
+        - chain-authelia@file
+      service: dozzle-svc
+      tls:
+        certResolver: dns-cloudflare
+  services:
+    dozzle-svc:
+      loadBalancer:
+        servers:
+          - url: "http://dozzle:8080"
