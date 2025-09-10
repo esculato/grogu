@@ -1,0 +1,28 @@
+########################### NETWORKS
+networks:
+  default:
+    driver: bridge
+  socket_proxy:
+    name: socket_proxy
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.14.0/24
+  t3_proxy:
+    name: t3_proxy
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.15.0/24
+
+########################### SECRETS
+secrets:
+  plex_claim:
+    file: $DOCKERDIR/secrets/plex_claim
+
+include:
+  ########################### SERVICES
+  # HOSTNAME_HS / HOSTNAME_MS defined in .env file
+  - compose/$HOSTNAME_MS/plex.yml
+
+
