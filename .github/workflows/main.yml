@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - '**/docker-compose.yml'
-      - /compose/hs/**.yml
+      - /compose/hs/dozzle.yml
 
 jobs:
   deploy:
