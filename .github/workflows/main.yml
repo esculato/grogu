@@ -6,6 +6,9 @@ on:
       - '**/docker-compose.yml'
       - /compose/hs/dozzle.yml
 
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
 jobs:
   deploy:
     runs-on: debian-latest
