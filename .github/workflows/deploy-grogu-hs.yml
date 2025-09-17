@@ -16,13 +16,27 @@ jobs:
       - name: Sync repo into /home/medivh/docker
         run: |
           if [ ! -d "/home/medivh/docker/.git" ]; then
-            git clone https://x-access-token:${{ secrets.GH_PAT }}@github.com/esculato/Grogu.git
+            echo "Repo not found in /home/medivh/docker, cloning fresh..."
+            git clone https://x-access-token:${{ secrets.GH_PAT }}@github.com/esculato/Grogu.git /home/medivh/docker
           else
+            echo "Repo exists, updating..."
+            cd /home/medivh/docker
             git fetch origin main
             git reset --hard origin/main
           fi
+          
+      - name: Check docker-compose file exists
+        run: |
+          if [ ! -f "docker-compose-hs.yml" ]; then
+            echo "ERROR: docker-compose-hs.yml not found in /home/medivh/docker"
+            exit 1
+          fi
+          echo "docker-compose-hs.yml found."
 
       - name: Redeploy stack
         run: |
+          echo "Pulling latest images..."
           docker compose -f docker-compose-hs.yml pull
+          echo "Restarting containers..."
           docker compose -f docker-compose-hs.yml up -d
+          echo "Deployment completed successfully."
