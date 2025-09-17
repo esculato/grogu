@@ -30,6 +30,242 @@ secrets:
 
 ########################### SERVICES
 services:
+  # Docker Socket Proxy - Security Enchanced Proxy for Docker Socket
+  socket-proxy:
+    image: lscr.io/linuxserver/socket-proxy:latest
+    container_name: socket-proxy
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    #profiles: ["core", "all"]
+    networks:
+      socket_proxy:
+        ipv4_address: 192.168.14.254 # You can specify a static IP
+    privileged: false # true for VM. False (default) for unprivileged LXC container.
+    # ports:
+      #- "2375:2375"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    read_only: true
+    tmpfs:
+      - /run
+    environment:
+      - LOG_LEVEL=warning # debug,info,notice,warning,err,crit,alert,emerg
+      - ALLOW_START=1 # Portainer
+      - ALLOW_STOP=1 # Portainer
+      - ALLOW_RESTARTS=1 # Portainer
+      ## Granted by Default
+      - EVENTS=1
+      - PING=1
+      - VERSION=1
+      ## Revoked by Default
+      # Security critical
+      - AUTH=0
+      - SECRETS=0
+      - POST=1 # Watchtower
+      # Not always needed
+      - BUILD=0
+      - COMMIT=0
+      - CONFIGS=0
+      - CONTAINERS=1 # Traefik, portainer, etc.
+      - DISTRIBUTION=0
+      - EXEC=0
+      - IMAGES=1 # Portainer
+      - INFO=1 # Portainer
+      - NETWORKS=1 # Portainer
+      - NODES=0
+      - PLUGINS=0
+      - SERVICES=1 # Portainer
+      - SESSION=0
+      - SWARM=0
+      - SYSTEM=0
+      - TASKS=1 # Portainer
+      - VOLUMES=1 # Portainer
+      - DISABLE_IPV6=0 #optional
+
+
+  # Traefik 3 - Reverse Proxy
+  traefik:
+    container_name: traefik
+    image: traefik:3.5.2
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+   # profiles: ["core", "all"]
+    depends_on:
+      - socket-proxy
+    networks:
+      t3_proxy:
+        ipv4_address: 192.168.15.254 # You can specify a static IP
+      socket_proxy:
+    command: # CLI arguments
+      - --global.checkNewVersion=true
+      - --global.sendAnonymousUsage=false
+      - --entrypoints.web-external.address=:81
+      - --entrypoints.web-internal.address=:80
+      - --entrypoints.websecure-external.address=:444
+      - --entrypoints.websecure-internal.address=:443
+      - --entrypoints.traefik.address=:8080
+      - --entrypoints.websecure-external.http3=true
+      - --entrypoints.websecure-internal.http3=true
+      - --entrypoints.web-external.http.redirections.entrypoint.to=websecure-external
+      - --entrypoints.web-external.http.redirections.entrypoint.scheme=https
+      - --entrypoints.web-external.http.redirections.entrypoint.permanent=true
+      - --entrypoints.web-internal.http.redirections.entrypoint.to=websecure-internal
+      - --entrypoints.web-internal.http.redirections.entrypoint.scheme=https
+      - --entrypoints.web-internal.http.redirections.entrypoint.permanent=true
+      - --api=true
+      - --api.dashboard=true
+      - --api.insecure=true
+      # - --serversTransport.insecureSkipVerify=true
+      # Allow these IPs to set the X-Forwarded-* headers - Cloudflare IPs: https://www.cloudflare.com/ips/
+      - --entrypoints.websecure-external.forwardedHeaders.trustedIPs=$CLOUDFLARE_IPS,$LOCAL_IPS
+      - --entrypoints.websecure-internal.forwardedHeaders.trustedIPs=$CLOUDFLARE_IPS,$LOCAL_IPS
+      - --log=true
+      - --log.filePath=/logs/traefik.log
+      - --log.level=INFO # (Default: error) DEBUG, INFO, WARN, ERROR, FATAL, PANIC
+      - --accessLog=true
+      - --accessLog.filePath=/logs/access.log
+      - --accessLog.bufferingSize=100 # Configuring a buffer of 100 lines
+      - --accessLog.filters.statusCodes=204-299,400-499,500-599
+      - --providers.docker=true
+      # - --providers.docker.endpoint=unix:///var/run/docker.sock # Disable for Socket Proxy. Enable otherwise.
+      - --providers.docker.endpoint=$DOCKER_HOST # Enable for Socket Proxy. Disable otherwise.
+      - --providers.docker.exposedByDefault=false
+      - --providers.docker.network=t3_proxy
+      # - --providers.swarm.endpoint=tcp://127.0.0.1:2377 # Traefik v3 Swarm
+      - --entrypoints.websecure-external.http.tls=true
+      - --entrypoints.websecure-external.http.tls.options=tls-opts@file
+      - --entrypoints.websecure-internal.http.tls=true
+      - --entrypoints.websecure-internal.http.tls.options=tls-opts@file
+      # Add dns-cloudflare as default certresolver for all services. Also enables TLS and no need to specify on individual services
+      - --entrypoints.websecure-external.http.tls.certresolver=dns-cloudflare
+      - --entrypoints.websecure-internal.http.tls.certresolver=dns-cloudflare
+      - --entrypoints.websecure-external.http.tls.domains[0].main=$DOMAINNAME
+      - --entrypoints.websecure-external.http.tls.domains[0].sans=*.$DOMAINNAME
+      - --entrypoints.websecure-internal.http.tls.domains[0].main=$DOMAINNAME
+      - --entrypoints.websecure-internal.http.tls.domains[0].sans=*.$DOMAINNAME
+      # - DOMAINS-PLACEHOLDER-DO-NOT-DELETE
+      - --providers.file.directory=/rules # Load dynamic configuration from one or more .toml or .yml files in a directory
+      - --providers.file.watch=true # Only works on top level files in the rules folder
+#      - --certificatesResolvers.dns-cloudflare.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory # LetsEncrypt Staging Server - uncomment when testing
+      - --certificatesResolvers.dns-cloudflare.acme.storage=/acme.json
+      - --certificatesResolvers.dns-cloudflare.acme.dnsChallenge.provider=cloudflare
+      - --certificatesResolvers.dns-cloudflare.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53
+      - --certificatesResolvers.dns-cloudflare.acme.dnsChallenge.propagation.delaybeforechecks=120 # To delay DNS check and reduce LE hitrate
+      #- --certificatesResolvers.dns-cloudflare.acme.dnsChallenge.propagation.disablechecks=true # Not recommended
+      # - METRICS-PLACEHOLDER-DO-NOT-DELETE
+    ports:
+      - "80:80"
+      - "81:81"
+      - "443:443"
+      - "444:444"
+      - "$TRAEFIK_PORT:8080"
+    volumes:
+      - $DOCKERDIR/appdata/traefik3/rules/$HOSTNAME_HS/:/rules
+      # - /var/run/docker.sock:/var/run/docker.sock:ro # Use Docker Socket Proxy instead for improved security
+      - $DOCKERDIR/appdata/traefik3/acme/acme.json:/acme.json
+      - $DOCKERDIR/logs/$HOSTNAME_HS/traefik:/logs
+    environment:
+      - TZ=$TZ
+      - CF_DNS_API_TOKEN_FILE=/run/secrets/cf_dns_api_token
+      - HTPASSWD_FILE=/run/secrets/basic_auth_credentials # HTTP Basic Auth Credentials
+      - DOMAINNAME # Passing the domain name to traefik container to be able to use the variable in rules.
+      # - TRAEFIK_AUTH_BYPASS_KEY
+    secrets:
+      - cf_dns_api_token
+      - basic_auth_credentials
+    labels:
+      - "traefik.enable=true"
+      # HTTP Routers
+      - "traefik.http.routers.traefik-rtr.entrypoints=websecure-internal,websecure-external"
+      - "traefik.http.routers.traefik-rtr.rule=Host(`traefik.$DOMAINNAME`)"
+      # Services - API
+      - "traefik.http.routers.traefik-rtr.service=api@internal"
+      # Middlewares
+      - "traefik.http.routers.traefik-rtr.middlewares=chain-authelia@file"
+
+  # CrowdSec Bouncer - Cloudflare
+  cloudflare-bouncer:
+    image: crowdsecurity/cloudflare-bouncer
+    container_name: cloudflare-bouncer
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+  #  profiles: ["core", "all"]
+    networks:
+      - default
+    volumes:
+      - $DOCKERDIR/appdata/cloudflare-bouncer/cfg.yaml:/etc/crowdsec/bouncers/crowdsec-cloudflare-bouncer.yaml
+
+  # Authelia (Lite) - Self-Hosted Single Sign-On and Two-Factor Authentication
+  authelia:
+    container_name: authelia
+    image: authelia/authelia:4.39.4
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+ #   profiles: ["core", "all"]
+    networks:
+      - default
+      - t3_proxy
+    # depends_on:
+    #  redis:
+    #    condition: service_healthy
+    # ports:
+    #   - "$AUTHELIA_PORT:9091"
+    volumes:
+      - $DOCKERDIR/appdata/authelia:/config
+    environment:
+      - TZ=$TZ
+      - PUID=$PUID
+      - PGID=$PGID
+      - AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET_FILE=/run/secrets/authelia_jwt_secret
+      - AUTHELIA_SESSION_SECRET_FILE=/run/secrets/authelia_session_secret
+      - AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE=/run/secrets/authelia_storage_encryption_key
+      # - AUTHELIA_STORAGE_MYSQL_PASSWORD_FILE=/run/secrets/authelia_storage_mysql_password
+      # - AUTHELIA_SESSION_REDIS_PASSWORD_FILE=/run/secrets/authelia_session_redis_password
+      # - AUTHELIA_DUO_API_INTEGRATION_KEY_FILE=/run/secrets/authelia_duo_api_integration_key
+      # - AUTHELIA_DUO_API_SECRET_KEY_FILE=/run/secrets/authelia_duo_api_secret_key
+    secrets:
+      - authelia_jwt_secret
+      - authelia_storage_encryption_key
+      - authelia_session_secret
+    labels:
+      - "traefik.enable=true"
+      ## HTTP Routers
+      - "traefik.http.routers.authelia-rtr.entrypoints=websecure-internal,websecure-external"
+      - "traefik.http.routers.authelia-rtr.rule=Host(`authelia.$DOMAINNAME`)"
+      ## Middlewares
+      - "traefik.http.routers.authelia-rtr.middlewares=chain-no-auth@file" # Should be chain-no-auth and not chain-authelia
+      ## HTTP Services
+      - "traefik.http.routers.authelia-rtr.service=authelia-svc"
+      - "traefik.http.services.authelia-svc.loadbalancer.server.port=9091"
+
+  # Portainer - WebUI for Containers
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce:2.33.1
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+#    profiles: ["core", "all"]
+    networks:
+      - default
+      - socket_proxy
+      - t3_proxy
+    # command: -H unix:///var/run/docker.sock # Use Docker Socket Proxy instead for improved security
+    command: -H tcp://socket-proxy:2375
+    ports:
+      - "$PORTAINER_PORT:9000"
+    volumes:
+      # - /var/run/docker.sock:/var/run/docker.sock:ro # Use Docker Socket Proxy instead for improved security
+      - $DOCKERDIR/appdata/portainer/data:/data
+    environment:
+      - TZ=$TZ
+    labels:
+      - "traefik.enable=true"
+
   # Dozzle - Real-time Docker Log Viewer
   dozzle:
     image: amir20/dozzle:v8.13.11
@@ -55,6 +291,30 @@ services:
     #  - /var/run/docker.sock:/var/run/docker.sock # Use Docker Socket Proxy instead for improved security
     labels:
       - "traefik.enable=true"
+
+  # Docker-GC - Automatic Docker Garbage Collection
+  # Create docker-gc-exclude file
+  docker-gc:
+    image: clockworksoul/docker-gc-cron:latest
+    container_name: docker-gc
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+#    profiles: ["apps", "all"]
+    networks:
+      - socket_proxy
+    volumes:
+      # - /var/run/docker.sock:/var/run/docker.sock # Use Docker Socket Proxy instead for improved security
+      - $DOCKERDIR/appdata/docker-gc/docker-gc-exclude:/etc/docker-gc-exclude
+    environment:
+      - CRON=0 0 0 * * ? # every day at midnight. Previously 0 0 * * *
+      - FORCE_IMAGE_REMOVAL=1
+      - FORCE_CONTAINER_REMOVAL=0
+      - GRACE_PERIOD_SECONDS=604800
+      - DRY_RUN=0
+      - CLEAN_UP_VOLUMES=1
+      - TZ=$TZ
+      - DOCKER_HOST
 
 #include:
 #  ########################### SERVICES
