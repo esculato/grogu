@@ -16,9 +16,7 @@ jobs:
       - name: Sync repo into /home/medivh/docker
         run: |
           if [ ! -d "/home/medivh/docker/.git" ]; then
-          #  git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/esculato/Grogu.git /home/medivh/docker
-            git clone https://x-access-token:${{ secrets.GH_PAT }}@github.com/esculato/grogu.git
-
+            git clone https://x-access-token:${{ secrets.GH_PAT }}@github.com/esculato/grogu.git /home/medivh/docker
           else
             git fetch origin main
             git reset --hard origin/main
