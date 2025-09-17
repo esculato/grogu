@@ -1,0 +1,27 @@
+name: Deploy Grogu stack
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, grogu-hs]
+    defaults:
+      run:
+        working-directory: /home/medivh/docker
+    steps:
+      - name: Sync repo into /home/medivh/docker
+        run: |
+          if [ ! -d "/home/medivh/docker/.git" ]; then
+            git clone https://github.com/<your-user>/Grogu.git /home/medivh/docker
+          else
+            git fetch origin main
+            git reset --hard origin/main
+          fi
+
+      - name: Redeploy stack
+        run: |
+          docker compose -f docker-compose-hs.yml pull
+          docker compose -f docker-compose-hs.yml up -d
