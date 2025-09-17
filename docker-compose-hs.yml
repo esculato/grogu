@@ -32,7 +32,7 @@ secrets:
 services:
   # Dozzle - Real-time Docker Log Viewer
   dozzle:
-    image: amir20/dozzle:8.13.11
+    image: amir20/dozzle:v8.13.11
     container_name: dozzle
     security_opt:
       - no-new-privileges:true
