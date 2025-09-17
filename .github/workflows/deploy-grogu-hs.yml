@@ -1,4 +1,4 @@
-name: Deploy Grogu stack
+name: deploy grogu-hs stack
 
 on:
   push:
