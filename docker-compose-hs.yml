@@ -316,17 +316,3 @@ services:
       - TZ=$TZ
       - DOCKER_HOST
 
-#include:
-#  ########################### SERVICES
-#  # HOSTNAME_HS / HOSTNAME_MS defined in .env file
-#  - compose/$HOSTNAME_HS/socket-proxy.yml
-#  - compose/$HOSTNAME_HS/traefik.yml
-#  - compose/$HOSTNAME_HS/authelia.yml
-#  - compose/$HOSTNAME_HS/crowdsec.yml
-#  - compose/$HOSTNAME_HS/cloudflare-bouncer.yml
-#  - compose/$HOSTNAME_HS/traefik-bouncer.yml
-#  - compose/$HOSTNAME_HS/portainer.yml
-#  - compose/$HOSTNAME_HS/dozzle.yml
-#  - compose/$HOSTNAME_HS/docker-gc.yml
-#  - compose/$HOSTNAME_HS/uptime-kuma.yml
-
