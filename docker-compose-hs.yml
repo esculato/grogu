@@ -99,6 +99,11 @@ services:
         ipv4_address: 192.168.15.254 # You can specify a static IP
       socket_proxy:
       default:
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"     # rotate after 10MB
+        max-file: "2"       # keep last 2 logs
     command: # CLI arguments
       - --global.checkNewVersion=true
       - --global.sendAnonymousUsage=false
@@ -124,7 +129,7 @@ services:
       - --entrypoints.websecure-internal.forwardedHeaders.trustedIPs=$CLOUDFLARE_IPS,$LOCAL_IPS
       - --log=true
       - --log.filePath=/logs/traefik.log
-      - --log.level=debug # (Default: error) DEBUG, INFO, WARN, ERROR, FATAL, PANIC
+      - --log.level=info # (Default: error) DEBUG, INFO, WARN, ERROR, FATAL, PANIC
       - --accessLog=true
       - --accessLog.filePath=/logs/access.log
       - --accessLog.bufferingSize=100 # Configuring a buffer of 100 lines
@@ -201,7 +206,7 @@ services:
       - default
     ports:
       - "$CROWDSEC_PORT:8080" # Local API port
-#      - "6060:6060" # Exposing metrics via Zerotier IP / Prometheus
+      - "6060:6060" # Exposing metrics via Zerotier IP / Prometheus
     environment:
       COLLECTIONS: "crowdsecurity/traefik crowdsecurity/http-cve crowdsecurity/whitelist-good-actors crowdsecurity/iptables crowdsecurity/linux fulljackz/proxmox crowdsecurity/sshd"
       GID: $PGID
