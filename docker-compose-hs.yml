@@ -98,6 +98,7 @@ services:
       t3_proxy:
         ipv4_address: 192.168.15.254 # You can specify a static IP
       socket_proxy:
+      default:
     command: # CLI arguments
       - --global.checkNewVersion=true
       - --global.sendAnonymousUsage=false
@@ -123,7 +124,7 @@ services:
       - --entrypoints.websecure-internal.forwardedHeaders.trustedIPs=$CLOUDFLARE_IPS,$LOCAL_IPS
       - --log=true
       - --log.filePath=/logs/traefik.log
-      - --log.level=INFO # (Default: error) DEBUG, INFO, WARN, ERROR, FATAL, PANIC
+      - --log.level=debug # (Default: error) DEBUG, INFO, WARN, ERROR, FATAL, PANIC
       - --accessLog=true
       - --accessLog.filePath=/logs/access.log
       - --accessLog.bufferingSize=100 # Configuring a buffer of 100 lines
@@ -155,6 +156,9 @@ services:
       - --certificatesResolvers.dns-cloudflare.acme.dnsChallenge.propagation.delaybeforechecks=120 # To delay DNS check and reduce LE hitrate
       #- --certificatesResolvers.dns-cloudflare.acme.dnsChallenge.propagation.disablechecks=true # Not recommended
       # - METRICS-PLACEHOLDER-DO-NOT-DELETE
+      # - Crowdsec Bouncer Traefik plugin
+      - --experimental.plugins.bouncer.modulename=github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin
+      - --experimental.plugins.bouncer.version=v1.4.5
     ports:
       - "80:80"
       - "81:81"
@@ -185,6 +189,29 @@ services:
       # Middlewares
       - "traefik.http.routers.traefik-rtr.middlewares=chain-authelia@file"
 
+  # CrowdSec - Open-source & Collaborative IPS
+  crowdsec:
+    image: crowdsecurity/crowdsec
+    container_name: crowdsec
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+  #  profiles: ["core", "all"]
+    networks:
+      - default
+    ports:
+      - "$CROWDSEC_PORT:8080" # Local API port
+#      - "6060:6060" # Exposing metrics via Zerotier IP / Prometheus
+    environment:
+      COLLECTIONS: "crowdsecurity/traefik crowdsecurity/http-cve crowdsecurity/whitelist-good-actors crowdsecurity/iptables crowdsecurity/linux fulljackz/proxmox crowdsecurity/sshd"
+      GID: $PGID
+      CUSTOM_HOSTNAME: $HOSTNAME_HS
+    volumes:
+      - $DOCKERDIR/logs/$HOSTNAME_HS:/logs/$HOSTNAME_HS:ro
+      - /var/log:/var/log:ro
+      - $DOCKERDIR/appdata/crowdsec/data:/var/lib/crowdsec/data
+      - $DOCKERDIR/appdata/crowdsec/config:/etc/crowdsec
+
   # CrowdSec Bouncer - Cloudflare
   cloudflare-bouncer:
     image: crowdsecurity/cloudflare-bouncer
@@ -195,8 +222,25 @@ services:
   #  profiles: ["core", "all"]
     networks:
       - default
+      - t3_proxy
     volumes:
       - $DOCKERDIR/appdata/cloudflare-bouncer/cfg.yaml:/etc/crowdsec/bouncers/crowdsec-cloudflare-bouncer.yaml
+
+  # CrowdSec Bouncer - Traefik
+  traefik-bouncer:
+    image: fbonalair/traefik-crowdsec-bouncer
+    container_name: traefik-bouncer
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+  #  profiles: ["core", "all"]
+    networks:
+      - default
+    environment:
+      GIN_MODE: release # default is debug (more logs)
+      CROWDSEC_BOUNCER_API_KEY: $CROWDSEC_BOUNCER_TRAEFIK_API_KEY
+      CROWDSEC_AGENT_HOST: crowdsec:8080 # CrowdSec host and port
+      CROWDSEC_BOUNCER_LOG_LEVEL: 2 # https://pkg.go.dev/github.com/rs/zerolog#readme-leveled-logging
 
   # Authelia (Lite) - Self-Hosted Single Sign-On and Two-Factor Authentication
   authelia:
@@ -233,14 +277,14 @@ services:
       - authelia_session_secret
     labels:
       - "traefik.enable=true"
-      ## HTTP Routers
-      - "traefik.http.routers.authelia-rtr.entrypoints=websecure-internal,websecure-external"
-      - "traefik.http.routers.authelia-rtr.rule=Host(`authelia.$DOMAINNAME`)"
-      ## Middlewares
-      - "traefik.http.routers.authelia-rtr.middlewares=chain-no-auth@file" # Should be chain-no-auth and not chain-authelia
-      ## HTTP Services
-      - "traefik.http.routers.authelia-rtr.service=authelia-svc"
-      - "traefik.http.services.authelia-svc.loadbalancer.server.port=9091"
+#      ## HTTP Routers
+#      - "traefik.http.routers.authelia-rtr.entrypoints=websecure-internal,websecure-external"
+#      - "traefik.http.routers.authelia-rtr.rule=Host(`authelia.$DOMAINNAME`)"
+#      ## Middlewares
+#      - "traefik.http.routers.authelia-rtr.middlewares=chain-no-auth@file" # Should be chain-no-auth and not chain-authelia
+#      ## HTTP Services
+#      - "traefik.http.routers.authelia-rtr.service=authelia-svc"
+#      - "traefik.http.services.authelia-svc.loadbalancer.server.port=9091"
 
   # Portainer - WebUI for Containers
   portainer:
@@ -287,6 +331,7 @@ services:
       - DOZZLE_FILTER="status=running"
       # - DOZZLE_FILTER="label=log_me" # limits logs displayed to containers with this label
       - DOCKER_HOST
+      - DOZZLE_REMOTE_AGENT=192.168.5.7:7007,192.168.5.8:7007
     # volumes:
     #  - /var/run/docker.sock:/var/run/docker.sock # Use Docker Socket Proxy instead for improved security
     labels:
@@ -316,3 +361,45 @@ services:
       - TZ=$TZ
       - DOCKER_HOST
 
+  # Uptime Kuma - Status Page & Monitoring Server
+  uptime-kuma:
+    image: louislam/uptime-kuma
+    container_name: uptime-kuma
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    #profiles: ["core", "all"]
+    networks:
+      - default
+      - socket_proxy
+      - t3_proxy
+    ports:
+      - "$UPTIMEKUMA_PORT:3001"
+    volumes:
+      - $DOCKERDIR/appdata/uptime-kuma:/app/data
+    labels:
+      - "traefik.enable=true"
+
+  # Homepage - Application Dashboard
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    profiles: ["apps", "all"]
+    networks:
+      - default
+      - socket_proxy
+      - t3_proxy
+    ports:
+      - "$HOMEPAGE_PORT:3000"
+    volumes:
+      - $DOCKERDIR/appdata/homepage:/app/config
+    environment:
+      TZ: $TZ
+      PUID: $PUID
+      PGID: $PGID
+      HOMEPAGE_ALLOWED_HOSTS: "*"
+    labels:
+      - "traefik.enable=true"
