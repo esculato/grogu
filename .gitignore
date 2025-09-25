@@ -1,6 +1,57 @@
-.env
+# ----------------------------
+# Docker & Compose
+# ----------------------------
+**/logs/
+**/tmp/
+**/cache/
+**/.env
+**/.env.*.local
+**/docker-compose.override.yml
+
+# ----------------------------
+# Traefik
+# ----------------------------
 appdata/traefik3/acme/
-appdata/portainer/
-appdata/uptime-kuma/
-appdata/cloudflare-bouncer/
-appdata/crowdsec/
+appdata/traefik3/logs/
+#appdata/traefik3/rules/hs/*.yaml  # keep config if you want, otherwise remove this line
+
+# ----------------------------
+# CrowdSec
+# ----------------------------
+appdata/crowdsec/data/
+appdata/crowdsec/config/acquis.d/*.local.yaml
+appdata/crowdsec/logs/
+
+# ----------------------------
+# Cloudflare Bouncer
+# ----------------------------
+appdata/cloudflare-bouncer/logs/
+appdata/cloudflare-bouncer/data/
+
+# ----------------------------
+# Portainer
+# ----------------------------
+appdata/portainer/data/
+appdata/portainer/logs/
+
+# ----------------------------
+# Authelia
+# ----------------------------
+appdata/authelia/config/credentials.yml
+appdata/authelia/logs/
+appdata/authelia/data/
+
+# ----------------------------
+# Uptime Kuma
+# ----------------------------
+appdata/uptime-kuma/data/
+appdata/uptime-kuma/logs/
+
+# ----------------------------
+# Other runtime folders
+# ----------------------------
+_PipelineMapping/
+compose/
+docker/
+logs/
+
