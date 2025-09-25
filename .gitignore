@@ -1,0 +1,6 @@
+.env
+appdata/traefik3/acme/
+appdata/portainer/
+appdata/uptime-kuma/
+appdata/cloudflare-bouncer/
+appdata/crowdsec/
