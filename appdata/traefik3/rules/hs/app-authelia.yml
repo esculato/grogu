@@ -1,0 +1,17 @@
+http:
+  routers:
+    authelia-rtr:
+      rule: "Host(`authelia.{{env "DOMAINNAME"}}`)"
+      entryPoints:
+        - websecure-internal
+        - websecure-external
+      middlewares:
+        - chain-no-auth@file
+      service: authelia-svc
+      tls:
+        certResolver: dns-cloudflare
+  services:
+    authelia-svc:
+      loadBalancer:
+        servers:
+          - url: "http://authelia:9091"
