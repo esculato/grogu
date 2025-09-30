@@ -460,7 +460,7 @@ services:
   # ESPHome
   esphome:
     container_name: esphome
-    image: esphome/esphome:2025.9.1
+    image: esphome/esphome:2025.8.0
     restart: always
     networks:
       - t3_proxy
