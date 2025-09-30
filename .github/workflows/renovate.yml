@@ -20,12 +20,10 @@ jobs:
         # is often optional, but can be helpful for initial runs/debugging.
         
       - name: Self-hosted Renovate
-        uses: renovatebot/github-action@v43.0.14 # Check for the latest stable version
+        uses: renovatebot/github-action@v43 # Check for the latest stable version
         with:
           # Use the secret token for authentication
           token: ${{ secrets.RENOVATE_TOKEN }}
-          # ✅ Set the Docker image tag to match the major version
-          renovate-image: 'ghcr.io/renovatebot/renovate:43' 
         env:
           # ✅ Explicitly tell Renovate which repository to scan
           RENOVATE_REPOSITORIES: ${{ github.repository }} 
