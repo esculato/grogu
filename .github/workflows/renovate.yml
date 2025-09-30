@@ -24,4 +24,7 @@ jobs:
         with:
           # Use the secret token for authentication
           token: ${{ secrets.RENOVATE_TOKEN }}
+        env:
+          # ✅ Explicitly tell Renovate which repository to scan
+          RENOVATE_REPOSITORIES: ${{ github.repository }} 
 
