@@ -84,7 +84,7 @@ services:
 
   agent:
     container_name: portainer_agent
-    image: portainer/agent:2.33.1  # pick a version matching your Portainer server
+    image: portainer/agent:2.34.0  # pick a version matching your Portainer server
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
