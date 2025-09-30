@@ -1,0 +1,32 @@
+name: Renovate
+
+on:
+  # Schedule daily or at your preferred interval
+  schedule:
+    # Runs at 6:00 AM UTC every day
+    - cron: '0 6 * * *'
+  # Allows manual triggering from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  renovate:
+    # Use a standard GitHub-hosted runner
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        # Note: Renovate performs its own git operations, so checking out
+        # is often optional, but can be helpful for initial runs/debugging.
+        
+      - name: Self-hosted Renovate
+        uses: renovatebot/github-action@v44 # Check for the latest stable version
+        with:
+          # Use the secret token for authentication
+          token: ${{ secrets.RENOVATE_TOKEN }}
+          # Explicitly set the platform and repository for a single-repo run
+          # This assumes Grogu is under your username/organization name
+          # repository: ${{ github.repository }} # This is often the default, but explicit is clear
+          platform: 'github'
+          # You can set this if you only want to run against Grogu, but
+          # the action is typically configured to run on the current repository context.
