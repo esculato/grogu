@@ -1,4 +1,4 @@
-name: Renovate
+name: renovate
 
 on:
   # Schedule daily or at your preferred interval
@@ -20,7 +20,7 @@ jobs:
         # is often optional, but can be helpful for initial runs/debugging.
         
       - name: Self-hosted Renovate
-        uses: renovatebot/github-action@v44 # Check for the latest stable version
+        uses: renovatebot/github-action@v43.0.14 # Check for the latest stable version
         with:
           # Use the secret token for authentication
           token: ${{ secrets.RENOVATE_TOKEN }}
