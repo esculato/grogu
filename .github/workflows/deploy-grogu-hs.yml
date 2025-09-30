@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: [self-hosted]
+    runs-on: [self-hosted, grogu-hs]
     defaults:
       run:
         working-directory: /home/medivh/docker
