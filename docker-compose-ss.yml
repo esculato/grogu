@@ -1,0 +1,129 @@
+########################### NETWORKS
+networks:
+  default:
+    driver: bridge
+  socket_proxy:
+    name: socket_proxy
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.14.0/24
+  t3_proxy:
+    name: t3_proxy
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.15.0/24
+
+#include:
+#  ########################### SERVICES
+#  # HOSTNAME_HS / HOSTNAME_MS defined in .env file
+#  - compose/$HOSTNAME_SS/socket-proxy.yml
+#  - compose/$HOSTNAME_SS/portainer-agent.yml
+#  - compose/$HOSTNAME_SS/dozzle-agent.yml
+#  - compose/$HOSTNAME_SS/syncthing.yml
+
+services:
+
+  # Docker Socket Proxy - Security Enchanced Proxy for Docker Socket
+  socket-proxy:
+    image: lscr.io/linuxserver/socket-proxy:3.2.5-r0-ls56
+    container_name: socket-proxy
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    profiles: ["core", "all"]
+    networks:
+      socket_proxy:
+        ipv4_address: 192.168.14.254 # You can specify a static IP
+    privileged: true # true for VM. False (default) for unprivileged LXC container.
+    # ports:
+      #- "2375:2375"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    read_only: true
+    tmpfs:
+      - /run
+    environment:
+      - LOG_LEVEL=warning # debug,info,notice,warning,err,crit,alert,emerg
+      - ALLOW_START=1 # Portainer
+      - ALLOW_STOP=1 # Portainer
+      - ALLOW_RESTARTS=1 # Portainer
+      ## Granted by Default
+      - EVENTS=1
+      - PING=1
+      - VERSION=1
+      ## Revoked by Default
+      # Security critical
+      - AUTH=0
+      - SECRETS=0
+      - POST=1 # Watchtower
+      # Not always needed
+      - BUILD=0
+      - COMMIT=0
+      - CONFIGS=0
+      - CONTAINERS=1 # Traefik, portainer, etc.
+      - DISTRIBUTION=0
+      - EXEC=0
+      - IMAGES=1 # Portainer
+      - INFO=1 # Portainer
+      - NETWORKS=1 # Portainer
+      - NODES=0
+      - PLUGINS=0
+      - SERVICES=1 # Portainer
+      - SESSION=0
+      - SWARM=0
+      - SYSTEM=0
+      - TASKS=1 # Portainer
+      - VOLUMES=1 # Portainer
+      - DISABLE_IPV6=0 #optional
+
+  agent:
+    container_name: portainer_agent
+    image: portainer/agent:2.33.1  # pick a version matching your Portainer server
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    profiles: ["core", "all"]
+    networks:
+      - default
+      - socket_proxy
+#    command: -H unix:///var/run/docker.sock # Use Docker Socket Proxy instead for improved security
+ #   command: -H tcp://socket-proxy:2375
+    ports:
+      - "$PORTAINER_AGENT_PORT:9001"     # Agent API
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro # Use Docker Socket Proxy instead for improved security
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+      - /:/host
+
+  dozzle-agent:
+    image: amir20/dozzle:v8.14.1
+    container_name: dozzle-agent-ss
+    restart: always
+    command: agent
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - $DOZZLE_AGENT_PORT:7007
+
+  syncthing:
+    image: lscr.io/linuxserver/syncthing:v2.0.10-ls197
+    container_name: syncthing
+    hostname: syncthing #optional
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+    volumes:
+      - $DOCKERDIR/appdata/syncthing/config:/config
+      - /home/medivh/data/sync:/sync
+#      - /path/to/data2:/data2
+    ports:
+      - $SYNCTHING_PORT:8384
+      - 22000:22000/tcp
+      - 22000:22000/udp
+      - 21027:21027/udp
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
