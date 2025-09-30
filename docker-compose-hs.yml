@@ -354,7 +354,7 @@ services:
       - socket_proxy
       - t3_proxy
     ports:
-      - "$UPTIMEKUMA_PORT:3001"
+      - $UPTIMEKUMA_PORT:3001
     volumes:
       - $DOCKERDIR/appdata/uptime-kuma:/app/data
     labels:
@@ -372,9 +372,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
     restart: always
- #   privileged: true
     networks:
-      - default
       - t3_proxy
     ports:
       - $HOMEASSISTANT_PORT:8123
