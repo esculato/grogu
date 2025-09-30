@@ -1,0 +1,42 @@
+name: deploy grogu-ss stack
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:   # this enables the "Run workflow" button in GitHub
+
+jobs:
+  deploy:
+    runs-on: [self-hosted]
+    defaults:
+      run:
+        working-directory: /home/medivh/docker
+    steps:    
+      - name: Sync repo into /home/medivh/docker
+        run: |
+          if [ ! -d "/home/medivh/docker/.git" ]; then
+            echo "Repo not found in /home/medivh/docker (grogu-ss), cloning fresh..."
+            git clone https://x-access-token:${{ secrets.GH_PAT }}@github.com/esculato/Grogu.git /home/medivh/docker
+          else
+            echo "Repo exists (grogu-ss), updating..."
+            cd /home/medivh/docker
+            git fetch origin main
+            git reset --hard origin/main
+          fi
+          
+      - name: Check docker-compose file exists
+        run: |
+          if [ ! -f "docker-compose-ss.yml" ]; then
+            echo "ERROR: docker-compose-ss.yml not found in /home/medivh/docker (grogu-ss)"
+            exit 1
+          fi
+          echo "docker-compose-ss.yml found. (grogu-ss)"
+
+      - name: Redeploy stack
+        run: |
+          echo "Pulling latest images... (grogu-ss)"
+          docker compose -f docker-compose-ss.yml pull
+          echo "Restarting containers... (grogu-ss)"
+          docker compose -f docker-compose-ss.yml up -d
+          echo "Deployment completed successfully. (grogu-ss)"
