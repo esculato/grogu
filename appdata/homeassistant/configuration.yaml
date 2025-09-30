@@ -6,7 +6,6 @@ http:
     - 192.168.15.0/24
     - 192.168.5.0/24
 
-
 # Loads default set of integrations. Do not remove.
 default_config:
 
@@ -18,12 +17,9 @@ automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
 
-## Google Assistant #disable firewall robots cloudflare to link to google home
-#
+# Google Assistant #disable firewall robots cloudflare to link to google home
 google_assistant:
   project_id: grogu-472219
   service_account: !include SERVICE_ACCOUNT.json
   report_state: true
   expose_by_default: true
-#  exposed_domains:
-#    - light
