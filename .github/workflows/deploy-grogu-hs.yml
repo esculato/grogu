@@ -31,7 +31,7 @@ jobs:
             echo "ERROR: docker-compose-hs.yml not found in /home/medivh/docker (grogu-hs)"
             exit 1
           fi
-          echo "docker-compose-hs.yml found."
+          echo "docker-compose-hs.yml found. (grogu-hs)"
 
       - name: Redeploy stack
         run: |
