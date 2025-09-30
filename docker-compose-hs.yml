@@ -30,9 +30,11 @@ secrets:
 
 ########################### SERVICES
 services:
+
+############# CORE
   # Docker Socket Proxy - Security Enchanced Proxy for Docker Socket
   socket-proxy:
-    image: lscr.io/linuxserver/socket-proxy:latest
+    image: lscr.io/linuxserver/socket-proxy:3.2.5-r0-ls56
     container_name: socket-proxy
     security_opt:
       - no-new-privileges:true
@@ -82,7 +84,6 @@ services:
       - TASKS=1 # Portainer
       - VOLUMES=1 # Portainer
       - DISABLE_IPV6=0 #optional
-
 
   # Traefik 3 - Reverse Proxy
   traefik:
@@ -194,9 +195,72 @@ services:
       # Middlewares
       - "traefik.http.routers.traefik-rtr.middlewares=chain-authelia@file"
 
+  # Authelia (Lite) - Self-Hosted Single Sign-On and Two-Factor Authentication
+  authelia:
+    container_name: authelia
+    image: authelia/authelia:4.39.4
+    security_opt:
+      - no-new-privileges:true
+    restart: always
+ #   profiles: ["core", "all"]
+    networks:
+      - default
+      - t3_proxy
+    # depends_on:
+    #  redis:
+    #    condition: service_healthy
+    # ports:
+    #   - "$AUTHELIA_PORT:9091"
+    volumes:
+      - $DOCKERDIR/appdata/authelia:/config
+    environment:
+      - TZ=$TZ
+      - PUID=$PUID
+      - PGID=$PGID
+      - AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET_FILE=/run/secrets/authelia_jwt_secret
+      - AUTHELIA_SESSION_SECRET_FILE=/run/secrets/authelia_session_secret
+      - AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE=/run/secrets/authelia_storage_encryption_key
+      # - AUTHELIA_STORAGE_MYSQL_PASSWORD_FILE=/run/secrets/authelia_storage_mysql_password
+      # - AUTHELIA_SESSION_REDIS_PASSWORD_FILE=/run/secrets/authelia_session_redis_password
+      # - AUTHELIA_DUO_API_INTEGRATION_KEY_FILE=/run/secrets/authelia_duo_api_integration_key
+      # - AUTHELIA_DUO_API_SECRET_KEY_FILE=/run/secrets/authelia_duo_api_secret_key
+    secrets:
+      - authelia_jwt_secret
+      - authelia_storage_encryption_key
+      - authelia_session_secret
+    labels:
+      - "traefik.enable=true"
+
+  # Portainer - WebUI for Containers
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce:2.33.1
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+#    profiles: ["core", "all"]
+    networks:
+      - default
+      - socket_proxy
+      - t3_proxy
+    # command: -H unix:///var/run/docker.sock # Use Docker Socket Proxy instead for improved security
+    command: -H tcp://socket-proxy:2375
+    ports:
+      - "$PORTAINER_PORT:9000"
+    volumes:
+      # - /var/run/docker.sock:/var/run/docker.sock:ro # Use Docker Socket Proxy instead for improved security
+      - $DOCKERDIR/appdata/portainer/data:/data
+    environment:
+      - TZ=$TZ
+    labels:
+      - "traefik.enable=true"
+
+
+############# SECURITY
+
   # CrowdSec - Open-source & Collaborative IPS
   crowdsec:
-    image: crowdsecurity/crowdsec
+    image: crowdsecurity/crowdsec:v1.7.0
     container_name: crowdsec
     security_opt:
       - no-new-privileges:true
@@ -247,73 +311,8 @@ services:
       CROWDSEC_AGENT_HOST: crowdsec:8080 # CrowdSec host and port
       CROWDSEC_BOUNCER_LOG_LEVEL: 2 # https://pkg.go.dev/github.com/rs/zerolog#readme-leveled-logging
 
-  # Authelia (Lite) - Self-Hosted Single Sign-On and Two-Factor Authentication
-  authelia:
-    container_name: authelia
-    image: authelia/authelia:4.39.4
-    security_opt:
-      - no-new-privileges:true
-    restart: unless-stopped
- #   profiles: ["core", "all"]
-    networks:
-      - default
-      - t3_proxy
-    # depends_on:
-    #  redis:
-    #    condition: service_healthy
-    # ports:
-    #   - "$AUTHELIA_PORT:9091"
-    volumes:
-      - $DOCKERDIR/appdata/authelia:/config
-    environment:
-      - TZ=$TZ
-      - PUID=$PUID
-      - PGID=$PGID
-      - AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET_FILE=/run/secrets/authelia_jwt_secret
-      - AUTHELIA_SESSION_SECRET_FILE=/run/secrets/authelia_session_secret
-      - AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE=/run/secrets/authelia_storage_encryption_key
-      # - AUTHELIA_STORAGE_MYSQL_PASSWORD_FILE=/run/secrets/authelia_storage_mysql_password
-      # - AUTHELIA_SESSION_REDIS_PASSWORD_FILE=/run/secrets/authelia_session_redis_password
-      # - AUTHELIA_DUO_API_INTEGRATION_KEY_FILE=/run/secrets/authelia_duo_api_integration_key
-      # - AUTHELIA_DUO_API_SECRET_KEY_FILE=/run/secrets/authelia_duo_api_secret_key
-    secrets:
-      - authelia_jwt_secret
-      - authelia_storage_encryption_key
-      - authelia_session_secret
-    labels:
-      - "traefik.enable=true"
-#      ## HTTP Routers
-#      - "traefik.http.routers.authelia-rtr.entrypoints=websecure-internal,websecure-external"
-#      - "traefik.http.routers.authelia-rtr.rule=Host(`authelia.$DOMAINNAME`)"
-#      ## Middlewares
-#      - "traefik.http.routers.authelia-rtr.middlewares=chain-no-auth@file" # Should be chain-no-auth and not chain-authelia
-#      ## HTTP Services
-#      - "traefik.http.routers.authelia-rtr.service=authelia-svc"
-#      - "traefik.http.services.authelia-svc.loadbalancer.server.port=9091"
 
-  # Portainer - WebUI for Containers
-  portainer:
-    container_name: portainer
-    image: portainer/portainer-ce:2.33.1
-    security_opt:
-      - no-new-privileges:true
-    restart: unless-stopped
-#    profiles: ["core", "all"]
-    networks:
-      - default
-      - socket_proxy
-      - t3_proxy
-    # command: -H unix:///var/run/docker.sock # Use Docker Socket Proxy instead for improved security
-    command: -H tcp://socket-proxy:2375
-    ports:
-      - "$PORTAINER_PORT:9000"
-    volumes:
-      # - /var/run/docker.sock:/var/run/docker.sock:ro # Use Docker Socket Proxy instead for improved security
-      - $DOCKERDIR/appdata/portainer/data:/data
-    environment:
-      - TZ=$TZ
-    labels:
-      - "traefik.enable=true"
+############# MONITORING
 
   # Dozzle - Real-time Docker Log Viewer
   dozzle:
@@ -321,7 +320,7 @@ services:
     container_name: dozzle
     security_opt:
       - no-new-privileges:true
-    restart: unless-stopped
+    restart: always
 #    profiles: ["apps", "all"]
     networks:
       - default
@@ -341,6 +340,146 @@ services:
     #  - /var/run/docker.sock:/var/run/docker.sock # Use Docker Socket Proxy instead for improved security
     labels:
       - "traefik.enable=true"
+
+  # Uptime Kuma - Status Page & Monitoring Server
+  uptime-kuma:
+    image: louislam/uptime-kuma
+    container_name: uptime-kuma
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    #profiles: ["core", "all"]
+    networks:
+      - default
+      - socket_proxy
+      - t3_proxy
+    ports:
+      - "$UPTIMEKUMA_PORT:3001"
+    volumes:
+      - $DOCKERDIR/appdata/uptime-kuma:/app/data
+    labels:
+      - "traefik.enable=true"
+
+
+############# FRONTEND
+
+  # Home Assistent Container
+  homeassistant:
+    container_name: homeassistant
+    image: ghcr.io/home-assistant/home-assistant:2025.9.4
+    volumes:
+      - $DOCKERDIR/appdata/homeassistant:/config
+      - /etc/localtime:/etc/localtime:ro
+      - /run/dbus:/run/dbus:ro
+    restart: always
+    privileged: true
+    network_mode: host
+#    networks:
+#      - default
+ #     - t3_proxy
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+    labels:
+      - "traefik.enable=true"
+
+
+  # Homepage - Application Dashboard
+  homepage:
+    image: ghcr.io/gethomepage/homepage:v1.5.0
+    container_name: homepage
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+ #   profiles: ["apps", "all"]
+    networks:
+      - default
+      - socket_proxy
+      - t3_proxy
+    ports:
+      - "$HOMEPAGE_PORT:3000"
+    volumes:
+      - $DOCKERDIR/appdata/homepage:/app/config
+    environment:
+      TZ: $TZ
+      PUID: $PUID
+      PGID: $PGID
+      HOMEPAGE_ALLOWED_HOSTS: "*"
+    labels:
+      - "traefik.enable=true"
+
+
+############# BACKEND
+
+  # Mosquitto - MQTT Broker
+  # Create mosquitto.conf, passwd, mosquitto.log files  and set permissions to 775 user:docker
+  # dexec mosquitto /bin/sh -> mosquitto_passwd -b /mosquitto/config/passwd username passwd
+  mosquitto:
+    image: eclipse-mosquitto:2.0.22
+    container_name: mosquitto
+    restart: always
+    #network_mode: host
+    networks:
+      - default
+    ports:
+      - "1883:1883" #http
+      - "8997:9001" #websockets
+    volumes:
+      - $DOCKERDIR/appdata/mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - $DOCKERDIR/appdata/mosquitto/config/passwd:/mosquitto/config/passwd
+      - $DOCKERDIR/appdata/mosquitto/log:/mosquitto/log
+      - $DOCKERDIR/appdata/mosquitto/data:/mosquitto/data
+    environment:
+      - TZ=$TZ
+
+  # Zigbee@MQTT
+  zigbee2mqtt:
+    container_name: zigbee2mqtt
+    restart: always
+    image: koenkk/zigbee2mqtt:2.6.1
+    privileged: true
+    networks:
+      - default
+      - t3_proxy
+    volumes:
+      - $DOCKERDIR/appdata/zigbee2mqtt:/app/data
+      - /run/udev:/run/udev:ro
+    ports:
+      - $ZIGBEE2MQTT_PORT:8080
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
+    #  - /dev/serial/by-id/usb-sonoff:/dev/ttyUSB0
+    labels:
+      - "traefik.enable=true"
+
+  # ESPHome
+  esphome:
+    container_name: esphome
+    image: esphome/esphome:2025.9.2
+    restart: always
+    networks:
+      - t3_proxy
+      - default
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+      - ESPHOME_DASHBOARD_USE_PING=true
+    ports:
+      - 6052:6052
+      - 6123:6123
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - $DOCKERDIR/appdata/esphome:/config
+    labels:
+      - "traefik.enable=true"
+
+############# MAINTENANCE
 
   # Docker-GC - Automatic Docker Garbage Collection
   # Create docker-gc-exclude file
@@ -364,47 +503,3 @@ services:
       - DRY_RUN=0
       - CLEAN_UP_VOLUMES=1
       - TZ=$TZ
-      - DOCKER_HOST
-
-  # Uptime Kuma - Status Page & Monitoring Server
-  uptime-kuma:
-    image: louislam/uptime-kuma
-    container_name: uptime-kuma
-    security_opt:
-      - no-new-privileges:true
-    restart: unless-stopped
-    #profiles: ["core", "all"]
-    networks:
-      - default
-      - socket_proxy
-      - t3_proxy
-    ports:
-      - "$UPTIMEKUMA_PORT:3001"
-    volumes:
-      - $DOCKERDIR/appdata/uptime-kuma:/app/data
-    labels:
-      - "traefik.enable=true"
-
-  # Homepage - Application Dashboard
-  homepage:
-    image: ghcr.io/gethomepage/homepage:latest
-    container_name: homepage
-    security_opt:
-      - no-new-privileges:true
-    restart: unless-stopped
-    profiles: ["apps", "all"]
-    networks:
-      - default
-      - socket_proxy
-      - t3_proxy
-    ports:
-      - "$HOMEPAGE_PORT:3000"
-    volumes:
-      - $DOCKERDIR/appdata/homepage:/app/config
-    environment:
-      TZ: $TZ
-      PUID: $PUID
-      PGID: $PGID
-      HOMEPAGE_ALLOWED_HOSTS: "*"
-    labels:
-      - "traefik.enable=true"

@@ -1,0 +1,17 @@
+http:
+  routers:
+    homeassistant-rtr:
+      rule: "Host(`hass.{{env "DOMAINNAME"}}`)"
+      entryPoints:
+        - websecure-internal
+        - websecure-external
+      middlewares:
+        - chain-authelia@file
+      service: homeassistant-svc
+      tls:
+        certResolver: dns-cloudflare
+  services:
+    homeassistant-svc:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.5.6:8123"

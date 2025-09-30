@@ -1,0 +1,17 @@
+http:
+  routers:
+    zigbee2mqtt-rtr:
+      rule: "Host(`z2m.{{env "DOMAINNAME"}}`)"
+      entryPoints:
+        - websecure-internal
+        - websecure-external
+      middlewares:
+        - chain-authelia@file
+      service: zigbee2mqtt-svc
+      tls:
+        certResolver: dns-cloudflare
+  services:
+    zigbee2mqtt-svc:
+      loadBalancer:
+        servers:
+          - url: "http://zigbee2mqtt:8080"

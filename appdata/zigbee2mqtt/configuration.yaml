@@ -1,0 +1,121 @@
+version: 4
+mqtt:
+  keepalive: 60
+  reject_unauthorized: true
+  client_id: zigbee2mqtt
+  version: 4
+  base_topic: z2m
+  server: mqtt://mosquitto:1883
+  user: max
+  password: blaataap
+serial:
+  port: /dev/ttyUSB0
+  adapter: zstack
+  baudrate: 115200
+  rtscts: false
+advanced:
+  homeassistant_legacy_entity_attributes: true
+  legacy_api: false
+  ikea_ota_use_test_url: false
+  log_syslog:
+    app_name: Zigbee2MQTT
+    eol: /n
+    host: localhost
+    localhost: localhost
+    path: /dev/log
+    pid: process.pid
+    port: 123
+    protocol: tcp4
+    type: '5424'
+  homeassistant_status_topic: hass/status
+  timestamp_format: DD-MM-YYYY HH:mm:ss
+  log_level: info
+  channel: 25
+  network_key:
+    - 33
+    - 4
+    - 153
+    - 179
+    - 20
+    - 99
+    - 3
+    - 243
+    - 46
+    - 235
+    - 238
+    - 166
+    - 132
+    - 211
+    - 88
+    - 117
+  pan_id: 48462
+  ext_pan_id:
+    - 185
+    - 82
+    - 119
+    - 68
+    - 17
+    - 218
+    - 52
+    - 17
+frontend:
+ # enabled: true
+  host: 0.0.0.0
+  url: https://z2m.kemeel.com
+  port: 8080
+homeassistant:
+  enabled: true
+devices:
+  '0x50325ffffec9673b':
+    friendly_name: light marc
+  '0x50325ffffec96514':
+    friendly_name: light bianca
+  '0x000b57fffe8d6ffa':
+    friendly_name: light couch
+  '0x680ae2fffe5bc75d':
+    friendly_name: light corner
+  '0x00158d0007f846a7':
+    friendly_name: sensor front door
+  '0x00158d0007f846b6':
+    friendly_name: sensor sliding door
+  '0x00158d0007f84363':
+    friendly_name: sensor garage door
+  '0x00158d0007f84592':
+    friendly_name: sensor garage gate
+  '0x84fd27fffe0641f0':
+    friendly_name: smoke alarm garret
+  '0x84fd27fffe0657f8':
+    friendly_name: smoke alarm first floor
+  '0x84fd27fffe045ca4':
+    friendly_name: smoke alarm ground floor
+  '0x842e14fffe0585a8':
+    friendly_name: '0x842e14fffe0585a8'
+  '0xa4c138a8c8171daf':
+    friendly_name: nikkie balls
+  '0xa4c138c16c36bc91':
+    friendly_name: chairlight
+  '0xb4e3f9fffe2167b6':
+    friendly_name: sensor nikkie
+    illuminance_below_threshold_check: false
+  '0x000d6ffffe040dc5':
+    friendly_name: light kitchen 4
+  '0x000d6ffffe002583':
+    friendly_name: light kitchen 1
+  '0x000d6ffffe0681b1':
+    friendly_name: light kitchen 3
+  '0x000d6ffffe00c704':
+    friendly_name: light kitchen 2
+  '0xd0cf5efffeff6983':
+    friendly_name: light kitchen 5
+  '0x00158d0009f4e160':
+    friendly_name: button alarm
+  '0x60a423fffe944173':
+    friendly_name: '0x60a423fffe944173'
+  '0xa4c138a4b81a0425':
+    friendly_name: WOOX R7054
+  '0xa4c1386b3b97894d':
+    friendly_name: switch office light
+  '0xa4c138f78016578e':
+    friendly_name: tree
+  '0x0c4314fffeb0d496':
+    friendly_name: sensor kitchen
