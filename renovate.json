@@ -2,6 +2,7 @@
   "extends": [
     "config:recommended"
   ],
+  "prHourlyLimit": 5, // Increase the limit, e.g., from the default of 2 to 5
   "packageRules": [
     {
       "matchDatasources": ["docker"],
