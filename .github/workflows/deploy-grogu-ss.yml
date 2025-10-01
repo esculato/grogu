@@ -38,5 +38,5 @@ jobs:
           echo "Pulling latest images... (grogu-ss)"
           docker compose -f docker-compose-ss.yml pull
           echo "Restarting containers... (grogu-ss)"
-          docker compose -f docker-compose-ss.yml up -d
+          docker compose -f docker-compose-ss.yml up -d --force-recreate
           echo "Deployment completed successfully. (grogu-ss)"
