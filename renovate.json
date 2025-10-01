@@ -1,12 +1,24 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
   ],
-  "prHourlyLimit": 5, // Increase the limit, e.g., from the default of 2 to 5
+  "prHourlyLimit": 5,
+  "enabledManagers": [
+    "github-actions",
+    "docker-compose",
+    "dockerfile"
+  ],
   "packageRules": [
     {
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true,
+      "automergeType": "pr"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["minor", "patch"],
       "automerge": true,
       "automergeType": "pr"
     }
