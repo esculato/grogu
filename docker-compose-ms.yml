@@ -103,7 +103,7 @@ services:
 
   dozzle-agent:
     container_name: dozzle-agent-ms
-    image: amir20/dozzle:v8.13.2
+    image: amir20/dozzle:v8.14.3
     restart: always
     command: agent
     volumes:
