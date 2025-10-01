@@ -31,7 +31,7 @@ services:
 
   # Docker Socket Proxy - Security Enchanced Proxy for Docker Socket
   socket-proxy:
-    image: lscr.io/linuxserver/socket-proxy:3.2.4-r0-ls56
+    image: lscr.io/linuxserver/socket-proxy:3.2.5-r0-ls56
     container_name: socket-proxy
     security_opt:
       - no-new-privileges:true
