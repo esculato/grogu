@@ -98,7 +98,7 @@ services:
       - /:/host
 
   dozzle-agent:
-    image: amir20/dozzle:v8.14.2
+    image: amir20/dozzle:v8.14.3
     container_name: dozzle-agent-ss
     restart: always
     command: agent
