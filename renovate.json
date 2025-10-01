@@ -9,6 +9,8 @@
     "docker-compose",
     "dockerfile"
   ],
+  "labels": [],
+  "assignees": [],
   "packageRules": [
     {
       "matchDatasources": ["docker"],
