@@ -178,3 +178,45 @@ services:
     #  ## Kobo
     #  - "traefik.http.middlewares.kobo-sync-headers.headers.customrequestheaders.X-Scheme=https"
 #      - "traefik.http.routers.calibre-web-rtr.middlewares=chain-no-auth@file,kobo-sync-headers" # Google OAuth 2.0
+
+  ## Firefly III
+  fireflyiii:
+    image: fireflyiii/core:version-6.4.0@sha256:4be31895b02e756cc254d78495508e21bd10ef8454a30ab6489894c76c6494aa
+    container_name: fireflyiii
+    restart: always
+    volumes:
+      - $DOCKERDIR/appdata/firefly_iii:/var/www/html/storage/upload
+      - /etc/timezone:/etc/timezone:ro
+    env_file: .env.firefly
+    networks:
+      - t3_proxy
+    ports:
+      - $FIREFLY_PORT:8080
+    depends_on:
+      - mariadb
+    labels:
+      - "traefik.enable=true"
+
+  ##### DATABASES
+
+  # MariaDB - MySQL Database
+  mariadb:
+    image: linuxserver/mariadb:11.4.8@sha256:c7ca780abe5aba6d6a7643570ea30679aa0705da21c392355138660d8a5b6def
+    restart: always
+    container_name: mariadb
+    networks:
+      - t3_proxy
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+      - MYSQL_ROOT_PASSWORD=ROOT_ACCESS_PASSWORD
+      - MYSQL_DATABASE=firefly
+      - MYSQL_USER=firefly
+      - MYSQL_PASSWORD='teL39JJGTVSZwG9Vabwo'
+      #FILE__PASSWORD: /run/secrets/mysql_root_password
+      #MYSQL_ROOT_PASSWORD: "123"
+    volumes:
+      - $DOCKERDIR/appdata/mariadb/config:/config
+    ports:
+      - "$MARIADB_PORT:3306"
