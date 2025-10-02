@@ -22,8 +22,8 @@ services:
 
   # Docker Socket Proxy - Security Enchanced Proxy for Docker Socket
   socket-proxy:
-    container_name: socket-proxy
     image: lscr.io/linuxserver/socket-proxy:3.2.5@sha256:1be5bc2319d84e94999ad8461aa5864dae245d63247779bbd5630ba7151b30b7
+    container_name: socket_proxy
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -74,8 +74,8 @@ services:
       - DISABLE_IPV6=0 #optional
 
   agent:
-    container_name: portainer_agent
     image: portainer/agent:2.34.0@sha256:52cc91fc0841d644294b8825d0cdf71e8273acb1deebc033fd5d8ba4316fbb8f
+    container_name: portainer_agent
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -94,7 +94,7 @@ services:
 
   dozzle-agent:
     image: amir20/dozzle:v8.14.3@sha256:b99b4a320834bc0a733b1b31ee1db8f0633848d22c37ee019e21e289e3c86a11
-    container_name: dozzle-agent-ss
+    container_name: dozzle-agent
     restart: always
     command: agent
     volumes:
