@@ -125,3 +125,56 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
+
+  ###### MEDIA FILE MANAGEMENT
+
+  # Calibre   ^`^s Ebooks and Management (Server)
+  calibre:
+    image: linuxserver/calibre:8.12.0@sha256:264bcd7cd77414e3e1839ad1c5b822e3784c139ad8535e79a919d38f93cacb98
+    container_name: calibre
+    restart: always
+    networks:
+      - t3_proxy
+    ports:
+      - $CALIBRE_PORT:8080 # Desktop GUI
+     # - $CALIBRE_PORT:8081 # Webserver GUI
+    volumes:
+      - $DOCKERDIR/appdata/calibre:/config:rw
+    #  - /home/medivh/data/library/DOWNLOAD:/data/downloads:rw
+      - /home/medivh/data/library/books:/data/media/books:rw
+   #   - /home/medivh/data/library/UPLOAD:/uploads:rw
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+#      - GUAC_USER=abc #Gucamole user optional
+#      - GUAC_PASS=abc
+      # - GUAC_PASS=900150983cd24fb0d6963f7d28e17f72 #Guacamole password optional
+#      - UMASK_SET=002 #optional
+      # - CLI_ARGS= #optional
+    labels:
+      - "traefik.enable=true"
+
+  # Calibre-web   ^`^s Ebooks and Management (Plex of Ebooks)
+  calibre-web:
+    image: linuxserver/calibre-web:0.6.25@sha256:e5700336362009d1f214842d2341cd698b9cbbd77c7412f0785639f96bda3aaa
+    container_name: calibre-web
+    restart: always
+    networks:
+      - t3_proxy
+    ports:
+      - $CALIBRE_WEB_PORT:8083
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+      - DOCKER_MODS=ghcr.io/linuxserver/mods:universal-calibre
+     # - DOCKER_MODS=linuxserver/calibre-web:calibre
+    volumes:
+      - $DOCKERDIR/appdata/calibre-web:/config
+      - /home/medivh/data/library/books:/books
+    labels:
+      - "traefik.enable=true"
+    #  ## Kobo
+    #  - "traefik.http.middlewares.kobo-sync-headers.headers.customrequestheaders.X-Scheme=https"
+#      - "traefik.http.routers.calibre-web-rtr.middlewares=chain-no-auth@file,kobo-sync-headers" # Google OAuth 2.0
