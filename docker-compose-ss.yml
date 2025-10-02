@@ -167,7 +167,7 @@ services:
 
   ## Firefly III
   fireflyiii:
-    image: fireflyiii/core:version-6.4.0@sha256:4be31895b02e756cc254d78495508e21bd10ef8454a30ab6489894c76c6494aa
+    image: fireflyiii/core:version-6.4.0@sha256:4ec511c1792290421d8d0803c604d2d2a487b7d0b334547d32cfa23097d9e455
     container_name: fireflyiii
     restart: always
     volumes:
