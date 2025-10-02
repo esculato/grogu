@@ -15,20 +15,15 @@ networks:
       config:
         - subnet: 192.168.15.0/24
 
-#include:
-#  ########################### SERVICES
-#  # HOSTNAME_HS / HOSTNAME_MS defined in .env file
-#  - compose/$HOSTNAME_SS/socket-proxy.yml
-#  - compose/$HOSTNAME_SS/portainer-agent.yml
-#  - compose/$HOSTNAME_SS/dozzle-agent.yml
-#  - compose/$HOSTNAME_SS/syncthing.yml
-
 services:
+
+
+############# CORE
 
   # Docker Socket Proxy - Security Enchanced Proxy for Docker Socket
   socket-proxy:
     container_name: socket-proxy
-    image: lscr.io/linuxserver/socket-proxy:3.2.5-r0-ls56
+    image: lscr.io/linuxserver/socket-proxy:3.2.5@sha256:1be5bc2319d84e94999ad8461aa5864dae245d63247779bbd5630ba7151b30b7
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -80,7 +75,7 @@ services:
 
   agent:
     container_name: portainer_agent
-    image: portainer/agent:2.34.0  # pick a version matching your Portainer server
+    image: portainer/agent:2.34.0@sha256:52cc91fc0841d644294b8825d0cdf71e8273acb1deebc033fd5d8ba4316fbb8f
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -98,7 +93,7 @@ services:
       - /:/host
 
   dozzle-agent:
-    image: amir20/dozzle:v8.14.3
+    image: amir20/dozzle:v8.14.3@sha256:b99b4a320834bc0a733b1b31ee1db8f0633848d22c37ee019e21e289e3c86a11
     container_name: dozzle-agent-ss
     restart: always
     command: agent
@@ -107,8 +102,11 @@ services:
     ports:
       - $DOZZLE_AGENT_PORT:7007
 
+
+############# UTILITIES
+
   syncthing:
-    image: lscr.io/linuxserver/syncthing:v2.0.10-ls197
+    image: lscr.io/linuxserver/syncthing:v2.0.10@sha256:126c0e89ec159b3a184f4ca00a3fb77eb39a2221db4285a8b4cd2f46db1aa72d
     container_name: syncthing
     hostname: syncthing #optional
     environment:
