@@ -1,0 +1,17 @@
+http:
+  routers:
+    calibre-web-rtr:
+      rule: "Host(`calibre-web.{{env "DOMAINNAME"}}`)"
+      entryPoints:
+        - websecure-internal
+        - websecure-external
+      middlewares:
+        - chain-authelia@file
+      service: calibre-web-svc
+      tls:
+        certResolver: dns-cloudflare
+  services:
+    calibre-web-svc:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.5.8:8083"
