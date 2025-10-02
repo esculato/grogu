@@ -14,9 +14,9 @@ networks:
     ipam:
       config:
         - subnet: 192.168.15.0/24
+    external: true
 
 services:
-
 
 ############# CORE
 
@@ -54,24 +54,10 @@ services:
       - SECRETS=0
       - POST=1 # Watchtower
       # Not always needed
-      - BUILD=0
-      - COMMIT=0
-      - CONFIGS=0
-      - CONTAINERS=1 # Traefik, portainer, etc.
-      - DISTRIBUTION=0
-      - EXEC=0
-      - IMAGES=1 # Portainer
-      - INFO=1 # Portainer
-      - NETWORKS=1 # Portainer
-      - NODES=0
-      - PLUGINS=0
-      - SERVICES=1 # Portainer
-      - SESSION=0
-      - SWARM=0
-      - SYSTEM=0
-      - TASKS=1 # Portainer
-      - VOLUMES=1 # Portainer
-      - DISABLE_IPV6=0 #optional
+      - BUILD=0 - COMMIT=0 - CONFIGS=0 - CONTAINERS=1 # Traefik, portainer, etc. - DISTRIBUTION=0 
+      - EXEC=0 - IMAGES=1 # Portainer - INFO=1 # Portainer - NETWORKS=1 # Portainer - NODES=0 - 
+      - PLUGINS=0 - SERVICES=1 # Portainer - SESSION=0 - SWARM=0 - SYSTEM=0 - TASKS=1 # Portainer - 
+      - VOLUMES=1 # Portainer - DISABLE_IPV6=0 #optional
 
   agent:
     image: portainer/agent:2.34.0@sha256:52cc91fc0841d644294b8825d0cdf71e8273acb1deebc033fd5d8ba4316fbb8f
@@ -155,7 +141,7 @@ services:
     labels:
       - "traefik.enable=true"
 
-  # Calibre-web   ^`^s Ebooks and Management (Plex of Ebooks)
+  # Calibre-web Ebooks and Management (Plex of Ebooks)
   calibre-web:
     image: linuxserver/calibre-web:0.6.25@sha256:e5700336362009d1f214842d2341cd698b9cbbd77c7412f0785639f96bda3aaa
     container_name: calibre-web
@@ -197,25 +183,39 @@ services:
     labels:
       - "traefik.enable=true"
 
+  ## Firefly III - Importer
+  fireflyiii_importer:
+    image: fireflyiii/data-importer:version-1.8.2@sha256:e43d8abbb86e09b90f4cd8ecdc3d80024778841bf579969aa219bf942c0ea9cc
+    container_name: fireflyiii_importer
+    networks:
+      - t3_proxy
+    restart: always
+    ports:
+      - $FIREFLY_IMPORTER_PORT:8080
+    depends_on:
+      - fireflyiii
+    env_file: .env.firefly.importer
+#    volumes:
+#      - $DOCKERDIR/appdata/firefly_iii_importer:/import
+    labels:
+      - "traefik.enable=true"
+
+
   ##### DATABASES
 
   # MariaDB - MySQL Database
   mariadb:
     image: linuxserver/mariadb:11.4.8@sha256:c7ca780abe5aba6d6a7643570ea30679aa0705da21c392355138660d8a5b6def
-    restart: always
     container_name: mariadb
+    restart: always 
     networks:
       - t3_proxy
+    env_file: .env.firefly.db
     environment:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
       - MYSQL_ROOT_PASSWORD=ROOT_ACCESS_PASSWORD
-      - MYSQL_DATABASE=firefly
-      - MYSQL_USER=firefly
-      - MYSQL_PASSWORD='teL39JJGTVSZwG9Vabwo'
-      #FILE__PASSWORD: /run/secrets/mysql_root_password
-      #MYSQL_ROOT_PASSWORD: "123"
     volumes:
       - $DOCKERDIR/appdata/mariadb/config:/config
     ports:
