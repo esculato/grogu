@@ -6,6 +6,7 @@
   "assignees": ["your-gitea-user"],
   "labels": ["renovate"],
   "prHourlyLimit": 5,
+  "timezone": "Europe/Amsterdam",
   "enabledManagers": [
     "github-actions",
     "docker-compose",
