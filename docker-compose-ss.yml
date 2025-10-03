@@ -22,7 +22,7 @@ services:
 
   # Docker Socket Proxy - Security Enchanced Proxy for Docker Socket
   socket-proxy:
-    image: lscr.io/linuxserver/socket-proxy:3.2.5@sha256:1be5bc2319d84e94999ad8461aa5864dae245d63247779bbd5630ba7151b30b7
+    image: linuxserver/socket-proxy:3.2.5@sha256:1be5bc2319d84e94999ad8461aa5864dae245d63247779bbd5630ba7151b30b7
     container_name: socket_proxy
     security_opt:
       - no-new-privileges:true
@@ -92,7 +92,7 @@ services:
 ############# UTILITIES
 
   syncthing:
-    image: lscr.io/linuxserver/syncthing:v2.0.10@sha256:126c0e89ec159b3a184f4ca00a3fb77eb39a2221db4285a8b4cd2f46db1aa72d
+    image: linuxserver/syncthing:v2.0.10@sha256:126c0e89ec159b3a184f4ca00a3fb77eb39a2221db4285a8b4cd2f46db1aa72d
     container_name: syncthing
     hostname: syncthing #optional
     environment:
