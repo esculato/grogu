@@ -1,0 +1,17 @@
+http:
+  routers:
+    firefly-importer-rtr:
+      rule: "Host(`fireimp.{{env "DOMAINNAME"}}`)"
+      entryPoints:
+        - websecure-internal
+        - websecure-external
+      middlewares:
+        - chain-authelia@file
+      service: firefly-importer-svc
+      tls:
+        certResolver: dns-cloudflare
+  services:
+    firefly-importer-svc:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.5.8:8086"

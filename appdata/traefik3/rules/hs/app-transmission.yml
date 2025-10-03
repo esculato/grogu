@@ -8,21 +8,21 @@ http:
         - websecure-external
       # 1. Add the middleware to insert the internal path prefix
       middlewares:
-        - transmission-add-prefix@file  # <- New middleware
+#        - transmission-add-prefix@file  # <- New middleware
         - chain-authelia@file
       service: transmission-svc
       tls:
         # Assuming you use a global certResolver (like dns-cloudflare) for TLS
         certResolver: dns-cloudflare
 
-  # =========================================================
-  # 2. Define the new Middleware
-  # This adds the required path (/transmission/web) before sending to the service.
-  middlewares:
-    transmission-add-prefix:
-      addPrefix:
-        prefix: /transmission/web
-  # =========================================================
+#  # =========================================================
+#  # 2. Define the new Middleware
+#  # This adds the required path (/transmission/web) before sending to the service.
+#  middlewares:
+#    transmission-add-prefix:
+#      addPrefix:
+#        prefix: /transmission/web
+#  # =========================================================
   
   services:
     transmission-svc:

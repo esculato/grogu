@@ -1,0 +1,17 @@
+http:
+  routers:
+    esphome-rtr:
+      rule: "Host(`esphome.{{env "DOMAINNAME"}}`)"
+      entryPoints:
+        - websecure-internal
+        - websecure-external
+      middlewares:
+        - chain-authelia@file
+      service: esphome-svc
+      tls:
+        certResolver: dns-cloudflare
+  services:
+    esphome-svc:
+      loadBalancer:
+        servers:
+          - url: "http://esphome:6052"

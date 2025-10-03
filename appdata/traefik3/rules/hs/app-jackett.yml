@@ -1,0 +1,17 @@
+http:
+  routers:
+    jackett-rtr:
+      rule: "Host(`jackett.{{env "DOMAINNAME"}}`)"
+      entryPoints:
+        - websecure-internal
+        - websecure-external
+      middlewares:
+        - chain-authelia@file
+      service: jackett-svc
+      tls:
+        certResolver: dns-cloudflare
+  services:
+    jackett-svc:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.5.7:9117"
