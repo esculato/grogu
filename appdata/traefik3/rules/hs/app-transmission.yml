@@ -1,0 +1,32 @@
+http:
+  routers:
+    transmission-rtr:
+      # Matches: transmission.yourdomain.com
+      rule: "Host(`transmission.{{env "DOMAINNAME"}}`)"
+      entryPoints:
+        - websecure-internal
+        - websecure-external
+      # 1. Add the middleware to insert the internal path prefix
+      middlewares:
+        - transmission-add-prefix@file  # <- New middleware
+        - chain-authelia@file
+      service: transmission-svc
+      tls:
+        # Assuming you use a global certResolver (like dns-cloudflare) for TLS
+        certResolver: dns-cloudflare
+
+  # =========================================================
+  # 2. Define the new Middleware
+  # This adds the required path (/transmission/web) before sending to the service.
+  middlewares:
+    transmission-add-prefix:
+      addPrefix:
+        prefix: /transmission/web
+  # =========================================================
+  
+  services:
+    transmission-svc:
+      loadBalancer:
+        # 3. Define the internal server address and scheme (HTTP is default, but explicit is better)
+        servers:
+          - url: "http://192.168.5.7:9091"
