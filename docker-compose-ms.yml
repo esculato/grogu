@@ -101,8 +101,8 @@ services:
       t3_proxy:
         ipv4_address: 192.168.15.169
       socket_proxy:
-    ports:
-      - $TRANSMISSION_PORT:9091
+#    ports:
+#      - $TRANSMISSION_PORT:9091
     cap_add:
       - NET_ADMIN
     devices:
@@ -127,8 +127,8 @@ services:
       UMASK_SET: 2
       TRANSMISSION_RPC_AUTHENTICATION_REQUIRED: "false"
       TRANSMISSION_RPC_HOST_WHITELIST: "127.0.0.1,$SERVER_IP"
-      #TRANSMISSION_RPC_PASSWORD: $TRANSMISSION_RPC_PASSWORD
-      #TRANSMISSION_RPC_USERNAME: $TRANSMISSION_RPC_USERNAME
+      TRANSMISSION_RPC_PASSWORD: $TRANSMISSION_RPC_PASSWORD
+      TRANSMISSION_RPC_USERNAME: $TRANSMISSION_RPC_USERNAME
       TRANSMISSION_UMASK: 002
       TRANSMISSION_RATIO_LIMIT: "0.0099"
       TRANSMISSION_RATIO_LIMIT_ENABLED: "true"
@@ -148,5 +148,31 @@ services:
       DISABLE_PORT_UPDATER: "true"
       CREATE_TUN_DEVICE: "false"
 #      TRANSMISSION_WEB_HOME: '/'
+    labels:
+      - "traefik.enable=true"
+
+  # Jackett
+  jackett:
+    container_name: jackett
+    image: linuxserver/jackett:0.24.31@sha256:07f436270b5336b6513326b3452d110f3e79670791352b931cd6697231e0dd56
+    networks:
+      t3_proxy:
+        ipv4_address: 192.168.15.170
+    ports:
+      - 9117:9117
+    depends_on:
+      - transmission-vpn
+    #network_mode: container:transmission-openvpn
+    #security_opt:
+    #  - no-new-privileges:true
+    volumes:
+      - $DOCKERDIR/appdata/jackett:/config
+      - $DATADIR/downloads:/downloads
+      - /etc/localtime:/etc/localtime:ro
+      - $DOCKERDIR/shared:/shared
+    environment:
+      - PUID=$PUID
+      - PGID= $PGID
+      - TZ=$TZ
     labels:
       - "traefik.enable=true"
