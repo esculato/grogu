@@ -20,18 +20,11 @@ secrets:
   plex_claim:
     file: $DOCKERDIR/secrets/plex_claim
 
-#include:
-#  ########################### SERVICES
-#  # HOSTNAME_HS / HOSTNAME_MS defined in .env file
-#  - compose/$HOSTNAME_MS/socket-proxy.yml
-#  - compose/$HOSTNAME_MS/portainer-agent.yml
-#  - compose/$HOSTNAME_MS/dozzle-agent.yml
-
 services:
 
   # Docker Socket Proxy - Security Enchanced Proxy for Docker Socket
   socket-proxy:
-    image: lscr.io/linuxserver/socket-proxy:3.2.5-r0-ls56
+    image: linuxserver/socket-proxy:3.2.5-r0-ls56
     container_name: socket-proxy
     security_opt:
       - no-new-privileges:true
@@ -41,8 +34,6 @@ services:
       socket_proxy:
         ipv4_address: 192.168.14.254 # You can specify a static IP
     privileged: true # true for VM. False (default) for unprivileged LXC container.
-    # ports:
-      #- "2375:2375"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
     read_only: true
@@ -84,7 +75,7 @@ services:
 
   agent:
     container_name: portainer_agent
-    image: portainer/agent:2.34.0  # pick a version matching your Portainer server
+    image: portainer/agent:2.34.0@sha256:b5ac5846ad5ea411bb30720961bcd8b47f1e5b1f2843170a10747cda110b7c40 
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -92,10 +83,8 @@ services:
     networks:
       - default
       - socket_proxy
-#    command: -H unix:///var/run/docker.sock # Use Docker Socket Proxy instead for improved security
- #   command: -H tcp://socket-proxy:2375
     ports:
-      - "$PORTAINER_AGENT_PORT:9001"     # Agent API
+      - $PORTAINER_AGENT_PORT:9001     # Agent API
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro # Use Docker Socket Proxy instead for improved security
       - /var/lib/docker/volumes:/var/lib/docker/volumes
@@ -103,7 +92,7 @@ services:
 
   dozzle-agent:
     container_name: dozzle-agent-ms
-    image: amir20/dozzle:v8.14.3
+    image: amir20/dozzle:v8.14.3@sha256:b3b74346d1a41a6a9a39f30ee4578a998bd3ff9bcdbd83201b69f4c701d80130 
     restart: always
     command: agent
     volumes:
