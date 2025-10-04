@@ -1,0 +1,17 @@
+http:
+  routers:
+    radarr-rtr:
+      rule: "Host(`radarr.{{env "DOMAINNAME"}}`)"
+      entryPoints:
+        - websecure-internal
+        - websecure-external
+      middlewares:
+        - chain-authelia@file
+      service: radarr-svc
+      tls:
+        certResolver: dns-cloudflare
+  services:
+    radarr-svc:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.5.7:7878"
