@@ -154,7 +154,7 @@ services:
   # Jackett
   jackett:
     container_name: jackett
-    image: linuxserver/jackett:0.24.31@sha256:07f436270b5336b6513326b3452d110f3e79670791352b931cd6697231e0dd56
+    image: linuxserver/jackett:0.24.37@sha256:a85e605458c70f0767bd585845fdf2eddc79291e41cf01e7e125f1f55f0e917f
     networks:
       t3_proxy:
         ipv4_address: 192.168.15.170
