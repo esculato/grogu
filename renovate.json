@@ -3,6 +3,10 @@
   "extends": [
     "config:recommended"
   ],
+  "dependencyDashboard": true,
+  "dependencyDashboardTitle": "Renovate Dashboard",
+  "assignees": ["your-gitea-user"],
+  "labels": ["renovate"],
   "timezone": "Europe/Amsterdam",
   "schedule": [
     "after 8am and before 9am every weekday"
