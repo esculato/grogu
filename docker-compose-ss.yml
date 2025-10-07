@@ -116,7 +116,7 @@ services:
 
   # Calibre   ^`^s Ebooks and Management (Server)
   calibre:
-    image: linuxserver/calibre:8.12.0@sha256:264bcd7cd77414e3e1839ad1c5b822e3784c139ad8535e79a919d38f93cacb98
+    image: linuxserver/calibre:8.12.0@sha256:8e8fa9864515b432948916895a6adeb0f1a083ffd897eedfaa0d7fc7d489a2ca
     container_name: calibre
     restart: always
     networks:
