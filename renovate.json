@@ -24,7 +24,8 @@
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": true,
-      "automergeType": "pr"
+      "automergeType": "pr",
+      "ignorePrLabels": ["renovate"]
     },
     {
       "description": "Create PRs for major Docker updates (manual review required)",
@@ -37,7 +38,8 @@
       "matchManagers": ["github-actions"],
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true,
-      "automergeType": "pr"
+      "automergeType": "pr",
+      "ignorePrLabels": ["renovate"]
     },
     {
       "description": "Create PRs for major GitHub Actions updates (manual review required)",
