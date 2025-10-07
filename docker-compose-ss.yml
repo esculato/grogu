@@ -144,7 +144,7 @@ services:
   # Calibre-web Ebooks and Management (Plex of Ebooks)
   calibre-web:
     container_name: calibre-web
-    image: linuxserver/calibre-web:0.6.25@sha256:e5700336362009d1f214842d2341cd698b9cbbd77c7412f0785639f96bda3aaa
+    image: linuxserver/calibre-web:0.6.25@sha256:87f56b19dd56d8cd7f09f992e4fd4868a79beace8e1b2c3c1d3dd67187719e90
     restart: always
     networks:
       - t3_proxy
