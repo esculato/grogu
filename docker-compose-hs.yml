@@ -34,7 +34,7 @@ services:
 ############# CORE
   # Docker Socket Proxy - Security Enchanced Proxy for Docker Socket
   socket-proxy:
-    image: lscr.io/linuxserver/socket-proxy:3.2.5-r0-ls56
+    image: linuxserver/socket-proxy:3.2.5-r0-ls56@sha256:1be5bc2319d84e94999ad8461aa5864dae245d63247779bbd5630ba7151b30b7
     container_name: socket-proxy
     security_opt:
       - no-new-privileges:true
@@ -88,7 +88,7 @@ services:
   # Traefik 3 - Reverse Proxy
   traefik:
     container_name: traefik
-    image: traefik:v3.5.3
+    image: traefik:3.5.3@sha256:84eb6c0e67c99fa026bf1bf4b0afd9ad44350d375b4ebc5049c5f70543a729d6
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -198,7 +198,7 @@ services:
   # Authelia (Lite) - Self-Hosted Single Sign-On and Two-Factor Authentication
   authelia:
     container_name: authelia
-    image: authelia/authelia:4.39.11
+    image: authelia/authelia:4.39.11@sha256:30e45eeb81c8d82ad7679df008a57b61253c932341c861ef3fb20776804ca251
     security_opt:
       - no-new-privileges:true
     restart: always
@@ -234,7 +234,7 @@ services:
   # Portainer - WebUI for Containers
   portainer:
     container_name: portainer
-    image: portainer/portainer-ce:2.34.0
+    image: portainer/portainer-ce:2.34.0@sha256:d61738f5a4670c50395a13a42345a5b9675d96573817ef009a6c7de48ce5a13d
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -260,7 +260,7 @@ services:
 
   # CrowdSec - Open-source & Collaborative IPS
   crowdsec:
-    image: crowdsecurity/crowdsec:v1.7.0
+    image: crowdsecurity/crowdsec:v1.7.0@sha256:26841bec239f53c74f5ac35ca89166b0566c511a449c4852d3187c8a62faf4ed
     container_name: crowdsec
     security_opt:
       - no-new-privileges:true
@@ -283,7 +283,7 @@ services:
 
   # CrowdSec Bouncer - Cloudflare
   cloudflare-bouncer:
-    image: crowdsecurity/cloudflare-bouncer
+    image: crowdsecurity/cloudflare-bouncer:v0.3.0@sha256:39719a070c154866ebc81335e70fdfa1c61eac45025fee7d9bbf8da689fbb2c6
     container_name: cloudflare-bouncer
     security_opt:
       - no-new-privileges:true
@@ -296,28 +296,28 @@ services:
       - $DOCKERDIR/appdata/cloudflare-bouncer/cfg.yaml:/etc/crowdsec/bouncers/crowdsec-cloudflare-bouncer.yaml
 
   # CrowdSec Bouncer - Traefik
-  traefik-bouncer:
-    image: fbonalair/traefik-crowdsec-bouncer
-    container_name: traefik-bouncer
-    security_opt:
-      - no-new-privileges:true
-    restart: unless-stopped
-  #  profiles: ["core", "all"]
-    networks:
-      - default
-    environment:
-      GIN_MODE: release # default is debug (more logs)
-      CROWDSEC_BOUNCER_API_KEY: $CROWDSEC_BOUNCER_TRAEFIK_API_KEY
-      CROWDSEC_AGENT_HOST: crowdsec:8080 # CrowdSec host and port
-      CROWDSEC_BOUNCER_LOG_LEVEL: 2 # https://pkg.go.dev/github.com/rs/zerolog#readme-leveled-logging
+#  traefik-bouncer:
+#    image: fbonalair/traefik-crowdsec-bouncer
+#    container_name: traefik-bouncer
+#    security_opt:
+#      - no-new-privileges:true
+#    restart: unless-stopped
+#  #  profiles: ["core", "all"]
+#    networks:
+#      - default
+#    environment:
+#      GIN_MODE: release # default is debug (more logs)
+#      CROWDSEC_BOUNCER_API_KEY: $CROWDSEC_BOUNCER_TRAEFIK_API_KEY
+#      CROWDSEC_AGENT_HOST: crowdsec:8080 # CrowdSec host and port
+#      CROWDSEC_BOUNCER_LOG_LEVEL: 2 # https://pkg.go.dev/github.com/rs/zerolog#readme-leveled-logging
 
 
 ############# MONITORING
 
   # Dozzle - Real-time Docker Log Viewer
   dozzle:
-    image: amir20/dozzle:v8.14.3
     container_name: dozzle
+    image: amir20/dozzle:v8.14.3@sha256:29404125779a2e49b035b04475c48167bedd7b93d5a25d37d9510723f5e2bfcd
     security_opt:
       - no-new-privileges:true
     restart: always
@@ -343,8 +343,8 @@ services:
 
   # Uptime Kuma - Status Page & Monitoring Server
   uptime-kuma:
-    image: louislam/uptime-kuma
     container_name: uptime-kuma
+    image: louislam/uptime-kuma:1.23.16@sha256:431fee3be822b04861cf0e35daf4beef6b7cb37391c5f26c3ad6e12ce280fe18
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -366,7 +366,7 @@ services:
   # Home Assistent Container
   homeassistant:
     container_name: homeassistant
-    image: ghcr.io/home-assistant/home-assistant:2025.10.0
+    image: ghcr.io/home-assistant/home-assistant:2025.10.0@sha256:ae0e2a2f03822c49a0c506bc40e367b4abc8b3207d67a6e0312b42d60867c5e5
     volumes:
       - $DOCKERDIR/appdata/homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
@@ -386,8 +386,8 @@ services:
 
   # Homepage - Application Dashboard
   homepage:
-    image: ghcr.io/gethomepage/homepage:v1.5.0
     container_name: homepage
+    image: ghcr.io/gethomepage/homepage:v1.5.0@sha256:e7fc26f914cf5e7dcd6c566e24ca218addb879aa76478ad4a553b1f9ae48b1d7
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -415,8 +415,8 @@ services:
   # Create mosquitto.conf, passwd, mosquitto.log files  and set permissions to 775 user:docker
   # dexec mosquitto /bin/sh -> mosquitto_passwd -b /mosquitto/config/passwd username passwd
   mosquitto:
-    image: eclipse-mosquitto:2.0.22
     container_name: mosquitto
+    image: eclipse-mosquitto:2.0.22@sha256:d219d3a72847f3aed6a1d66975972d3b17f86e39e8f6f6b86b4088b879c1a2d6
     restart: always
     #network_mode: host
     networks:
@@ -437,7 +437,7 @@ services:
   zigbee2mqtt:
     container_name: zigbee2mqtt
     restart: always
-    image: koenkk/zigbee2mqtt:2.6.2
+    image: koenkk/zigbee2mqtt:2.6.2@sha256:ffabf256f4550175278fbeebdbc3f174f2ffa005175e755324c5f06020af3e68
     privileged: true
     networks:
       - default
@@ -460,7 +460,7 @@ services:
   # ESPHome
   esphome:
     container_name: esphome
-    image: esphome/esphome:2025.9.3
+    image: esphome/esphome:2025.9.3@sha256:7d5891a3cdfec43236a5dbabd6ea1c58cc5affc2546eb204899e5f9ae04d6959
     restart: always
     networks:
       - t3_proxy
@@ -484,7 +484,7 @@ services:
   # Docker-GC - Automatic Docker Garbage Collection
   # Create docker-gc-exclude file
   docker-gc:
-    image: clockworksoul/docker-gc-cron:latest
+    image: clockworksoul/docker-gc-cron:20240219@sha256:bebd78cbceb13f01c4a317f528fd00159a909dc6b1bf9781e45a3f96b3b572fe
     container_name: docker-gc
     security_opt:
       - no-new-privileges:true
