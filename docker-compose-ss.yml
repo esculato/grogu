@@ -79,7 +79,7 @@ services:
       - /:/host
 
   dozzle-agent:
-    image: amir20/dozzle:v8.14.3@sha256:b99b4a320834bc0a733b1b31ee1db8f0633848d22c37ee019e21e289e3c86a11
+    image: amir20/dozzle:v8.14.4@sha256:e944224b30d0ac8771d7e54c5ae0dfb30859d6b7e590b65e90bafe39c15c46ce
     container_name: dozzle-agent
     restart: always
     command: agent
