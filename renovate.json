@@ -24,7 +24,7 @@
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": true,
-      "automergeType": "pr",
+      "automergeType": "branch",
       "ignorePrLabels": ["renovate"]
     },
     {
@@ -38,7 +38,7 @@
       "matchManagers": ["github-actions"],
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true,
-      "automergeType": "pr",
+      "automergeType": "branch",
       "ignorePrLabels": ["renovate"]
     },
     {
