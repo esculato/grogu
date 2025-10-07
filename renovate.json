@@ -1,51 +1,85 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
+  "extends": [
+    "config:recommended"
+  ],
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard",
   "dependencyDashboardApproval": true,
-  "labels": ["renovate"],
+  "labels": [
+    "renovate"
+  ],
   "timezone": "Europe/Amsterdam",
-  "schedule": ["at any time"],
+  "schedule": [
+    "at any time"
+  ],
   "rebaseWhen": "behind-base-branch",
   "prHourlyLimit": 10,
   "prConcurrentLimit": 10,
-  "enabledManagers": ["github-actions", "docker-compose"],
+  "enabledManagers": [
+    "github-actions",
+    "docker-compose"
+  ],
   "platformAutomerge": true,
   "packageRules": [
     {
       "groupName": "Docker minor/patch updates",
-      "matchManagers": ["docker-compose"],
-      "matchUpdateTypes": ["minor", "patch"]
+      "matchManagers": [
+        "docker-compose"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
     },
     {
       "description": "Automerge non-major Docker updates",
-      "matchDatasources": ["docker"],
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
-      "stabilityDays": 3,
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest"
+      ],
+      "minimumReleaseAge": "3 days",
       "ignoreTests": true,
       "automerge": true,
       "automergeType": "branch"
     },
     {
       "description": "Create PRs for major Docker updates",
-      "matchDatasources": ["docker"],
-      "matchUpdateTypes": ["major"],
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
       "automerge": false
     },
     {
       "description": "Automerge non-major GitHub Actions updates",
-      "matchManagers": ["github-actions"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "stabilityDays": 3,
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "minimumReleaseAge": "3 days",
       "ignoreTests": true,
       "automerge": true,
       "automergeType": "branch"
     },
     {
       "description": "Create PRs for major GitHub Actions updates",
-      "matchManagers": ["github-actions"],
-      "matchUpdateTypes": ["major"],
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
       "automerge": false
     }
   ]
