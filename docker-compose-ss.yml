@@ -80,7 +80,7 @@ services:
 
   dozzle-agent:
     container_name: dozzle-agent
-    image: amir20/dozzle:v8.14.3@sha256:b99b4a320834bc0a733b1b31ee1db8f0633848d22c37ee019e21e289e3c86a11
+    image: amir20/dozzle:v8.14.3@sha256:29404125779a2e49b035b04475c48167bedd7b93d5a25d37d9510723f5e2bfcd
     restart: always
     command: agent
     volumes:
