@@ -9,7 +9,7 @@
   "labels": ["renovate"],
   "timezone": "Europe/Amsterdam",
   "schedule": [
-    "after 8am and before 9am every weekday"
+    "at any time"
   ],
   "prHourlyLimit": 5,
   "prConcurrentLimit": 10,
