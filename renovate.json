@@ -11,7 +11,7 @@
   "schedule": [
     "at any time"
   ],
-  "prHourlyLimit": 5,
+  "prHourlyLimit": 10,
   "prConcurrentLimit": 10,
   "enabledManagers": [
     "github-actions",
