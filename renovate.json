@@ -47,5 +47,6 @@
       "matchUpdateTypes": ["major"],
       "automerge": false
     }
-  ]
+  ],
+  "platformAutomerge": true
 }
