@@ -1,12 +1,14 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
-  "dependencyDashboard": true,
-  "dependencyDashboardTitle": "Renovate Dashboard",
-  "assignees": ["your-gitea-user"],
-  "labels": ["renovate"],
-  "prHourlyLimit": 5,
+  "extends": [
+    "config:recommended"
+  ],
   "timezone": "Europe/Amsterdam",
+  "schedule": [
+    "after 8am and before 9am every weekday"
+  ],
+  "prHourlyLimit": 5,
+  "prConcurrentLimit": 10,
   "enabledManagers": [
     "github-actions",
     "docker-compose",
@@ -14,16 +16,30 @@
   ],
   "packageRules": [
     {
+      "description": "Automerge non-major Docker updates",
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": true,
       "automergeType": "pr"
     },
     {
+      "description": "Create PRs for major Docker updates (manual review required)",
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["major"],
+      "automerge": false
+    },
+    {
+      "description": "Automerge non-major GitHub Actions updates",
       "matchManagers": ["github-actions"],
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true,
       "automergeType": "pr"
+    },
+    {
+      "description": "Create PRs for major GitHub Actions updates (manual review required)",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["major"],
+      "automerge": false
     }
   ]
 }
