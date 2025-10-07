@@ -60,8 +60,8 @@ services:
       - VOLUMES=1 # Portainer - DISABLE_IPV6=0 #optional
 
   agent:
-    container_name: portainer-agent
-    image: portainer/agent:2.34.0@sha256:ffe66edf605824d0249e19ade394d7b764209b002b60b5cebd959c81c2c6fbb2
+    container_name: portainer_agent
+    image: portainer/agent:2.34.0@sha256:e87f8097495576bf0d0057bdee3aedae3f7ac3bacba190f707bed35a77d71624
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -79,7 +79,7 @@ services:
       - /:/host
 
   dozzle-agent:
-    container_name: dozzle-agent
+    container_name: dozzle_agent
     image: amir20/dozzle:v8.14.4@sha256:e944224b30d0ac8771d7e54c5ae0dfb30859d6b7e590b65e90bafe39c15c46ce
     restart: always
     command: agent
