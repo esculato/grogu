@@ -1,7 +1,7 @@
 http:
   routers:
     kuma-rtr:
-      rule: "Host(`kuma.{{env "DOMAINNAME"}}`)"
+      rule: "Host(`uptime-kuma.{{env "DOMAINNAME"}}`)"
       entryPoints:
         - websecure-internal
         - websecure-external
@@ -14,4 +14,4 @@ http:
     kuma-svc:
       loadBalancer:
         servers:
-          - url: "http://kuma:3001"
+          - url: "http://uptime-kuma:3001"
