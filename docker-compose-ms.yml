@@ -238,6 +238,5 @@ services:
       - $DATADIR/downloads/series:/series
     ports:
       - 6767:6767
-    restart: unless-stopped
     labels:
       - "traefik.enable=true"
