@@ -179,6 +179,7 @@ services:
       - "traefik.enable=true"
 
   # Radarr
+  radarr:
     container_name: radarr
     image: lscr.io/linuxserver/radarr:5.27.5.10198-ls284
     restart: always
@@ -191,7 +192,7 @@ services:
     volumes:
       - $DOCKERDIR/appdata/radarr:/config
       - $DATADIR/downloads/movies:/movies
-      - $DATADIR/downloads:/downloads #optional
+      - $DATADIR/downloads:/downloads
     ports:
       - 7878:7878
     labels:
