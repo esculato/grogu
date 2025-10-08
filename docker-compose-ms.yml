@@ -34,7 +34,7 @@ services:
     networks:
       socket_proxy:
         ipv4_address: 192.168.14.254 # You can specify a static IP
-    privileged: true # true for VM. False (default) for unprivileged LXC container.
+    privileged: false # true for VM. False (default) for unprivileged LXC container.
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
     read_only: true
@@ -195,7 +195,7 @@ services:
       - $DATADIR/downloads/movies:/movies
       - $DATADIR/downloads:/downloads
     ports:
-      - 7878:7878
+      - $RADARR_PORT:7878
     labels:
       - "traefik.enable=true"
 
@@ -216,7 +216,7 @@ services:
       - $DATADIR/downloads/series:/series
       - $DATADIR/downloads:/downloads
     ports:
-      - 8989:8989
+      - $SONARR_PORT:8989
     labels:
       - "traefik.enable=true"
       
@@ -237,6 +237,6 @@ services:
       - $DATADIR/downloads/movies:/movies
       - $DATADIR/downloads/series:/series
     ports:
-      - 6767:6767
+      - $BAZARR_PORT:6767
     labels:
       - "traefik.enable=true"
