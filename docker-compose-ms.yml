@@ -26,7 +26,7 @@ services:
   # Docker Socket Proxy - Security Enchanced Proxy for Docker Socket
   socket-proxy:
     container_name: socket-proxy
-    image: linuxserver/socket-proxy:3.2.5-r0-ls56@sha256:1be5bc2319d84e94999ad8461aa5864dae245d63247779bbd5630ba7151b30b7
+    image: lscr.io/linuxserver/socket-proxy:3.2.5-r0-ls56@sha256:1be5bc2319d84e94999ad8461aa5864dae245d63247779bbd5630ba7151b30b7
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -154,7 +154,8 @@ services:
   # Jackett
   jackett:
     container_name: jackett
-    image: linuxserver/jackett:0.24.87@sha256:87e2f1de955de8426c80a4cd74631f244b544bee739de606870472ff686baa8c
+    image: lscr.io/linuxserver/jackett:0.24.87@sha256:87e2f1de955de8426c80a4cd74631f244b544bee739de606870472ff686baa8c
+    restart: always
     networks:
       t3_proxy:
         ipv4_address: 192.168.15.170
@@ -174,5 +175,24 @@ services:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
+    labels:
+      - "traefik.enable=true"
+
+  # Radarr
+    container_name: radarr
+    image: lscr.io/linuxserver/radarr:5.27.5.10198-ls284
+    restart: always
+    networks:
+      - socket_proxy
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+    volumes:
+      - $DOCKERDIR/appdata/radarr:/config
+      - $DATADIR/downloads/movies:/movies
+      - $DATADIR/downloads:/downloads #optional
+    ports:
+      - 7878:7878
     labels:
       - "traefik.enable=true"
