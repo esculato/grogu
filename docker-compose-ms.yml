@@ -197,3 +197,23 @@ services:
       - 7878:7878
     labels:
       - "traefik.enable=true"
+
+    # Sonarr
+  sonarr:
+    container_name: sonarr
+    image: lscr.io/linuxserver/sonarr:4.0.15.2941-ls293
+    restart: always
+    networks:
+      - socket_proxy
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+    volumes:
+      - $DOCKERDIR/appdata/sonarr:/config
+      - $DATADIR/downloads/series:/series
+      - $DATADIR/downloads:/downloads
+    ports:
+      - 8989:8989
+    labels:
+      - "traefik.enable=true"
