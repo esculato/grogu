@@ -185,6 +185,7 @@ services:
     restart: always
     networks:
       - socket_proxy
+      - t3_proxy
     environment:
       - PUID=$PUID
       - PGID=$PGID
@@ -205,6 +206,7 @@ services:
     restart: always
     networks:
       - socket_proxy
+      - t3_proxy
     environment:
       - PUID=$PUID
       - PGID=$PGID
