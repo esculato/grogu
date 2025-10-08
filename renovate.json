@@ -4,7 +4,6 @@
     "config:recommended"
   ],
   "dependencyDashboard": true,
-  "dependencyDashboardTitle": "Renovate Dashboard",
   "labels": [
     "renovate"
   ],
@@ -43,6 +42,7 @@
         "digest"
       ],
       "minimumReleaseAge": "3 days",
+      "internalChecksFilter": "strict",
       "ignoreTests": true,
       "automerge": true,
       "automergeType": "branch"
@@ -67,6 +67,7 @@
         "patch"
       ],
       "minimumReleaseAge": "3 days",
+      "internalChecksFilter": "strict",
       "ignoreTests": true,
       "automerge": true,
       "automergeType": "branch"
