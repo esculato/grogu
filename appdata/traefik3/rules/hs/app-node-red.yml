@@ -1,0 +1,17 @@
+http:
+  routers:
+    node-red-rtr:
+      rule: "Host(`node-red.{{env "DOMAINNAME"}}`)"
+      entryPoints:
+        - websecure-internal
+        - websecure-external
+      middlewares:
+        - chain-authelia@file
+      service: node-red-svc
+      tls:
+        certResolver: dns-cloudflare
+  services:
+    node-red-svc:
+      loadBalancer:
+        servers:
+          - url: "http://node-red:1880"
