@@ -219,3 +219,25 @@ services:
       - 8989:8989
     labels:
       - "traefik.enable=true"
+      
+    # Bazarr
+  bazarr:
+    container_name: bazarr
+    image: lscr.io/linuxserver/bazarr:v1.5.3-ls321
+    restart: always
+    networks:
+      - socket_proxy
+      - t3_proxy
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+    volumes:
+      - $DOCKERDIR/appdata/bazarr:/config
+      - $DATADIR/downloads/movies:/movies
+      - $DATADIR/downloads/series:/series
+    ports:
+      - 6767:6767
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
