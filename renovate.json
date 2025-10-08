@@ -5,7 +5,6 @@
   ],
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard",
-  "dependencyDashboardApproval": true,
   "labels": [
     "renovate"
   ],
