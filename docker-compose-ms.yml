@@ -192,9 +192,9 @@ services:
       - PGID=$PGID
       - TZ=$TZ
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - $DOCKERDIR/appdata/radarr:/config
-      - $DATADIR/downloads/movies:/movies
-      - $DATADIR/downloads:/downloads
+      - $DATADIR:/data
     ports:
       - $RADARR_PORT:7878
     labels:
@@ -214,9 +214,9 @@ services:
       - PGID=$PGID
       - TZ=$TZ
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - $DOCKERDIR/appdata/sonarr:/config
-      - $DATADIR/downloads/series:/series
-      - $DATADIR/downloads:/downloads
+      - $DATADIR:/data
     ports:
       - $SONARR_PORT:8989
     labels:
@@ -236,9 +236,9 @@ services:
       - PGID=$PGID
       - TZ=$TZ
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - $DOCKERDIR/appdata/bazarr:/config
-      - $DATADIR/downloads/movies:/movies
-      - $DATADIR/downloads/series:/series
+      - $DATADIR:/data
     ports:
       - $BAZARR_PORT:6767
     labels:
