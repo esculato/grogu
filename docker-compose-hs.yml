@@ -523,3 +523,14 @@ services:
       - DRY_RUN=0
       - CLEAN_UP_VOLUMES=1
       - TZ=$TZ
+
+  # Cloudflare DDNS - Dynamic DNS Updater
+  cloudflare-ddns:
+    container_name: cloudflare-ddns
+    image: timothyjmiller/cloudflare-ddns:latest@sha256:2187e122660d6a2d451ef7c53fd4805c133133f4f47552256352c1e2a7f49ee2
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+    volumes:
+      -  $DOCKERDIR/appdata/cloudflare-ddns/config.json:/config.json
