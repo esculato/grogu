@@ -1,0 +1,17 @@
+http:
+  routers:
+    ntfy-rtr:
+      rule: "Host(`ntfy.{{env "DOMAINNAME"}}`)"
+      entryPoints:
+        - websecure-internal
+        - websecure-external
+      middlewares:
+        - chain-authelia@file
+      service: ntfy-svc
+      tls:
+        certResolver: dns-cloudflare
+  services:
+    ntfy-svc:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.5.16:8080"
