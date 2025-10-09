@@ -1,0 +1,18 @@
+http:
+  routers:
+    pihole-zero-rtr:
+      rule: "Host(`pihole-zero.{{env "DOMAINNAME"}}`)"
+      entryPoints:
+        - websecure-internal
+        - websecure-external
+      middlewares:
+        - chain-authelia@file
+        - pihole-redirect
+      service: pihole-zero-svc
+      tls:
+        certResolver: dns-cloudflare
+  services:
+    pihole-zero-svc:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.5.16"

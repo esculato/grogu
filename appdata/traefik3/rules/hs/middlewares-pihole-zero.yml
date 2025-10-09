@@ -1,0 +1,6 @@
+http:
+  middlewares:
+    pihole-redirect:
+      redirectRegex:
+        regex: "^(https?://[^/]+)/?$"
+        replacement: "${1}/admin"
