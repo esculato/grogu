@@ -7,11 +7,19 @@ http:
         - websecure-external
       middlewares:
         - chain-authelia@file
+        - pihole-go-to-admin
       service: pihole-zero-svc
       tls:
         certResolver: dns-cloudflare
+        
   services:
     pihole-zero-svc:
       loadBalancer:
         servers:
-          - url: "http://192.168.5.16"
+          - url: "http://192.168.5.16:80"
+          
+  middlewares:
+    pihole-go-to-admin:
+      redirectRegex:
+        regex: "^https:\\/\\/([^\\/]+)\\/?$"
+        replacement: "https://pihole-zero.{{env \"DOMAINNAME\"}}/admin/index.php"
