@@ -246,7 +246,7 @@ services:
 
   jellyfin:
     container_name: jellyfin
-    image: lscr.io/linuxserver/jellyfin:10.10.7ubu2404-ls80
+    image: lscr.io/linuxserver/jellyfin:10.10.7ubu2404-ls80@sha256:68e012f4bf5aeb114632e9045f5b2f2f6713536693093f70fcb338179f84f86c
     restart: always
     networks:
       - socket_proxy
@@ -258,7 +258,7 @@ services:
       - JELLYFIN_PublishedServerUrl=http://192.168.5.7 #optional
     volumes:
       - $DOCKERDIR/appdata/jellyfin/library:/config
-      - $DATADIR/series:/data
+      - $DATADIR:/data
     #  - /path/to/movies:/data/movies
     ports:
       - 8096:8096
