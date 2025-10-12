@@ -549,7 +549,7 @@ services:
     environment:
       - CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_TOKEN
         # Your Cloudflare API token
-      - DOMAINS=kemeel.com,www.kemeel.com
+      - DOMAINS=kemeel.com
         # Your domains (separated by commas)
       - PROXIED=true
         # Tell Cloudflare to cache webpages and hide your IP (optional)

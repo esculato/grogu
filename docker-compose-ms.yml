@@ -260,6 +260,8 @@ services:
       - $DOCKERDIR/appdata/jellyfin/library:/config
       - $DATADIR:/data
     #  - /path/to/movies:/data/movies
+    devices:
+      - /dev/dri/renderD128:/dev/dri/renderD128
     ports:
       - 8096:8096
       - 8920:8920 #optional
