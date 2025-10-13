@@ -93,7 +93,7 @@ services:
 
   syncthing:
     container_name: syncthing
-    image: linuxserver/syncthing:v2.0.10-ls197@sha256:126c0e89ec159b3a184f4ca00a3fb77eb39a2221db4285a8b4cd2f46db1aa72d
+    image: linuxserver/syncthing:v2.0.10-ls198@sha256:e5a6e179dab7452cd93768965b5c71a840448e1291b1f781426429bbb0a128c2
     hostname: syncthing #optional
     environment:
       - PUID=$PUID
@@ -117,7 +117,7 @@ services:
   # Calibre   ^`^s Ebooks and Management (Server)
   calibre:
     container_name: calibre
-    image: linuxserver/calibre:8.12.0@sha256:4edb4c47f36bc8e520dfaa40548fa94fd67e1686ff667271a04a515710d259a4
+    image: linuxserver/calibre:v8.12.0-ls362@sha256:4edb4c47f36bc8e520dfaa40548fa94fd67e1686ff667271a04a515710d259a4
     restart: always
     networks:
       - t3_proxy
