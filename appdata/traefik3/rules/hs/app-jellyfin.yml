@@ -17,7 +17,7 @@ http:
       loadBalancer:
         passHostHeader: true
         servers:
-          - url: "http://jellyfin:8096"
+          - url: "http://192.168.5.7:8096"
 
   middlewares:
     jellyfin-headers:
