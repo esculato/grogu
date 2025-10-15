@@ -1,18 +1,29 @@
 http:
   routers:
     jellyfin-rtr:
-      rule: "Host(`jellyfin.{{env "DOMAINNAME"}}`)"
+      rule: "Host(`jellyfin.{{env \"DOMAINNAME\"}}`)"
       entryPoints:
-        - websecure-internal
         - websecure-external
+        - websecure-internal
       middlewares:
         - chain-authelia@file
+        - jellyfin-headers@file
       service: jellyfin-svc
       tls:
         certResolver: dns-cloudflare
+
   services:
     jellyfin-svc:
       loadBalancer:
-        servers:
-          - url: "http://192.168.5.7:8096"
         passHostHeader: true
+        servers:
+          - url: "http://jellyfin:8096"
+
+  middlewares:
+    jellyfin-headers:
+      headers:
+        customRequestHeaders:
+          X-Forwarded-Proto: "https"
+        customResponseHeaders:
+          X-Frame-Options: "SAMEORIGIN"
+          X-Content-Type-Options: "nosniff"
