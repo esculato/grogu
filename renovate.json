@@ -71,6 +71,7 @@
       "ignoreTests": true,
       "automerge": true,
       "automergeType": "branch"
+      "pinDigests": true
     },
     {
       "description": "Create PRs for major GitHub Actions updates",
