@@ -1,5 +1,15 @@
 http:
   routers:
+    jellyfin-bypass:
+      rule: "Host(`jellyfin.{{env \"DOMAINNAME\"}}`) && (PathPrefix(`/socket`) || PathPrefix(`/web`) || PathPrefix(`/Videos`) || PathPrefix(`/emby`))"
+      entryPoints:
+        - websecure-external
+        - websecure-internal
+      service: jellyfin-svc
+      tls:
+        certResolver: dns-cloudflare
+
+  routers:
     jellyfin-rtr:
       rule: "Host(`jellyfin.{{env \"DOMAINNAME\"}}`)"
       entryPoints:
