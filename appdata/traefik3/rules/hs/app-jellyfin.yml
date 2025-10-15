@@ -16,7 +16,7 @@ http:
         - websecure-external
         - websecure-internal
       middlewares:
-        - chain-authelia@file
+        - no-chain@file
         - jellyfin-headers@file
       service: jellyfin-svc
       tls:
