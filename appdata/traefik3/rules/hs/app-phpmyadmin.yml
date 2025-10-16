@@ -1,7 +1,7 @@
 http:
   routers:
     phpmyadmin-rtr:
-      rule: "Host(`phpmyadmin.{{env "DOMAINNAME"}}`)"
+      rule: "Host(`pma.{{env "DOMAINNAME"}}`)"
       entryPoints:
         - websecure-internal
         - websecure-external
