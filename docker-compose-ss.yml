@@ -126,9 +126,7 @@ services:
      # - $CALIBRE_PORT:8081 # Webserver GUI
     volumes:
       - $DOCKERDIR/appdata/calibre:/config:rw
-    #  - /home/medivh/data/library/DOWNLOAD:/data/downloads:rw
-      - /home/medivh/data/library/books:/data/media/books:rw
-   #   - /home/medivh/data/library/UPLOAD:/uploads:rw
+      - /mnt/media/library:/library:rw
     environment:
       - PUID=$PUID
       - PGID=$PGID
@@ -203,7 +201,7 @@ services:
   # Calibre-Web-Automated
   calibre-web-automated:
     container_name: calibre-web-automated
-    image: crocodilestick/calibre-web-automated:latest
+    image: ghcr.io/crocodilestick/calibre-web-automated:dev
     restart: always
     networks:
       - t3_proxy
@@ -229,7 +227,7 @@ services:
       - /mnt/media/library:/calibre-library
       # If you use calibre plugins, you can bind your plugins folder here to have CWA attempt to add them to its workflow (WIP)
       # If you are starting with a fresh install, you also need to copy customize.py.json to the Calibre config volume above, in /path/to/config/folder/.config/calibre/customize.py.json, see the note below for more info
-      - $DOCKERDIR/appdata/calibre-web-automated/plugins:/config/.config/calibre/plugins
+      - $DOCKERDIR/appdata/calibre/.config/calibre/plugins:/config/.config/calibre/plugins
     ports:
       # Change the first number to change the port you want to access the Web UI, not the second
       - $CALIBRE_WEB_AUTOMATED_PORT:8083
