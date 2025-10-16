@@ -478,12 +478,12 @@ services:
       - $DOCKERDIR/appdata/esphome:/config
     labels:
       - "traefik.enable=true"
-      
+
   # Node-RED
   node-red:
     container_name: node-red
     image: nodered/node-red:4.1.0@sha256:da6ac47cce14ed8df7ceddc8a15c8f4c0a41e0836c4d6e68e7a6a82329305a6b
-    restart: always    
+    restart: always
     networks:
       - socket_proxy
       - t3_proxy
@@ -498,7 +498,7 @@ services:
     labels:
       - "traefik.enable=true"
 
-      
+
 ############# MAINTENANCE
 
   # Docker-GC - Automatic Docker Garbage Collection

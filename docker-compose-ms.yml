@@ -244,6 +244,28 @@ services:
     labels:
       - "traefik.enable=true"
 
+  # Readarr
+  readarr:
+    container_name: readarr
+    image: lscr.io/linuxserver/readarr:
+    restart: always
+    networks:
+      - socket_proxy
+      - t3_proxy
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+    volumes:
+      - $DOCKERDIR/appdata/readarr:/config
+      - $DATADIR/library:/library #optional
+      - $DATADIR/downloads:/downloads #optional
+    ports:
+      - $READARR_PORT:8787
+    labels:
+      - "traefik.enable=true"
+
+
   # Jellyfin
   jellyfin:
     container_name: jellyfin
