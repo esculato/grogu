@@ -274,20 +274,3 @@ services:
     labels:
       - "traefik.enable=true"
 
-
-  #### DATABASES
-
-  # phpMyAdmin
-  phpmyadmin:
-    container_name: phpmyadmin
-    image: phpmyadmin:5.2.3@sha256:f842ffda6bbf94a085c2e99fe43dd6db80597cb513d9940887987b2e36a8605d
-    restart: always
-    networks:
-      - t3_proxy
-    ports:
-      - $PHPMYADMIN_PORT:80
-    environment:
-      - PMA_ARBITRARY=1
-    labels:
-      - "traefik.enable=true"
-
