@@ -244,7 +244,7 @@ services:
     labels:
       - "traefik.enable=true"
 
-  # Readarr
+  # LazyLibrarian
   lazylibrarian:
     container_name: lazylibrarian
     image: lscr.io/linuxserver/lazylibrarian:version-4df10815@sha256:7d504b7be4a43e04cb952e2bf93d4f9fde0b05f357d003acd00a66a1edcd67ac
