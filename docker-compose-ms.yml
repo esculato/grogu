@@ -245,9 +245,9 @@ services:
       - "traefik.enable=true"
 
   # Readarr
-  readarr:
-    container_name: readarr
-    image: lscr.io/linuxserver/readarr:0.4.19-nightly@sha256:4f291128d1a5538be73c2a30473d7cdd0820e223dc8b8533b0cbc5659000dcbe
+  lazylibrarian:
+    container_name: lazylibrarian
+    image: lscr.io/linuxserver/lazylibrarian:version-4df10815@sha256:7d504b7be4a43e04cb952e2bf93d4f9fde0b05f357d003acd00a66a1edcd67ac
     restart: always
     networks:
       - socket_proxy
@@ -257,11 +257,11 @@ services:
       - PGID=$PGID
       - TZ=$TZ
     volumes:
-      - $DOCKERDIR/appdata/readarr:/config
-      - $DATADIR/library:/library #optional
-      - $DATADIR/downloads:/downloads #optional
+      - $DOCKERDIR/appdata/lazylibrarian:/config
+      - $DATADIR:/data #optional
+     # - $DATADIR/downloads:/downloads #optional
     ports:
-      - $READARR_PORT:8787
+      - $LAZYLIBRARIAN_PORT:5299
     labels:
       - "traefik.enable=true"
 
