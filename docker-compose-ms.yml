@@ -247,7 +247,7 @@ services:
   # Readarr
   readarr:
     container_name: readarr
-    image: lscr.io/linuxserver/readarr:
+    image: lscr.io/linuxserver/readarr:0.4.19-nightly@sha256:4f291128d1a5538be73c2a30473d7cdd0820e223dc8b8533b0cbc5659000dcbe
     restart: always
     networks:
       - socket_proxy
