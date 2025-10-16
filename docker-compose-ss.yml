@@ -200,6 +200,41 @@ services:
     labels:
       - "traefik.enable=true"
 
+  # Calibre-Web-Automated
+  calibre-web-automated:
+    container_name: calibre-web-automated
+    image: crocodilestick/calibre-web-automated:latest
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+      # Hardcover API Key required for Hardcover as a Metadata Provider, get one here: https://docs.hardcover.app/api/getting-started/
+      # EXPIRES IN 1 YEAR! 16-10-2025! YA BE WARNED!
+      - HARDCOVER_TOKEN=$HARDCOVER_TOKEN
+      # If your library is on a network share (e.g., NFS/SMB), disable WAL to reduce locking issues
+      # Accepts: true/false (default: false)
+      - NETWORK_SHARE_MODE=false
+      # Override the default port (8083) for the web server.
+      # Accepts any valid port number.
+      - CWA_PORT_OVERRIDE=8083
+    volumes:
+      # CW users migrating should stop their existing CW instance, make a copy of the config folder, and bind that here to carry over all of their user settings ect.
+      - $DOCKERDIR/appdata/calibre-web-automated/config:/config 
+      # This is an ingest dir, NOT a library one. Anything added here will be automatically added to your library according to the settings you have configured in CWA Settings page. All files placed here are REMOVED AFTER PROCESSING
+      - $DOCKERDIR/appdata/calibre-web-automated/ingest:/cwa-book-ingest
+      # If you don't have an existing library, CWA will automatically create one at the bind provided here
+      - /mnt/media/library:/calibre-library
+      # If you use calibre plugins, you can bind your plugins folder here to have CWA attempt to add them to its workflow (WIP)
+      # If you are starting with a fresh install, you also need to copy customize.py.json to the Calibre config volume above, in /path/to/config/folder/.config/calibre/customize.py.json, see the note below for more info
+      - $DOCKERDIR/appdata/calibre-web-automated/plugins:/config/.config/calibre/plugins
+    ports:
+      # Change the first number to change the port you want to access the Web UI, not the second
+      - 8083:8083
+    # If you set CWA_PORT_OVERRIDE to a port below 1024, you may need to uncomment the following line:
+    # cap_add:
+    #   - NET_BIND_SERVICE
+    restart: unless-stopped
+
 
   ##### DATABASES
 

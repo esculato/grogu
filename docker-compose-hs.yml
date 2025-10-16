@@ -130,7 +130,7 @@ services:
       - --entrypoints.websecure-internal.forwardedHeaders.trustedIPs=$CLOUDFLARE_IPS,$LOCAL_IPS
       - --log=true
       - --log.filePath=/logs/traefik.log
-      - --log.level=info # (Default: error) DEBUG, INFO, WARN, ERROR, FATAL, PANIC
+      - --log.level=debug # (Default: error) DEBUG, INFO, WARN, ERROR, FATAL, PANIC
       - --accessLog=true
       - --accessLog.filePath=/logs/access.log
       - --accessLog.bufferingSize=100 # Configuring a buffer of 100 lines

@@ -14,5 +14,4 @@ http:
     phpmyadmin-svc:
       loadBalancer:
         servers:
-#          - url: "http://{{env "SERVER_LAN_IP"}}:9000" # Or, "http://portainer:9000" if Portainer is part of t3_proxy network
-          - url: "http://phpmyadmin:8888"
+          - url: "http://phpmyadmin:80"
