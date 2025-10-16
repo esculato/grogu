@@ -141,29 +141,29 @@ services:
     labels:
       - "traefik.enable=true"
 
-  # Calibre-web Ebooks and Management (Plex of Ebooks)
-  calibre-web:
-    container_name: calibre-web
-    image: linuxserver/calibre-web:0.6.25-ls351@sha256:f3d82c71b8a97c09c182503ac14baa4e547f8dbf6f0a83531d81e779f2f51d64
-    restart: always
-    networks:
-      - t3_proxy
-    ports:
-      - $CALIBRE_WEB_PORT:8083
-    environment:
-      - PUID=$PUID
-      - PGID=$PGID
-      - TZ=$TZ
-      - DOCKER_MODS=ghcr.io/linuxserver/mods:universal-calibre
-     # - DOCKER_MODS=linuxserver/calibre-web:calibre
-    volumes:
-      - $DOCKERDIR/appdata/calibre-web:/config
-      - /home/medivh/data/library/books:/books
-    labels:
-      - "traefik.enable=true"
-    #  ## Kobo
-    #  - "traefik.http.middlewares.kobo-sync-headers.headers.customrequestheaders.X-Scheme=https"
-#      - "traefik.http.routers.calibre-web-rtr.middlewares=chain-no-auth@file,kobo-sync-headers" # Google OAuth 2.0
+#  # Calibre-web Ebooks and Management (Plex of Ebooks)
+#  calibre-web:
+#    container_name: calibre-web
+#    image: linuxserver/calibre-web:0.6.25-ls351@sha256:f3d82c71b8a97c09c182503ac14baa4e547f8dbf6f0a83531d81e779f2f51d64
+#    restart: always
+#    networks:
+#      - t3_proxy
+#    ports:
+#      - $CALIBRE_WEB_PORT:8083
+#    environment:
+#      - PUID=$PUID
+#      - PGID=$PGID
+#      - TZ=$TZ
+#      - DOCKER_MODS=ghcr.io/linuxserver/mods:universal-calibre
+#     # - DOCKER_MODS=linuxserver/calibre-web:calibre
+#    volumes:
+#      - $DOCKERDIR/appdata/calibre-web:/config
+#      - /home/medivh/data/library/books:/books
+#    labels:
+#      - "traefik.enable=true"
+#    #  ## Kobo
+#    #  - "traefik.http.middlewares.kobo-sync-headers.headers.customrequestheaders.X-Scheme=https"
+##      - "traefik.http.routers.calibre-web-rtr.middlewares=chain-no-auth@file,kobo-sync-headers" # Google OAuth 2.0
 
   ## Firefly III
   fireflyiii:
@@ -204,6 +204,9 @@ services:
   calibre-web-automated:
     container_name: calibre-web-automated
     image: crocodilestick/calibre-web-automated:latest
+    restart: always
+    networks:
+      - t3_proxy
     environment:
       - PUID=$PUID
       - PGID=$PGID
@@ -229,11 +232,12 @@ services:
       - $DOCKERDIR/appdata/calibre-web-automated/plugins:/config/.config/calibre/plugins
     ports:
       # Change the first number to change the port you want to access the Web UI, not the second
-      - 8083:8083
+      - $CALIBRE_WEB_AUTOMATED_PORT:8083
     # If you set CWA_PORT_OVERRIDE to a port below 1024, you may need to uncomment the following line:
     # cap_add:
     #   - NET_BIND_SERVICE
-    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
 
 
   ##### DATABASES
