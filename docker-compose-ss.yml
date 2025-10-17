@@ -224,7 +224,7 @@ services:
       # This is an ingest dir, NOT a library one. Anything added here will be automatically added to your library according to the settings you have configured in CWA Settings page. All files placed here are REMOVED AFTER PROCESSING
       - $DATADIR/library/ingest:/cwa-book-ingest
       # If you don't have an existing library, CWA will automatically create one at the bind provided here
-      - $DATADIR/library/library:/calibre-library
+      - $DATADIR/library/:/calibre-library
       # If you use calibre plugins, you can bind your plugins folder here to have CWA attempt to add them to its workflow (WIP)
       # If you are starting with a fresh install, you also need to copy customize.py.json to the Calibre config volume above, in /path/to/config/folder/.config/calibre/customize.py.json, see the note below for more info
       - $DOCKERDIR/appdata/calibre/.config/calibre/plugins:/config/.config/calibre/plugins
