@@ -70,7 +70,7 @@
       "internalChecksFilter": "strict",
       "ignoreTests": true,
       "automerge": true,
-      "automergeType": "branch"
+      "automergeType": "branch",
       "pinDigests": true
     },
     {
