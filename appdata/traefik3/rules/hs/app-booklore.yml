@@ -1,0 +1,17 @@
+http:
+  routers:
+    booklore-rtr:
+      rule: "Host(`booklore.{{env "DOMAINNAME"}}`)"
+      entryPoints:
+        - websecure-internal
+        - websecure-external
+      middlewares:
+        - chain-authelia@file
+      service: booklore-svc
+      tls:
+        certResolver: dns-cloudflare
+  services:
+    booklore-svc:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.5.8:6060"
