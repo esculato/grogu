@@ -252,7 +252,7 @@ services:
       - LOG_LEVEL: info
       - BOOK_LANGUAGE='en'
       - USE_BOOK_TITLE=true
-      - APP_ENV=prod
+      - APP_ENV='prod'
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
