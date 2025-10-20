@@ -1,7 +1,7 @@
 http:
   routers:
     authelia-rtr:
-      rule: "Host(`authelia.{{env "DOMAINNAME"}}`)"
+      rule: "Host(`auth.{{env "DOMAINNAME"}}`)"
       entryPoints:
         - websecure-internal
         - websecure-external
