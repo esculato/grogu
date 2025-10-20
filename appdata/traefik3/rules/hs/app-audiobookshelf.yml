@@ -1,0 +1,17 @@
+http:
+  routers:
+    audiobookshelf-rtr:
+      rule: "Host(`abs.{{env "DOMAINNAME"}}`)"
+      entryPoints:
+        - websecure-internal
+        - websecure-external
+      middlewares:
+        - chain-authelia@file
+      service: audiobookshelf-svc
+      tls:
+        certResolver: dns-cloudflare
+  services:
+    audiobookshelf-svc:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.5.8:13378"
