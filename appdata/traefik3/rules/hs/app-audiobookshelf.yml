@@ -1,17 +1,34 @@
 http:
   routers:
     audiobookshelf-rtr:
-      rule: "Host(`abs.{{env "DOMAINNAME"}}`)"
+      rule: "Host(`abs.{{env \"DOMAINNAME\"}}`)"
       entryPoints:
-        - websecure-internal
         - websecure-external
+        - websecure-internal
       middlewares:
-        - chain-authelia@file
+        - audiobookshelf-headers@file
+        # comment this out if you want Plappa to work directly
+        # - chain-authelia@file
       service: audiobookshelf-svc
       tls:
         certResolver: dns-cloudflare
+
   services:
     audiobookshelf-svc:
       loadBalancer:
         servers:
           - url: "http://192.168.5.8:13378"
+
+  middlewares:
+    audiobookshelf-headers:
+      headers:
+        customResponseHeaders:
+          Access-Control-Allow-Origin: "*"
+          Access-Control-Allow-Methods: "GET,OPTIONS,POST"
+          Access-Control-Allow-Headers: "Authorization,Content-Type"
+        sslRedirect: true
+        stsSeconds: 31536000
+        stsIncludeSubdomains: true
+        forceSTSHeader: true
+        browserXssFilter: true
+        contentTypeNosniff: true
