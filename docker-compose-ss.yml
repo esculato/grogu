@@ -288,7 +288,7 @@ services:
       - $DATADIR:/data #optional
      # - $DATADIR/downloads:/downloads #optional
     ports:
-      - $LAZYLIBRARIAN_PORT:5299
+      - 5299:5299
     labels:
       - "traefik.enable=true"
 
