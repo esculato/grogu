@@ -1,0 +1,17 @@
+http:
+  routers:
+    calibre-web-automated-book-downloader-rtr:
+      rule: "Host(`cwa-book-downloader.{{env "DOMAINNAME"}}`)"
+      entryPoints:
+        - websecure-internal
+        - websecure-external
+      middlewares:
+        - chain-authelia@file
+      service: calibre-web-automated-book-downloader-svc
+      tls:
+        certResolver: dns-cloudflare
+  services:
+    calibre-web-automated-book-downloader-svc:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.5.8:8084"
