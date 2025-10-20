@@ -249,7 +249,7 @@ services:
       - 8084:8084
     environment:
       - FLASK_PORT='8084'
-      - LOG_LEVEL: info
+      - LOG_LEVEL='info'
       - BOOK_LANGUAGE='en'
       - USE_BOOK_TITLE=true
       - APP_ENV='prod'
