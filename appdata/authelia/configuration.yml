@@ -27,9 +27,9 @@ totp:
   issuer: kemeel.com
   period: 30
   skew: 1
- 
+
 # AUTHELIA_DUO_PLACEHOLDER
- 
+
 # https://www.authelia.com/reference/guides/passwords/
 authentication_backend:
   password_reset:
@@ -43,7 +43,7 @@ authentication_backend:
       salt_length: 16
       parallelism: 8
       memory: 256 # blocks this much of the RAM
- 
+
 # https://www.authelia.com/overview/authorization/access-control/
 access_control:
   default_policy: deny
@@ -60,7 +60,7 @@ access_control:
         - "*.kemeel.com"
         - "kemeel.com"
       policy: two_factor
- 
+
 # https://www.authelia.com/configuration/session/introduction/
 session:
   name: authelia_session
@@ -73,23 +73,27 @@ session:
       authelia_url: 'https://authelia.kemeel.com'
       default_redirection_url: 'https://kemeel.com'
   # AUTHELIA_REDIS_PLACEHOLDER
- 
+
 # https://www.authelia.com/configuration/security/regulation/
 regulation:
   max_retries: 3
   find_time: 10m
   ban_time: 12h
-   
+
 # https://www.authelia.com/configuration/storage/introduction/
 storage:
   # For local storage, uncomment lines below and comment out mysql. https://docs.authelia.com/configuration/storage/sqlite.html
   # This is good for the beginning. If you have a busy site then switch to other databases.
   local:
    path: /config/db.sqlite3
- 
+
 # https://www.authelia.com/configuration/notifications/introduction/
 notifier:
   disable_startup_check: false
   # For testing purposes, notifications can be sent in a file. Be sure to map the volume in docker-compose.
   filesystem:
     filename: /config/notifications.txt
+
+
+identity_providers:
+  oidc:
