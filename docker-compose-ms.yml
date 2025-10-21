@@ -258,7 +258,7 @@ services:
       - TZ=$TZ
       - JELLYFIN_PublishedServerUrl=https://jellyfin.kemeel.com #optional
     volumes:
-      - $DOCKERDIR/appdata/jellyfin/config/config
+      - $DOCKERDIR/appdata/jellyfin:/config
       - $DATADIR:/data
     #  - /path/to/movies:/data/movies
     devices:
