@@ -1,0 +1,7 @@
+http:
+  middlewares:
+    calibre-logout:
+      redirectRegex:
+        regex: "https://cwa.kemeel.com/login"
+        replacement: "https://cwa.kemeel.com/logout?rd=https%3A%2F%2Fcwa.kemeel.com%2F&rm=GET"
+

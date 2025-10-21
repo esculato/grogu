@@ -7,11 +7,11 @@ http:
         - websecure-external
       middlewares:
         - chain-no-auth@file
-      service: jellyin-svc
+      service: jellyfin-svc
       tls:
         certResolver: dns-cloudflare
   services:
     jellyfin-svc:
       loadBalancer:
         servers:
-          - url: "http://192.168.5.7:8036
+          - url: "http://192.168.5.7:8096"
