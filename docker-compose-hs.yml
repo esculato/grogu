@@ -209,8 +209,8 @@ services:
     # depends_on:
     #  redis:
     #    condition: service_healthy
-    # ports:
-    #   - "$AUTHELIA_PORT:9091"
+    ports:
+      - "$AUTHELIA_PORT:9091"
     volumes:
       - $DOCKERDIR/appdata/authelia:/config
     environment:

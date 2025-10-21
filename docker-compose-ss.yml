@@ -310,7 +310,7 @@ services:
       - $DATADIR/library/audiobooks:/audiobooks
       - $DATADIR/library/podcasts:/podcasts
       - $DOCKERDIR/appdata/audiobookshelf:/config
-      - $DOCKERDIR/appdata/audiobookshelf/metadata:/metadata
+      - $DATADIR/library/metadata:/metadata
     labels:
       - "traefik.enable=true"
 
@@ -343,7 +343,7 @@ services:
       # Example: To expose on host port 7070, set BOOKLORE_PORT=7070 and use "7070:7070".
     volumes:
       - $DOCKERDIR/appdata/booklore:/app/data       # Application data (settings, metadata, cache, etc.). Persist this folder to retain your library state across container restarts.
-      - $DATADIR/library:/books         # Primary book library folder. Mount your collection here so BookLore can access and organize your books.
+      - $DATADIR/library/ebooks:/books         # Primary book library folder. Mount your collection here so BookLore can access and organize your books.
       - $DATADIR/library/bookdrop:/bookdrop   # BookDrop folder. Files placed here are automatically detected and prepared for import.
     labels:
       - "traefik.enable=true"
