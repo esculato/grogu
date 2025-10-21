@@ -8,7 +8,7 @@ http:
       middlewares:
         - kobo-sync-headers 
         - chain-authelia@file
-        - calibre-logout@file
+#        - calibre-logout@file
       service: calibre-web-automated-svc
       tls:
         certResolver: dns-cloudflare
@@ -22,6 +22,7 @@ http:
         customRequestHeaders:
           X-Scheme: "https"
     # ----------------------------------------------------
+
   services:
     calibre-web-automated-svc:
       loadBalancer:
