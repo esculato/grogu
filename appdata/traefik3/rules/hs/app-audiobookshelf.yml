@@ -1,45 +1,15 @@
-#http:
-#  routers:
-#    audiobookshelf-rtr:
-#      rule: "Host(`audiobookshelf.{{env "DOMAINNAME"}}`)"
-#      entryPoints:
-#        - websecure-internal
-#        - websecure-external
-#      middlewares:
-#        - chain-authelia@file
-#      service: audiobookshelf-svc
-#      tls:
-#        certResolver: dns-cloudflare
-#  services:
-#    audiobookshelf-svc:
-#      loadBalancer:
-#        servers:
-#          - url: "http://192.168.5.8:13378"
-
 http:
   routers:
-    audiobookshelf-bypass-rtr:
-      rule: "Host(`audiobookshelf.{{env \"DOMAINNAME\"}}`) && (PathRegexp(`^/socket.io([/?].*)?$`) || PathRegexp(`^/ping([/?].*)?$`) || PathRegexp(`^/webapi([/?].*)?$`) || PathRegexp(`^/login([/?].*)?$`))"
-      entryPoints:
-        - websecure-internal
-        - websecure-external
-      service: audiobookshelf-svc
-      tls:
-        certResolver: dns-cloudflare
-      priority: 20
-
     audiobookshelf-rtr:
-      rule: "Host(`audiobookshelf.{{env \"DOMAINNAME\"}}`)"
+      rule: "Host(`audiobookshelf.{{env "DOMAINNAME"}}`)"
       entryPoints:
         - websecure-internal
         - websecure-external
       middlewares:
-        - chain-authelia@file
+        - chain-no-auth@file
       service: audiobookshelf-svc
       tls:
         certResolver: dns-cloudflare
-      priority: 10
-
   services:
     audiobookshelf-svc:
       loadBalancer:
