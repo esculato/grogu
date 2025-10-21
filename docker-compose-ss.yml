@@ -248,7 +248,7 @@ services:
     ports:
       - 8084:8084
     environment:
-      - FLASK_PORT='8084'
+      - FLASK_PORT=8084
       - LOG_LEVEL='info'
       - BOOK_LANGUAGE='en'
       - USE_BOOK_TITLE=true
@@ -264,13 +264,13 @@ services:
       # This is where the books will be downloaded to, usually it would be
       # the same as whatever you gave in "calibre-web-automated"
      # - /tmp/data/calibre-web/ingest:/cwa-book-ingest
-      - $DATADIR/library/ingest:/cwa-book-ingest
+      - $DATADIR/library/ebooks/ingest:/cwa-book-ingest
       # This is the location of CWA's app.db, which contains authentication
       # details. Comment out to disable authentication
       #- /cwa/config/path/app.db:/auth/app.db:ro
     labels:
       - "traefik.enable=true"
-      
+
   # LazyLibrarian
   lazylibrarian:
     container_name: lazylibrarian
