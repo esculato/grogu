@@ -1,0 +1,17 @@
+http:
+  routers:
+    filebrowser-rtr:
+      rule: "Host(`filebrowser.{{env "DOMAINNAME"}}`)"
+      entryPoints:
+        - websecure-internal
+        - websecure-external
+      middlewares:
+        - chain-authelia@file
+      service: filebrowser-svc
+      tls:
+        certResolver: dns-cloudflare
+  services:
+    filebrowser-svc:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.5.7:8070"
