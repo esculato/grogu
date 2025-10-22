@@ -336,7 +336,7 @@ services:
       - FORCE_DISABLE_OIDC=false                            # Set to 'true' to force-disable OIDC and allow internal login, regardless of UI config
     depends_on:
       mariadb:
-        condition: service_healthy
+        #condition: service_healthy
     ports:
       - "6060:6060" # HostPort:ContainerPort → Keep both numbers the same, and also ensure the container port matches BOOKLORE_PORT, no exceptions. 
       # All three (host port, container port, BOOKLORE_PORT) must be identical for BookLore to function properly.
