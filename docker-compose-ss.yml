@@ -201,7 +201,7 @@ services:
   # Calibre-Web-Automated
   calibre-web-automated:
     container_name: calibre-web-automated
-    image: ghcr.io/crocodilestick/calibre-web-automated:v3.1.4
+    image: ghcr.io/crocodilestick/calibre-web-automated:dev@sha256:6bdfc98e643c43f6d87e2b05b35ebdf62940060444314818e5d6538869887493
     restart: unless-stopped
     networks:
       - t3_proxy
