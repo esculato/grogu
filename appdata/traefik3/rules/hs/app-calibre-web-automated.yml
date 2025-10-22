@@ -6,21 +6,21 @@ http:
         - websecure-internal
         - websecure-external
       middlewares:
-        - kobo-sync-headers
+     #   - kobo-sync-headers
         - chain-authelia@file
-        - calibre-logout@file
+   #     - calibre-logout@file
       service: calibre-web-automated-svc
       tls:
         certResolver: dns-cloudflare
 
-  middlewares:
+#  middlewares:
     # ----------------------------------------------------
     # DEFINE THE KOBO SYNC HEADERS MIDDLEWARE HERE
     # ----------------------------------------------------
-    kobo-sync-headers:
-      headers:
-        customRequestHeaders:
-          X-Scheme: "https"
+ #   kobo-sync-headers:
+#      headers:
+  #      customRequestHeaders:
+  #        X-Scheme: "https"
     # ----------------------------------------------------
 
   services:
