@@ -274,3 +274,25 @@ services:
     labels:
       - "traefik.enable=true"
 
+  # File Browser
+  filebrowser:
+    container_name: filebrowser
+    image: filebrowser/filebrowser:v2.44.2@sha256:b79117d39ac0d6f5112ba7ea53aba06c25d95d334938e2f52521ec9aaf459c30
+    restart: always
+    networks:
+      - socket_proxy
+      - t3_proxy
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+    ports:
+      - 8080:80
+    volumes:
+      - $DATADIR:/srv
+      - $DOCKERDIR/appdata/filebrowser/database:/database  
+      - $DOCKERDIR/appdata/filebrowser/config:/config
+    labels:
+      - "traefik.enable=true"
+
+
