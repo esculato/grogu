@@ -7,7 +7,7 @@ http:
         - websecure-external
       middlewares:
         - kobo-sync-headers
-        - chain-authelia@file
+        - chain-no-auth@file
    #    - calibre-logout@file
       service: calibre-web-automated-svc
       tls:
