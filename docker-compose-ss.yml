@@ -26,7 +26,7 @@ services:
     image: linuxserver/socket-proxy:3.2.6-r0-ls57@sha256:7a462f90c5bc04c262e756310fcf564e670fa2ce8496fe8c3cd9945147b80ee3
     security_opt:
       - no-new-privileges:true
-    restart: always
+    restart: unless-stopped
     profiles: ["core", "all"]
     networks:
       socket_proxy:
@@ -81,7 +81,7 @@ services:
   dozzle-agent:
     container_name: dozzle_agent
     image: amir20/dozzle:v8.14.5@sha256:b9071a733bb53d612cc27e997ec017bf14b0c54e809da2e1a403f7a1aaf83c57
-    restart: always
+    restart: unless-stopped
     command: agent
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -93,8 +93,9 @@ services:
 
   syncthing:
     container_name: syncthing
-    image: linuxserver/syncthing:v2.0.10-ls198@sha256:e5a6e179dab7452cd93768965b5c71a840448e1291b1f781426429bbb0a128c2
-    hostname: syncthing #optional
+    image: linuxserver/syncthing:2.0.10@sha256:a3f2eb7c61cae5d19605b726a9cd5f8a7b602f529df504edce99b46f42c91647
+    hostname: syncthing-grogu #optional
+    restart: unless-stopped
     environment:
       - PUID=$PUID
       - PGID=$PGID
@@ -108,7 +109,6 @@ services:
       - 22000:22000/tcp
       - 22000:22000/udp
       - 21027:21027/udp
-    restart: unless-stopped
     labels:
       - "traefik.enable=true"
 
@@ -118,7 +118,7 @@ services:
   calibre:
     container_name: calibre
     image: linuxserver/calibre:v8.12.0-ls362@sha256:4edb4c47f36bc8e520dfaa40548fa94fd67e1686ff667271a04a515710d259a4
-    restart: always
+    #restart: always
     networks:
       - t3_proxy
     ports:
@@ -165,7 +165,7 @@ services:
   fireflyiii:
     container_name: fireflyiii
     image: fireflyiii/core:version-6.4.2@sha256:730b9cd720af4f6c67140354bcc571d189281cf46dac3d917d2c238a92244c7d
-    restart: always
+   # restart: always
     volumes:
       - $DOCKERDIR/appdata/firefly_iii:/var/www/html/storage/upload
       - /etc/timezone:/etc/timezone:ro
@@ -181,7 +181,7 @@ services:
   fireflyiii_importer:
     container_name: fireflyiii_importer
     image: fireflyiii/data-importer:version-1.9.0@sha256:6c714c6170b593e00b5eb918e45b36d56032d473a5aa2f8dfc9fa36d0ef29fed
-    restart: always
+    #restart: always
     networks:
       - t3_proxy
     depends_on:
@@ -196,7 +196,7 @@ services:
   calibre-web-automated:
     container_name: calibre-web-automated
     image: ghcr.io/crocodilestick/calibre-web-automated:v3.1.4@sha256:577e846f104fd21453ef306eefb4a95dd95b3b9ddd2463a150944494284da0fd
-    restart: unless-stopped
+    #restart: unless-stopped
     networks:
       - t3_proxy
     environment:
@@ -235,7 +235,7 @@ services:
   calibre-web-automated-book-downloader:
     container_name: calibre-web-automated-book-downloader
     image: ghcr.io/calibrain/calibre-web-automated-book-downloader:latest
-    restart: unless-stopped
+    #restart: unless-stopped
     networks:
       - socket_proxy
       - t3_proxy
@@ -269,7 +269,7 @@ services:
   lazylibrarian:
     container_name: lazylibrarian
     image: lscr.io/linuxserver/lazylibrarian:version-4df10815@sha256:7d504b7be4a43e04cb952e2bf93d4f9fde0b05f357d003acd00a66a1edcd67ac
-    restart: unless-stopped
+    #restart: unless-stopped
     networks:
       - socket_proxy
       - t3_proxy
@@ -290,7 +290,7 @@ services:
   audiobookshelf:
     container_name: audiobookshelf  
     image: ghcr.io/advplyr/audiobookshelf:latest
-    restart: unless-stopped
+    #restart: unless-stopped
     networks:
       - socket_proxy
       - t3_proxy
@@ -314,7 +314,7 @@ services:
     image: booklore/booklore:latest
     # Or the GHCR image:
     # image: ghcr.io/booklore-app/booklore:latest
-    restart: unless-stopped
+    #restart: unless-stopped
     environment:
     #  - USER_ID=0  # Modify this if the volume's ownership is not root
   #    - GROUP_ID=0 # Modify this if the volume's ownership is not root
@@ -348,7 +348,7 @@ services:
   mariadb:
     container_name: mariadb
     image: linuxserver/mariadb:11.4.8@sha256:9482071902026313b72da17eb5d0c73d08315e0b276a77f327adf8950e782635
-    restart: always 
+    restart: unless-stopped 
     networks:
       - t3_proxy
     env_file: .env.firefly.db
@@ -368,6 +368,7 @@ services:
   phpmyadmin:
     container_name: phpmyadmin
     image: lscr.io/linuxserver/phpmyadmin:latest
+  # restart: unless-stopped
     environment:
       - PUID=$PUID
       - PGID=$PGID
@@ -378,4 +379,3 @@ services:
       - $DOCKERDIR/appdata/phpmyadmin/config:/config
     ports:
       - 80:80
-    restart: unless-stopped
