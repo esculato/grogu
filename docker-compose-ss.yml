@@ -198,7 +198,8 @@ services:
     image: fireflyiii/data-importer:version-1.9.0@sha256:6c714c6170b593e00b5eb918e45b36d56032d473a5aa2f8dfc9fa36d0ef29fed
     restart: unless-stopped
     networks:
-      - default
+      - socket_proxy
+      - grogu_ss
      # - t3_proxy
     depends_on:
       - fireflyiii
@@ -291,7 +292,7 @@ services:
     restart: unless-stopped
     networks:
       - socket_proxy
-      - default
+      - grogu_ss
      # - t3_proxy
     environment:
       - PUID=$PUID
