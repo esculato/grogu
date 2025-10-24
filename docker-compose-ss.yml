@@ -136,8 +136,6 @@ services:
       # - GUAC_PASS=900150983cd24fb0d6963f7d28e17f72 #Guacamole password optional
 #      - UMASK_SET=002 #optional
       # - CLI_ARGS= #optional
-    labels:
-      - "traefik.enable=true"
 
 #  # Calibre-web Ebooks and Management (Plex of Ebooks)
 #  calibre-web:
@@ -166,7 +164,7 @@ services:
   ## Firefly III
   fireflyiii:
     container_name: fireflyiii
-    image: fireflyiii/core:version-6.4.0@sha256:4ec511c1792290421d8d0803c604d2d2a487b7d0b334547d32cfa23097d9e455
+    image: fireflyiii/core:version-6.4.2@sha256:730b9cd720af4f6c67140354bcc571d189281cf46dac3d917d2c238a92244c7d
     restart: always
     volumes:
       - $DOCKERDIR/appdata/firefly_iii:/var/www/html/storage/upload
@@ -178,8 +176,6 @@ services:
       - $FIREFLY_PORT:8080
     depends_on:
       - mariadb
-    labels:
-      - "traefik.enable=true"
 
   ## Firefly III - Importer
   fireflyiii_importer:
