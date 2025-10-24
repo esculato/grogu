@@ -184,20 +184,18 @@ services:
   ## Firefly III - Importer
   fireflyiii_importer:
     container_name: fireflyiii_importer
-    image: fireflyiii/data-importer:version-1.8.2@sha256:e43d8abbb86e09b90f4cd8ecdc3d80024778841bf579969aa219bf942c0ea9cc
+    image: fireflyiii/data-importer:version-1.9.0@sha256:6c714c6170b593e00b5eb918e45b36d56032d473a5aa2f8dfc9fa36d0ef29fed
+    restart: always
     networks:
       - t3_proxy
-    restart: always
-    ports:
-      - $FIREFLY_IMPORTER_PORT:8080
     depends_on:
       - fireflyiii
     env_file: .env.firefly.importer
 #    volumes:
 #      - $DOCKERDIR/appdata/firefly_iii_importer:/import
-    labels:
-      - "traefik.enable=true"
-
+    ports:
+      - $FIREFLY_IMPORTER_PORT:8080
+      
   # Calibre-Web-Automated
   calibre-web-automated:
     container_name: calibre-web-automated
