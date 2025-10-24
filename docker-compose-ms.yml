@@ -281,7 +281,7 @@ services:
     restart: always
     networks:
       - socket_proxy
-      - t3_proxy
+   #   - t3_proxy
     environment:
       - PUID=$PUID
       - PGID=$PGID
@@ -289,6 +289,6 @@ services:
     ports:
       - 8070:80
     volumes:
-      - $DATADIR:/srv
+      - /mnt:/srv
       - $DOCKERDIR/appdata/filebrowser/database:/database  
       - $DOCKERDIR/appdata/filebrowser/config:/config
