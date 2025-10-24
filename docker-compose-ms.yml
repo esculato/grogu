@@ -35,8 +35,6 @@ services:
       socket_proxy:
         ipv4_address: 192.168.14.254 # You can specify a static IP
     privileged: false # true for VM. False (default) for unprivileged LXC container.
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
     read_only: true
     tmpfs:
       - /run
@@ -59,7 +57,9 @@ services:
       - IMAGES=1 # Portainer - INFO=1 # Portainer - NETWORKS=1 # Portainer - NODES=0 - PLUGINS=0 - SERVICES=1 # 
       - Portainer - SESSION=0 - SWARM=0 - SYSTEM=0 - TASKS=1 # Portainer - VOLUMES=1 # Portainer - 
       - DISABLE_IPV6=0 #optional
-
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      
   agent:
     container_name: portainer_agent
     image: portainer/agent:2.35.0@sha256:ba05ad0bbd22102f7fadb3168913a0db740ee0f5d042833d35eefb38926305ae
@@ -70,12 +70,12 @@ services:
     networks:
       - default
       - socket_proxy
-    ports:
-      - $PORTAINER_AGENT_PORT:9001     # Agent API
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro # Use Docker Socket Proxy instead for improved security
       - /var/lib/docker/volumes:/var/lib/docker/volumes
       - /:/host
+    ports:
+      - $PORTAINER_AGENT_PORT:9001     # Agent API
 
   dozzle-agent:
     container_name: dozzle_agent
@@ -101,18 +101,11 @@ services:
       t3_proxy:
         ipv4_address: 192.168.15.169
       socket_proxy:
-    ports:
-      - $TRANSMISSION_PORT:9091
     cap_add:
       - NET_ADMIN
     devices:
       # Explicitly pass the TUN device from the LXC to the Docker container
       - /dev/net/tun:/dev/net/tun
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - $DOCKERDIR/appdata/transmission-vpn/data:/data
-      - $DOCKERDIR/appdata/transmission-vpn/config:/config
-      - $DATADIR/downloads:/data/downloads
     environment:
       - PUID=$PUID
       - PGID=$PGID
@@ -148,9 +141,14 @@ services:
       - DISABLE_PORT_UPDATER="true"
       - CREATE_TUN_DEVICE="false"
 #      TRANSMISSION_WEB_HOME: '/'
-    labels:
-      - "traefik.enable=true"
-
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - $DOCKERDIR/appdata/transmission-vpn/data:/data
+      - $DOCKERDIR/appdata/transmission-vpn/config:/config
+      - $DATADIR/downloads:/data/downloads
+    ports:
+      - $TRANSMISSION_PORT:9091
+      
   # Jackett
   jackett:
     container_name: jackett
@@ -159,24 +157,22 @@ services:
     networks:
       t3_proxy:
         ipv4_address: 192.168.15.170
-    ports:
-      - $JACKETT_PORT:9117
     depends_on:
       - transmission-vpn
     #network_mode: container:transmission-openvpn
     #security_opt:
     #  - no-new-privileges:true
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
     volumes:
       - $DOCKERDIR/appdata/jackett:/config
       - $DATADIR/downloads:/downloads
       - /etc/localtime:/etc/localtime:ro
       - $DOCKERDIR/shared:/shared
-    environment:
-      - PUID=$PUID
-      - PGID=$PGID
-      - TZ=$TZ
-    labels:
-      - "traefik.enable=true"
+    ports:
+      - $JACKETT_PORT:9117
 
   # Radarr
   radarr:
@@ -197,8 +193,6 @@ services:
       - $DATADIR:/data
     ports:
       - $RADARR_PORT:7878
-    labels:
-      - "traefik.enable=true"
 
   # Sonarr
   sonarr:
@@ -219,8 +213,6 @@ services:
       - $DATADIR:/data
     ports:
       - $SONARR_PORT:8989
-    labels:
-      - "traefik.enable=true"
 
   # Bazarr
   bazarr:
@@ -241,8 +233,6 @@ services:
       - $DATADIR:/data
     ports:
       - $BAZARR_PORT:6767
-    labels:
-      - "traefik.enable=true"
 
   # Jellyfin
   jellyfin:
@@ -271,8 +261,6 @@ services:
       - 8920:8920 #optional
       - 7359:7359/udp #optional
       - 1900:1900/udp #optional
-    labels:
-      - "traefik.enable=true"
 
   # File Browser
   filebrowser:
@@ -286,9 +274,9 @@ services:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
-    ports:
-      - 8070:80
     volumes:
       - /mnt:/srv
       - $DOCKERDIR/appdata/filebrowser/database:/database  
       - $DOCKERDIR/appdata/filebrowser/config:/config
+    ports:
+      - 8070:80
