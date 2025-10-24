@@ -292,7 +292,3 @@ services:
       - $DATADIR:/srv
       - $DOCKERDIR/appdata/filebrowser/database:/database  
       - $DOCKERDIR/appdata/filebrowser/config:/config
-    labels:
-      - "traefik.enable=true"
-
-
