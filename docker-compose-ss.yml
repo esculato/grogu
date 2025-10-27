@@ -348,7 +348,7 @@ services:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
-      - DATABASE_URL=jdbc:mariadb://mariadb:3306/booklore   # Only modify this if you're familiar with JDBC and your database setup
+      - DATABASE_URL=jdbc:mariadb://192.168.5.8:3306/booklore   # Only modify this if you're familiar with JDBC and your database setup
       - DATABASE_USERNAME=booklore                          # Must match MYSQL_USER defined in the mariadb container
       - DATABASE_PASSWORD=verysecret           # Use a strong password; must match MYSQL_PASSWORD defined in the mariadb container 
       - BOOKLORE_PORT=6060                                  # Port BookLore listens on inside the container; must match container port below
@@ -365,8 +365,6 @@ services:
       - $DOCKERDIR/appdata/booklore:/app/data       # Application data (settings, metadata, cache, etc.). Persist this folder to retain your library state across container restarts.
       - $DATADIR/library/ebooks:/books         # Primary book library folder. Mount your collection here so BookLore can access and organize your books.
       - $DATADIR/library/bookdrop:/bookdrop   # BookDrop folder. Files placed here are automatically detected and prepared for import.
-    labels:
-      - "traefik.enable=true"
     
   ##### DATABASES
 
@@ -384,9 +382,9 @@ services:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
-      - MYSQL_ROOT_PASSWORD=secret
-      - MYSQL_USER=booklore
-      - MYSQL_PASSWORD=verysecret
+      - MYSQL_ROOT_PASSWORD='secret'
+      - MYSQL_USER='booklore'
+      - MYSQL_PASSWORD='verysecret'
     volumes:
       - $DOCKERDIR/appdata/mariadb/config:/config
     ports:
