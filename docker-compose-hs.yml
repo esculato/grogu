@@ -261,7 +261,7 @@ services:
 
   # CrowdSec - Open-source & Collaborative IPS
   crowdsec:
-    image: crowdsecurity/crowdsec:v1.7.0@sha256:26841bec239f53c74f5ac35ca89166b0566c511a449c4852d3187c8a62faf4ed
+    image: crowdsecurity/crowdsec:v1.7.2@sha256:87719def720c44f66651ef62cafc6d926ffbef9758e295926242f6446457fea1
     container_name: crowdsec
     security_opt:
       - no-new-privileges:true
@@ -367,7 +367,7 @@ services:
   # Home Assistent Container
   homeassistant:
     container_name: homeassistant
-    image: ghcr.io/home-assistant/home-assistant:2025.10.3@sha256:22376034bddcb952cfd3f3b4101b932b5a561f050acccd16ef879e88c7ff8233
+    image: ghcr.io/home-assistant/home-assistant:2025.10.4@sha256:449140e073d8d7814098cd62dfdbb326ad043f51a3c4d4721889369f46751d52
     volumes:
       - $DOCKERDIR/appdata/homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
@@ -461,7 +461,7 @@ services:
   # ESPHome
   esphome:
     container_name: esphome
-    image: esphome/esphome:2025.10.2@sha256:59301c5e3cf1b2cb89d230b1daf124def5724eca1db1870719848421050f53de
+    image: esphome/esphome:2025.10.3@sha256:7cc2583ae4deec9c8839011f06c0bcbdc8f04c79f0d49e9a121b9401c0b00d02
     restart: always
     networks:
       - t3_proxy
