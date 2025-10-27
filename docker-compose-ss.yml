@@ -384,7 +384,7 @@ services:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
-      - MYSQL_ROOT_PASSWORD=ROOT_ACCESS_PASSWORD
+      - MYSQL_ROOT_PASSWORD='blaataap'
     volumes:
       - $DOCKERDIR/appdata/mariadb/config:/config
     ports:
