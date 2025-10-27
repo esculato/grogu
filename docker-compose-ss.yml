@@ -379,18 +379,16 @@ services:
       - socket_proxy
       - grogu_ss
     #  - t3_proxy
-    env_file: .env.firefly.db
+    #env_file: .env.firefly.db
     environment:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
-      - MYSQL_ROOT_PASSWORD='blaataap'
+      - MYSQL_ROOT_PASSWORD=secret
     volumes:
       - $DOCKERDIR/appdata/mariadb/config:/config
     ports:
       - "$MARIADB_PORT:3306"
-    labels:
-      - "traefik.enable=true"
 
   # PHPMyAdmin
   phpmyadmin:
