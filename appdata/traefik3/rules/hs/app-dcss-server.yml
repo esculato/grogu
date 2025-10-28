@@ -1,0 +1,17 @@
+http:
+  routers:
+    dcss-server-rtr:
+      rule: "Host(`crawl.{{env "DOMAINNAME"}}`)"
+      entryPoints:
+        - websecure-internal
+        - websecure-external
+      middlewares:
+        - chain-no-auth@file
+      service: dcss-server-svc
+      tls:
+        certResolver: dns-cloudflare
+  services:
+    dcss-server--svc:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.5.8:8051"
