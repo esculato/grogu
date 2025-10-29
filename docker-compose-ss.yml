@@ -322,6 +322,7 @@ services:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
+      - REFRESH_TOKEN_EXPIRY=2592000 #30days
     volumes:
       - $DATADIR/library/audiobooks:/audiobooks
       - $DATADIR/library/podcasts:/podcasts
