@@ -404,8 +404,8 @@ services:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
-      - PMA_ARBITRARY=1 #optional
-      - PMA_ABSOLUTE_URI=https://phpmyadmin.kemeel.com #optional
+    #  - PMA_ARBITRARY=1 #optional
+   #   - PMA_ABSOLUTE_URI=https://phpmyadmin.kemeel.com #optional
     volumes:
       - $DOCKERDIR/appdata/phpmyadmin/config:/config
     ports:
