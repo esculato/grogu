@@ -560,7 +560,6 @@ services:
   thelounge:
     container_name: thelounge
     image: lscr.io/linuxserver/thelounge:4.4.3@sha256:c91b2328817fbbfd18afeeb9f5bc4fe6b65330e7226fd5b2cbfa42c4a1ae974e
-    container_name: thelounge
     restart: always
     networks:
       - socket_proxy
@@ -572,4 +571,4 @@ services:
       - PGID=$PGID
       - TZ=$TZ
     volumes:
-      - $DOCKERDIR/appdata/thelounge:/config
+      - $DOCKERDIR/appdata/thelounge:/var/opt/thelounge
