@@ -14,4 +14,4 @@ http:
     phpmyadmin-svc:
       loadBalancer:
         servers:
-          - url: "http://phpmyadmin:80"
+          - url: "http://phpmyadmin:8088"
