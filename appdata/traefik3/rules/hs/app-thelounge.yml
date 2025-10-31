@@ -1,0 +1,17 @@
+http:
+  routers:
+    thelounge-rtr:
+      rule: "Host(`irc.{{env "DOMAINNAME"}}`)"
+      entryPoints:
+        - websecure-internal
+        - websecure-external
+      middlewares:
+        - chain-authelia@file
+      service: thelounge-svc
+      tls:
+        certResolver: dns-cloudflare
+  services:
+    thelounge-svc:
+      loadBalancer:
+        servers:
+          - url: "http://thelounge:9000"
