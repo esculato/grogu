@@ -377,19 +377,18 @@ services:
     networks:
       - socket_proxy
       - grogu_ss
-    #  - t3_proxy
-    #env_file: .env.firefly.db
+    ports:
+      - $MARIADB_PORT:3306
+    env_file: .env.firefly.db
     environment:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
       - MYSQL_ROOT_PASSWORD='secret'
-      - MYSQL_USER='booklore'
-      - MYSQL_PASSWORD='verysecret'
+#      - MYSQL_USER='booklore'
+#      - MYSQL_PASSWORD='verysecret'
     volumes:
       - $DOCKERDIR/appdata/mariadb/config:/config
-    ports:
-      - "$MARIADB_PORT:3306"
 
   # PHPMyAdmin
   phpmyadmin:
@@ -399,7 +398,6 @@ services:
     networks:
       - socket_proxy
       - grogu_ss
-    #  - t3_proxy
     environment:
       - PUID=$PUID
       - PGID=$PGID
@@ -448,3 +446,42 @@ services:
       - USE_DWEM
       - USE_CNC_CONFIG
       - GH_TOKEN
+
+  ### Wallabag
+  wallabag:
+    container_name: wallabag
+    image: wallabag/wallabag:2.6.14@sha256:4a527e027e0d59e87c14225ef11e005af3d4890374202ad319ce5e63dfc66709
+    restart: unless-stopped
+    networks:
+      - socket_proxy
+      - grogu_ss
+    ports:
+      - "80"
+    environment:
+      - TZ=$TZ
+      - MYSQL_ROOT_PASSWORD=00482a
+      - SYMFONY__ENV__DATABASE_DRIVER=pdo_mysql
+      - SYMFONY__ENV__DATABASE_HOST=mariadb
+      - SYMFONY__ENV__DATABASE_PORT=3306
+      - SYMFONY__ENV__DATABASE_NAME=wallabag
+      - SYMFONY__ENV__DATABASE_USER=wallabag
+      - SYMFONY__ENV__DATABASE_PASSWORD=wallapas
+      - SYMFONY__ENV__DATABASE_CHARSET=utf8mb4
+      - SYMFONY__ENV__DATABASE_TABLE_PREFIX="wallabag_"
+      - SYMFONY__ENV__MAILER_DSN=smtp://127.0.0.1
+      - SYMFONY__ENV__FROM_EMAIL=wallabag@example.com
+      - SYMFONY__ENV__DOMAIN_NAME=https://wallabag.kemeel.com
+      - SYMFONY__ENV__SERVER_NAME="Your wallabag instance"
+    volumes:
+      - $DOCKERDIR/appdata/wallabag/images:/var/www/wallabag/web/assets/images
+    depends_on:
+      - mariadb
+      - redis
+
+  redis:
+    image: redis:alpine
+    restart: unless-stopped    
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 20s
+      timeout: 3s

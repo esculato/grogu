@@ -1,0 +1,17 @@
+http:
+  routers:
+    wallabag-rtr:
+      rule: "Host(`wallabag.{{env "DOMAINNAME"}}`)"
+      entryPoints:
+        - websecure-internal
+        - websecure-external
+      middlewares:
+        - chain-authelia@file
+      service: wallabag-svc
+      tls:
+        certResolver: dns-cloudflare
+  services:
+    wallabag-svc:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.5.8:80"
