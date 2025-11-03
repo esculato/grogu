@@ -379,9 +379,9 @@ services:
     container_name: mariadb
     image: linuxserver/mariadb:11.4.8@sha256:195b6be2d3e2dd0744a54ba2542a136c572b3375bc7f019e37a505da5da3022b
     restart: unless-stopped 
-#    networks:
-#      - socket_proxy
-#      - grogu_ss
+    networks:
+      - socket_proxy
+      - grogu_ss
     ports:
       - $MARIADB_PORT:3306
    # env_file: .env.firefly.db
@@ -402,15 +402,15 @@ services:
     container_name: phpmyadmin
     image: lscr.io/linuxserver/phpmyadmin:latest
     restart: unless-stopped
-#    networks:
-#      - socket_proxy
-#      - grogu_ss
+    networks:
+      - socket_proxy
+      - grogu_ss
     environment:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
-      - PMA_HOST=mariadb
-      - PMA_ARBITRARY=0
+    #  - PMA_HOST=mariadb
+      - PMA_ARBITRARY=1
     # - PMA_ABSOLUTE_URI=https://phpmyadmin.kemeel.com #optional
     #  - PMA_HOSTS=firefly,wallabag,booklore
     volumes:
