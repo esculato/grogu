@@ -395,7 +395,7 @@ services:
     secrets:
        - mysql_root_password
     volumes:
-      - $DOCKERDIR/appdata/mariadb/config:/config
+      - $DOCKERDIR/appdata/mariadb:/config
 
   # PHPMyAdmin
   phpmyadmin:
@@ -403,17 +403,18 @@ services:
     image: lscr.io/linuxserver/phpmyadmin:latest
     restart: unless-stopped
     networks:
-      - socket_proxy
+#      - socket_proxy
       - grogu_ss
     environment:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
-      - PMA_ARBITRARY=1
+      - PMA_HOST=mariadb
+      - PMA_ARBITRARY=0
     # - PMA_ABSOLUTE_URI=https://phpmyadmin.kemeel.com #optional
-      - PMA_HOSTS=firefly,wallabag,booklore
+    #  - PMA_HOSTS=firefly,wallabag,booklore
     volumes:
-      - $DOCKERDIR/appdata/phpmyadmin/config:/config
+      - $DOCKERDIR/appdata/phpmyadmin:/config
     ports:
       - $PHPMYADMIN_PORT:80
     depends_on:
