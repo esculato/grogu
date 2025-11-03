@@ -421,43 +421,43 @@ services:
       - mariadb
 
   # DCSS Server
-  dcss-server:
-    container_name: dcss-server
-    image: refracta/dcss-server:latest
-    restart: unless-stopped
-    networks:
-      - socket_proxy
-      - grogu_ss
-    tty: true
-    stdin_open: true
-    build:
-      context: /home/medivh/docker/appdata/dcss-server
-      dockerfile: server/Dockerfile
-      args:
-        BRANCH: stable
-    ports:
-      - "12222:22"
-      - "8022:8022"
-      - "8051:8080"
-      - "8052:8081"
-      - "8053:8082"
-    volumes:
-      - $DOCKERDIR/appdata/dcss-server/server/data/logs:/home/crawl-dev/logs
-      - $DOCKERDIR/appdata/dcss-server/server/data/config:/home/crawl-dev/dgamelaunch-config
-      - $DOCKERDIR/appdata/dcss-server/server/data/versionsdb:/versionsdb
-      - $DOCKERDIR/appdata/dcss-server/server/data/crawl-master:/crawl-master
-      - $DOCKERDIR/appdata/dcss-server/server/data/dgldir:/dgldir
-      - $DOCKERDIR/appdata/dcss-server/server/data/games:/usr/games
-      - $DOCKERDIR/appdata/dcss-server/server/data/ccache:/root/.cache/ccache
-      - $DOCKERDIR/appdata/dcss-server/server/data/ssh-keys:/etc/ssh/keys
-      - $DOCKERDIR/appdata/dcss-server/server/data:/data
-    environment:
-      - CMD
-      - USE_REVERSE_PROXY
-      - USE_DWEM
-      - USE_CNC_CONFIG
-      - GH_TOKEN
-
+#  dcss-server:
+#    container_name: dcss-server
+#    image: refracta/dcss-server:latest
+#    restart: unless-stopped
+#    networks:
+#      - socket_proxy
+#      - grogu_ss
+#    tty: true
+#    stdin_open: true
+#    build:
+#      context: /home/medivh/docker/appdata/dcss-server
+#      dockerfile: server/Dockerfile
+#      args:
+#        BRANCH: stable
+#    ports:
+#      - "12222:22"
+#      - "8022:8022"
+#      - "8051:8080"
+#      - "8052:8081"
+#      - "8053:8082"
+#    volumes:
+#      - $DOCKERDIR/appdata/dcss-server/server/data/logs:/home/crawl-dev/logs
+#      - $DOCKERDIR/appdata/dcss-server/server/data/config:/home/crawl-dev/dgamelaunch-config
+#      - $DOCKERDIR/appdata/dcss-server/server/data/versionsdb:/versionsdb
+#      - $DOCKERDIR/appdata/dcss-server/server/data/crawl-master:/crawl-master
+#      - $DOCKERDIR/appdata/dcss-server/server/data/dgldir:/dgldir
+#      - $DOCKERDIR/appdata/dcss-server/server/data/games:/usr/games
+#      - $DOCKERDIR/appdata/dcss-server/server/data/ccache:/root/.cache/ccache
+#      - $DOCKERDIR/appdata/dcss-server/server/data/ssh-keys:/etc/ssh/keys
+#      - $DOCKERDIR/appdata/dcss-server/server/data:/data
+#    environment:
+#      - CMD
+#      - USE_REVERSE_PROXY
+#      - USE_DWEM
+#      - USE_CNC_CONFIG
+#      - GH_TOKEN
+#
   ### Wallabag
   wallabag:
     container_name: wallabag
