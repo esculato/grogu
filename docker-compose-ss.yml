@@ -381,7 +381,7 @@ services:
     restart: unless-stopped 
     networks:
       - socket_proxy
-      - grogu_ss
+      - t3_proxy
     ports:
       - $MARIADB_PORT:3306
    # env_file: .env.firefly.db
@@ -404,7 +404,7 @@ services:
     restart: unless-stopped
     networks:
       - socket_proxy
-      - grogu_ss
+      - t3_proxy
     environment:
       - PUID=$PUID
       - PGID=$PGID
@@ -413,8 +413,8 @@ services:
       - PMA_ARBITRARY=1
     # - PMA_ABSOLUTE_URI=https://phpmyadmin.kemeel.com #optional
     #  - PMA_HOSTS=firefly,wallabag,booklore
-    volumes:
-      - $DOCKERDIR/appdata/phpmyadmin:/config
+  #  volumes:
+  #   - $DOCKERDIR/appdata/phpmyadmin:/config
     ports:
       - $PHPMYADMIN_PORT:80
     depends_on:
