@@ -381,7 +381,7 @@ services:
     restart: unless-stopped 
     networks:
       - socket_proxy
-      - t3_proxy
+      - grogu_ss
     ports:
       - $MARIADB_PORT:3306
    # env_file: .env.firefly.db
@@ -404,13 +404,13 @@ services:
     restart: unless-stopped
     networks:
       - socket_proxy
-      - t3_proxy
+      - grogu_ss
     environment:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
-    #  - PMA_HOST=mariadb
-      - PMA_ARBITRARY=1
+      - PMA_HOST=mariadb
+    #  - PMA_ARBITRARY=1
     # - PMA_ABSOLUTE_URI=https://phpmyadmin.kemeel.com #optional
     #  - PMA_HOSTS=firefly,wallabag,booklore
   #  volumes:
