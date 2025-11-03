@@ -276,7 +276,7 @@ services:
       - TZ=$TZ
       - FB_NOAUTH=true
     volumes:
-      - /mnt:/srv
+      - /:/srv
       - $DOCKERDIR/appdata/filebrowser/database:/database  
       - $DOCKERDIR/appdata/filebrowser/config:/config
     ports:
