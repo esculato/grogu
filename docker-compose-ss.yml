@@ -483,8 +483,8 @@ services:
       - redis
 
   redis:
-    container_name: wallabag_redis
-    image: redis:alpine-8.2.2@sha256:4521b581dbddea6e7d81f8fe95ede93f5648aaa66a9dacd581611bf6fe7527bd
+    container_name: redis
+    image: redis:6.2.21@sha256:0d1ff6eb9d941787c293eb54b66172558d45e5dbea4c36c47a4b6a0d60caa310
     restart: unless-stopped
     networks:
       - socket_proxy
