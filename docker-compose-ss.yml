@@ -405,6 +405,14 @@ services:
       - PGID=$PGID
       - TZ=$TZ
       - PMA_HOST=mariadb
+      - PMA_USER=root
+      - PMA_PASSWORD=$MARIADB_ROOT_PASSWORD
+      - UPLOAD_LIMIT=1000000000
+      - MAX_EXECUTION_TIME=5000
+      - MAX_INPUT_TIME=5000
+      - MEMORY_LIMIT=1000M
+      - POST_MAX_SIZE=750M
+      - UPLOAD_MAX_FILESIZE=750M
     volumes:
       - $DOCKERDIR/appdata/phpmyadmin:/config
     ports:
@@ -464,6 +472,7 @@ services:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
+      - MYSQL_ROOT_PASWORD=$MARIADB_ROOT_PASSWORD
       - SYMFONY__ENV__DATABASE_DRIVER=pdo_mysql
       - SYMFONY__ENV__DATABASE_HOST=mariadb
       - SYMFONY__ENV__DATABASE_PORT=$MARIADB_PORT
