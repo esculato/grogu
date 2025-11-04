@@ -213,7 +213,7 @@ services:
 #      - $DOCKERDIR/appdata/firefly_iii_importer:/import
     ports:
       - $FIREFLY_IMPORTER_PORT:8080
-      
+
   # Calibre-Web-Automated
   calibre-web-automated:
     container_name: calibre-web-automated
@@ -240,7 +240,7 @@ services:
       # CW users migrating should stop their existing CW instance, make a copy of the config folder, and bind that here to carry over all of their user settings ect.
       - $DOCKERDIR/appdata/calibre-web-automated/config:/config 
       # This is an ingest dir, NOT a library one. Anything added here will be automatically added to your library according to the settings you have configured in CWA Settings page. All files placed here are REMOVED AFTER PROCESSING
-      - $DATADIR/library/ebooks/ingest:/cwa-book-ingest
+      - $DATADIR/library/ingest:/cwa-book-ingest
       # If you don't have an existing library, CWA will automatically create one at the bind provided here
       - $DATADIR/library/ebooks:/calibre-library
       # If you use calibre plugins, you can bind your plugins folder here to have CWA attempt to add them to its workflow (WIP)
@@ -283,7 +283,7 @@ services:
       # This is where the books will be downloaded to, usually it would be
       # the same as whatever you gave in "calibre-web-automated"
      # - /tmp/data/calibre-web/ingest:/cwa-book-ingest
-      - $DATADIR/library/ebooks/ingest:/cwa-book-ingest
+      - $DATADIR/library/ingest:/cwa-book-ingest
       # This is the location of CWA's app.db, which contains authentication
       # details. Comment out to disable authentication
       #- /cwa/config/path/app.db:/auth/app.db:ro
