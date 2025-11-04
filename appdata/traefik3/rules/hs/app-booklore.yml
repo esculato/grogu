@@ -6,7 +6,7 @@ http:
         - websecure-internal
         - websecure-external
       middlewares:
-        - chain-authelia@file
+        - chain-no-auth@file
       service: booklore-svc
       tls:
         certResolver: dns-cloudflare
