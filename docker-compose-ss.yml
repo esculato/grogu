@@ -371,14 +371,14 @@ services:
       - $DOCKERDIR/appdata/booklore:/app/data       # Application data (settings, metadata, cache, etc.). Persist this folder to retain your library state across container restarts.
       - $DATADIR/library/ebooks:/books         # Primary book library folder. Mount your collection here so BookLore can access and organize your books.
       - $DATADIR/library/bookdrop:/bookdrop   # BookDrop folder. Files placed here are automatically detected and prepared for import.
-    
+
   ##### DATABASES
 
   # MariaDB - MySQL Database
   mariadb:
     container_name: mariadb
     image: linuxserver/mariadb:11.4.8@sha256:195b6be2d3e2dd0744a54ba2542a136c572b3375bc7f019e37a505da5da3022b
-    restart: unless-stopped 
+    restart: unless-stopped
     networks:
       - socket_proxy
       - grogu_ss
@@ -389,11 +389,6 @@ services:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
-      - MYSQL_ROOT_PASSWORD=/run/secrets/mysql_root_password
-#      - MYSQL_USER='booklore'
-#      - MYSQL_PASSWORD='verysecret'
-    secrets:
-       - mysql_root_password
     volumes:
       - $DOCKERDIR/appdata/mariadb:/config
 
@@ -410,9 +405,6 @@ services:
       - PGID=$PGID
       - TZ=$TZ
       - PMA_HOST=mariadb
-    #  - PMA_ARBITRARY=1
-    # - PMA_ABSOLUTE_URI=https://phpmyadmin.kemeel.com #optional
-    #  - PMA_HOSTS=firefly,wallabag,booklore
     volumes:
       - $DOCKERDIR/appdata/phpmyadmin:/config
     ports:
