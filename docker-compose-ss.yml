@@ -493,7 +493,7 @@ services:
 
   redis:
     container_name: redis
-    image: redis:6.2.21@sha256:a24ac659dd79ada9faa5ed698d08344fc1e8f9a24c3bc37ebafee8b2da5d8a33
+    image: redis:8.2.3@sha256:5c7c0445ed86918cb9efb96d95a6bfc03ed2059fe2c5f02b4d74f477ffe47915
     restart: unless-stopped
     networks:
       - socket_proxy
