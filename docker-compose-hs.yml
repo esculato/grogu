@@ -88,7 +88,7 @@ services:
   # Traefik 3 - Reverse Proxy
   traefik:
     container_name: traefik
-    image: traefik:v3.5.4@sha256:4df0a50fcf71b454c0d7ad17675776dc8d37359deae3291895bdaa008c1b9972
+    image: traefik:v3.6.0@sha256:18112aed2bfe3dfb8534f1045622390c3316596cff0cefab64f44e43d23e1640
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -198,7 +198,7 @@ services:
   # Authelia (Lite) - Self-Hosted Single Sign-On and Two-Factor Authentication
   authelia:
     container_name: authelia
-    image: authelia/authelia:4.39.13@sha256:7adc2a95b6a4be9332f6a420fdf59c7031bff203d1046ab80d8fbd66f5b1095f
+    image: authelia/authelia:4.39.14@sha256:88f1494b6ac1174641770f106335ab67752d66e5822b4059badca220b5d6153b
     security_opt:
       - no-new-privileges:true
     restart: always
