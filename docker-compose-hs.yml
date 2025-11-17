@@ -88,7 +88,7 @@ services:
   # Traefik 3 - Reverse Proxy
   traefik:
     container_name: traefik
-    image: traefik:v3.6.0@sha256:18112aed2bfe3dfb8534f1045622390c3316596cff0cefab64f44e43d23e1640
+    image: traefik:v3.6.1@sha256:fd5932c796f7e2db9fd6bff485ef693d53797f0ee8ad03dc68aa424ea6f21958
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -460,7 +460,7 @@ services:
   # ESPHome
   esphome:
     container_name: esphome
-    image: esphome/esphome:2025.10.4@sha256:5855694472a00c7e71176ac7f4cae3fd6366228532354ceda67eac5679e39cf3
+    image: esphome/esphome:2025.10.5@sha256:def6336d7d587f9b056893e86d1cfedfe86db360188221e9f122804872d385b0
     restart: always
     networks:
       - t3_proxy
