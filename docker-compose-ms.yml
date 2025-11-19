@@ -281,3 +281,28 @@ services:
       - $DOCKERDIR/appdata/filebrowser/config:/config
     ports:
       - 8070:80
+
+  ##### DATABASES
+
+  # MariaDB - MySQL Database
+  mariadb:
+    container_name: mariadb
+    image: linuxserver/mariadb:11.4.8@sha256:195b6be2d3e2dd0744a54ba2542a136c572b3375bc7f019e37a505da5da3022b
+    restart: unless-stopped
+    networks:
+      - socket_proxy
+ #     - grogu_ss
+    ports:
+      -3306 :3306
+   # env_file: .env.firefly.db
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+    volumes:
+      - $DOCKERDIR/appdata/mariadb:/config
+    healthcheck:
+      test: [ "CMD", "mariadb-admin", "ping", "-h", "localhost" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
