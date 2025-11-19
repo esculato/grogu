@@ -300,7 +300,7 @@ services:
       - MYSQL_USERNAME=guacamole
       - MYSQL_PASSWORD=guacamole
       - MYSQL_HOSTNAME=mariadb
-      - GUACD_HOSTNAME=192.168.5.9
+ #    - GUACD_HOSTNAME=192.168.5.9
       
   ##### DATABASES
 
@@ -309,8 +309,8 @@ services:
     container_name: mariadb
     image: linuxserver/mariadb:11.4.8@sha256:195b6be2d3e2dd0744a54ba2542a136c572b3375bc7f019e37a505da5da3022b
     restart: unless-stopped
-   # networks:
-    #  - socket_proxy
+    networks:
+      - socket_proxy
  #     - grogu_ss
     ports:
       - 3306:3306
