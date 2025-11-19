@@ -293,7 +293,7 @@ services:
     #  - socket_proxy
  #     - grogu_ss
     ports:
-      -3306 :3306
+      - 3306:3306
    # env_file: .env.firefly.db
     environment:
       - PUID=$PUID
