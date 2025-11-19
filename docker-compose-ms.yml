@@ -153,7 +153,7 @@ services:
   jackett:
     container_name: jackett
     image: lscr.io/linuxserver/jackett:v0.24.134-ls185@sha256:963a593492f8f5bcb79ffb751ac60e258e7cd4e30441327e58638e75737e5f17
-    restart: always
+    restart: unless-stopped
     networks:
       t3_proxy:
         ipv4_address: 192.168.15.170
@@ -178,7 +178,7 @@ services:
   radarr:
     container_name: radarr
     image: lscr.io/linuxserver/radarr:5.27.5.10198-ls284@sha256:f174546a0ad7eb9a9170e4142bef6f74ef3ebfe6209528fded40630369406dc0
-    restart: always
+    restart: unless-stopped
     networks:
       socket_proxy:
       t3_proxy:
@@ -198,7 +198,7 @@ services:
   sonarr:
     container_name: sonarr
     image: lscr.io/linuxserver/sonarr:4.0.15.2941-ls293@sha256:328d322af2bb8d7211a9c43a26ff5e658ba3e6f47a695e8fb9ff806bfeab0f04
-    restart: always
+    restart: unless-stopped
     networks:
       socket_proxy:
       t3_proxy:
@@ -218,7 +218,7 @@ services:
   bazarr:
     container_name: bazarr
     image: lscr.io/linuxserver/bazarr:v1.5.3-ls322@sha256:750251d7dcf245d05ad6b2b0c39685282df43a8582875fa31ab2a9328af64e26
-    restart: always
+    restart: unless-stopped
     networks:
       socket_proxy:
       t3_proxy:
@@ -238,7 +238,7 @@ services:
   jellyfin:
     container_name: jellyfin
     image: lscr.io/linuxserver/jellyfin:10.10.7ubu2404-ls80@sha256:68e012f4bf5aeb114632e9045f5b2f2f6713536693093f70fcb338179f84f86c
-    restart: always
+    restart: unless-stopped
     networks:
       - socket_proxy
       - t3_proxy
@@ -266,7 +266,7 @@ services:
   filebrowser:
     container_name: filebrowser
     image: filebrowser/filebrowser:v2.46.1@sha256:a3d21db89b6aa6b32d072184bf884a832725912f8bae1952338a09d10de415e2
-    restart: always
+    restart: unless-stopped
     networks:
       - socket_proxy
    #   - t3_proxy
@@ -282,6 +282,26 @@ services:
     ports:
       - 8070:80
 
+  # Guacamole remote desktop vnc
+  guacamole:
+    container_name: guacamole
+    image: guacamole/guacamole:latest
+    restart: unless-stopped
+   # env_file: .env
+    networks:
+      - socket_proxy
+    ports:
+      - 8083:8080
+    environment:
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+      - MYSQL_DATABASE=guacamole
+      - MYSQL_USERNAME=guacamole
+      - MYSQL_PASSWORD=guacamole
+      - MYSQL_HOSTNAME=mariadb
+      - GUACD_HOSTNAME=192.168.5.9
+      
   ##### DATABASES
 
   # MariaDB - MySQL Database
