@@ -1,7 +1,7 @@
 http:
   routers:
     guacamole-rtr:
-      rule: "Host(`guaca.{{env "DOMAINNAME"}}`)"
+      rule: "Host(`guac.{{env "DOMAINNAME"}}`)"
       entryPoints:
         - websecure-internal
         - websecure-external
