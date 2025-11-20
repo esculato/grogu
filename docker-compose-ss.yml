@@ -405,7 +405,7 @@ services:
       - PGID=$PGID
       - TZ=$TZ
       - PMA_ARBITRARY=1
-      - PMA_HOST=mariadb
+    #  - PMA_HOST=mariadb
       #- PMA_USER=root
     #  - PMA_PASSWORD=$MARIADB_ROOT_PASSWORD
     #  - UPLOAD_LIMIT=1000000000
