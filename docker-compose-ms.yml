@@ -285,23 +285,24 @@ services:
   # Guacamole remote desktop vnc
   guacamole:
     container_name: guacamole
-    image: guacamole/guacamole:latest
+    image: guacamole/guacamole:1.6.0@sha256:f344085e618bb05e22b964b0208dbd06d3468275bac70206f93805245e067b40
     restart: unless-stopped
-   # env_file: .env
     networks:
       - socket_proxy
     ports:
-      - 8083:8080
+      - $GUACAMOLE_PORT:8080
     environment:
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
       - MYSQL_DATABASE=guacamole
-      - MYSQL_USERNAME=guacamole
-      - MYSQL_PASSWORD=guacamole
+      - MYSQL_USERNAME=$GUACAMOLE_USERNAME_DB
+      - MYSQL_PASSWORD=$GUACAMOLE_PASSWORD_DB
       - MYSQL_HOSTNAME=mariadb
- #    - GUACD_HOSTNAME=192.168.5.9
-      
+      - GUACAMOLE_HOME=$DOCKERDIR/appdata/guacamole
+  #  volumes:
+  #    - $DOCKERDIR/appdata/guacamole:/etc/guacamole
+
   ##### DATABASES
 
   # MariaDB - MySQL Database
@@ -311,10 +312,8 @@ services:
     restart: unless-stopped
     networks:
       - socket_proxy
- #     - grogu_ss
     ports:
       - 3306:3306
-   # env_file: .env.firefly.db
     environment:
       - PUID=$PUID
       - PGID=$PGID
