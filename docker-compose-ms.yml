@@ -308,6 +308,9 @@ services:
     container_name: guacd
     image: guacamole/guacd:latest
     restart: unless-stopped
+    networks:
+      - socket_proxy
+
 
   ##### DATABASES
 
