@@ -302,7 +302,8 @@ services:
       - MYSQL_PASSWORD=$GUACAMOLE_PASSWORD_DB
       - MYSQL_HOSTNAME=mariadb
       - GUACAMOLE_HOME=$DOCKERDIR/appdata/guacamole
-      - GUACD_HOSTNAME=0.0.0.0
+      - GUACD_HOSTNAME=localhost
+      - GUACS_PORT=4822
 
   # Guacamole deamon
   guacd:
