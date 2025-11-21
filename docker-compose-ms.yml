@@ -291,6 +291,8 @@ services:
       - socket_proxy
     ports:
       - $GUACAMOLE_PORT:8080
+    links:
+      - guacd
     environment:
       - PUID=$PUID
       - PGID=$PGID
@@ -300,8 +302,12 @@ services:
       - MYSQL_PASSWORD=$GUACAMOLE_PASSWORD_DB
       - MYSQL_HOSTNAME=mariadb
       - GUACAMOLE_HOME=$DOCKERDIR/appdata/guacamole
-  #  volumes:
-  #    - $DOCKERDIR/appdata/guacamole:/etc/guacamole
+
+  # Guacamole deamon
+  guacd:
+    container_name: guacd
+    image: guacamole/guacd:latest
+    restart: unless-stopped
 
   ##### DATABASES
 
