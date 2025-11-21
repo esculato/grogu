@@ -311,6 +311,8 @@ services:
     restart: unless-stopped
     networks:
       - socket_proxy
+    environment:
+      - LOG_LEVEL=debug
 
 
   ##### DATABASES
