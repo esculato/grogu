@@ -302,7 +302,7 @@ services:
       - MYSQL_PASSWORD=$GUACAMOLE_PASSWORD_DB
       - MYSQL_HOSTNAME=mariadb
       - GUACAMOLE_HOME=$DOCKERDIR/appdata/guacamole
-      - GUACD_HOSTNAME=guacd
+      - GUACD_HOSTNAME=0.0.0.0
 
   # Guacamole deamon
   guacd:
