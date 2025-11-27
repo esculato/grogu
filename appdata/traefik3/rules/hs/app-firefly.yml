@@ -14,4 +14,4 @@ http:
     firefly-svc:
       loadBalancer:
         servers:
-          - url: "http://192.168.5.8:8085"
+          - url: "http://192.168.5.8:8095"
