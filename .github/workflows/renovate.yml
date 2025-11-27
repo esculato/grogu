@@ -22,7 +22,7 @@ jobs:
         # is often optional, but can be helpful for initial runs/debugging.
         
       - name: Self-hosted Renovate
-        uses: renovatebot/github-action@v44.0.3 # Check for the latest stable version
+        uses: renovatebot/github-action@v44.0.4 # Check for the latest stable version
         with:
           # Use the secret token for authentication
           token: ${{ secrets.RENOVATE_TOKEN }}
