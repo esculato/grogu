@@ -107,7 +107,7 @@ services:
 
   syncthing:
     container_name: syncthing
-    image: linuxserver/syncthing:2.0.11@sha256:97b4d8e75d44ef19f7a015800d318c1c307c0a245949a080fd146226b597f85b
+    image: linuxserver/syncthing:2.0.11@sha256:57c39e3243c260cf00cba7b311d5931d492f8d4980ad257385af1c7412921155
     hostname: syncthing-grogu #optional
     restart: unless-stopped
     networks:
