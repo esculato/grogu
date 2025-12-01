@@ -70,7 +70,7 @@ services:
 
   agent:
     container_name: portainer_agent
-    image: portainer/agent:2.35.0@sha256:ba05ad0bbd22102f7fadb3168913a0db740ee0f5d042833d35eefb38926305ae
+    image: portainer/agent:2.36.0@sha256:ab09f24d7dec425a77c0f83d483092055c464053bea42487b8ab0714039d66e3
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -338,7 +338,7 @@ services:
 
   booklore:
     container_name: booklore
-    image: booklore/booklore:v1.11.0@sha256:bdfcb7cb9ee85010c41ca2a9dba462a15c811c04cd6d54707baf12483e2e7396
+    image: booklore/booklore:v1.12.0@sha256:76c985ea015c447dee81b20a19780a017e6031a50232f1f8e3064bbfdfd94763
     restart: unless-stopped
     networks:
       - socket_proxy

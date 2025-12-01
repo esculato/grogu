@@ -235,7 +235,7 @@ services:
   # Portainer - WebUI for Containers
   portainer:
     container_name: portainer
-    image: portainer/portainer-ce:2.35.0@sha256:508cfeddff07c5a188fe0117d968249fb8242a8bfe8046ad2ad14fe78ac7edb5
+    image: portainer/portainer-ce:2.36.0@sha256:ec77ae8c4b36a31e00e8e6740bbdaf624f36f637c1ef1cdf3da50a63668aa483
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -460,7 +460,7 @@ services:
   # ESPHome
   esphome:
     container_name: esphome
-    image: esphome/esphome:2025.11.1@sha256:14451b4ba1e4a3c71940db6553c7e9e4a0c2e5dbb1eddd23c333176010277617
+    image: esphome/esphome:2025.11.2@sha256:479000703f8b9751e27f671edd4f95a14049ea3d70b4f79fc5575170fe50b72e
     restart: always
     networks:
       - t3_proxy
