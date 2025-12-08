@@ -90,7 +90,7 @@ services:
 
   dozzle-agent:
     container_name: dozzle_agent
-    image: amir20/dozzle:v8.14.9@sha256:82773cc7e7443de8ba7f23bd175a80d79c9e4d4ff1c0a5f8701e04e6c5e383bc
+    image: amir20/dozzle:v8.14.10@sha256:9477f50189e583c7c118233619b08dbe724cb98dfdfe17be042b5c472807de37
     restart: unless-stopped
     command: agent
     networks:
@@ -338,7 +338,7 @@ services:
 
   booklore:
     container_name: booklore
-    image: booklore/booklore:v1.12.0@sha256:76c985ea015c447dee81b20a19780a017e6031a50232f1f8e3064bbfdfd94763
+    image: booklore/booklore:v1.13.1@sha256:4979f536ae7dfde891cd998e8545cd2e3d534a164c23bc4663d83616d9a9f3a7
     restart: unless-stopped
     networks:
       - socket_proxy

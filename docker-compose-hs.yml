@@ -318,7 +318,7 @@ services:
   # Dozzle - Real-time Docker Log Viewer
   dozzle:
     container_name: dozzle
-    image: amir20/dozzle:v8.14.9
+    image: amir20/dozzle:v8.14.10
     security_opt:
       - no-new-privileges:true
     restart: always
@@ -437,7 +437,7 @@ services:
   zigbee2mqtt:
     container_name: zigbee2mqtt
     restart: always
-    image: koenkk/zigbee2mqtt:2.6.3@sha256:3baac2a3b74a9945fbbcb665b3e6e0ace5df2d49b5502e3d26b66a5454316e81
+    image: koenkk/zigbee2mqtt:2.7.0@sha256:7da30df2c3e53ea02e0bbce0241306358e946b2b5ce6ec02ecdf90be0a96c694
     privileged: true
     networks:
       - default
@@ -460,7 +460,7 @@ services:
   # ESPHome
   esphome:
     container_name: esphome
-    image: esphome/esphome:2025.11.2@sha256:479000703f8b9751e27f671edd4f95a14049ea3d70b4f79fc5575170fe50b72e
+    image: esphome/esphome:2025.11.4@sha256:0ebf60cda539151e630db84ef0274877f9f100a37d4da78469c203e76d11d1fd
     restart: always
     networks:
       - t3_proxy
@@ -482,7 +482,7 @@ services:
   # Node-RED
   node-red:
     container_name: node-red
-    image: nodered/node-red:4.1.1@sha256:a840dff7e3f704466600d9e4660d46a9f795c589bf9be20a5727c636a8125563
+    image: nodered/node-red:4.1.2@sha256:216e7403aab9888f7e68de9e468fed31bb9d7b2d38117c08e645095a63658a2f
     restart: always
     networks:
       - socket_proxy
