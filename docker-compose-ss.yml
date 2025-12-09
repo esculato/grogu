@@ -107,7 +107,7 @@ services:
 
   syncthing:
     container_name: syncthing
-    image: linuxserver/syncthing:2.0.11@sha256:57c39e3243c260cf00cba7b311d5931d492f8d4980ad257385af1c7412921155
+    image: linuxserver/syncthing:2.0.12@sha256:33edb52c86194a4660a998cd9ad533677cbf635171a424a668a270c0cecd9a05
     hostname: syncthing-grogu #optional
     restart: unless-stopped
     networks:
@@ -338,7 +338,7 @@ services:
 
   booklore:
     container_name: booklore
-    image: booklore/booklore:v1.13.1@sha256:4979f536ae7dfde891cd998e8545cd2e3d534a164c23bc4663d83616d9a9f3a7
+    image: booklore/booklore:v1.13.2@sha256:a0372a56177518bd426a9c81c6a4d1f4436136f85f619394bcacb5e31061f844
     restart: unless-stopped
     networks:
       - socket_proxy
