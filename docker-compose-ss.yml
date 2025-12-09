@@ -190,7 +190,7 @@ services:
     env_file: .env.firefly
     networks:
       - socket_proxy
-      - grogu_ss
+   #   - grogu_ss
     #  - t3_proxy
     ports:
       - $FIREFLY_PORT:8080
@@ -221,7 +221,7 @@ services:
     restart: unless-stopped
     networks:
       - socket_proxy
-      - grogu_ss
+#      - grogu_ss
     #  - t3_proxy
     environment:
       - PUID=$PUID
@@ -262,7 +262,7 @@ services:
     restart: unless-stopped
     networks:
       - socket_proxy
-      - grogu_ss
+#      - grogu_ss
     #  - t3_proxy
     ports:
       - 8084:8084
@@ -297,7 +297,7 @@ services:
     restart: unless-stopped
     networks:
       - socket_proxy
-      - grogu_ss
+    #  - grogu_ss
      # - t3_proxy
     environment:
       - PUID=$PUID
@@ -319,7 +319,7 @@ services:
     restart: unless-stopped
     networks:
       - socket_proxy
-      - grogu_ss
+#      - grogu_ss
     #  - t3_proxy
     ports:
       - 13378:80
@@ -342,7 +342,7 @@ services:
     restart: unless-stopped
     networks:
       - socket_proxy
-      - grogu_ss
+#      - grogu_ss
     environment:
       - APP_USER_ID=0
       - APP_GROUP_ID=0
@@ -376,7 +376,7 @@ services:
     restart: unless-stopped
     networks:
       - socket_proxy
-      - grogu_ss
+#      - grogu_ss
     ports:
       - $MARIADB_PORT:3306
    # env_file: .env.firefly.db
@@ -466,7 +466,7 @@ services:
     restart: unless-stopped
     networks:
       - socket_proxy
-      - grogu_ss
+#      - grogu_ss
     ports:
       - $WALLABAG_PORT:80
     environment:
@@ -498,7 +498,7 @@ services:
     restart: unless-stopped
     networks:
       - socket_proxy
-      - grogu_ss
+#      - grogu_ss
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 20s
