@@ -112,7 +112,7 @@ services:
     restart: unless-stopped
     networks:
       - socket_proxy
-      - grogu_ss
+    #  - grogu_ss
     #  - t3_proxy
     environment:
       - PUID=$PUID
@@ -137,7 +137,7 @@ services:
     restart: unless-stopped
     networks:
       - socket_proxy
-      - grogu_ss
+   #   - grogu_ss
     #  - t3_proxy
     ports:
       - $CALIBRE_PORT:8080 # Desktop GUI
