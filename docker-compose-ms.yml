@@ -265,7 +265,7 @@ services:
   # File Browser
   filebrowser:
     container_name: filebrowser
-    image: filebrowser/filebrowser:v2.50.0@sha256:4f5eaee70fdd6c5efb1d888b8f22f061b965c9414b12f0208b4446d984e56ce3
+    image: filebrowser/filebrowser:v2.51.1@sha256:f812bc44739cfc11eec5b28e4beddfce3a13a69c149b4f7a681b77a6a14af530
     restart: unless-stopped
     networks:
       - socket_proxy
