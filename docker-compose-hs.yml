@@ -235,7 +235,7 @@ services:
   # Portainer - WebUI for Containers
   portainer:
     container_name: portainer
-    image: portainer/portainer-ce:2.36.0@sha256:ec77ae8c4b36a31e00e8e6740bbdaf624f36f637c1ef1cdf3da50a63668aa483
+    image: portainer/portainer-ce:2.37.0@sha256:b48a491b8d2838c7ee98da6e00e32a04d0347a26466f48b20fb11e484e28f32a
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -261,7 +261,7 @@ services:
 
   # CrowdSec - Open-source & Collaborative IPS
   crowdsec:
-    image: crowdsecurity/crowdsec:v1.7.3@sha256:4beb1633cf4f41bb6f9e64d065d151d3aa5e3aa7082d5c3061a243037db0d890
+    image: crowdsecurity/crowdsec:v1.7.4@sha256:4312a5109057f2a6b1237431abe638cd1026ecb3a9c2707c6ccc1ed09e4cb994
     container_name: crowdsec
     security_opt:
       - no-new-privileges:true
@@ -460,7 +460,7 @@ services:
   # ESPHome
   esphome:
     container_name: esphome
-    image: esphome/esphome:2025.11.4@sha256:0ebf60cda539151e630db84ef0274877f9f100a37d4da78469c203e76d11d1fd
+    image: esphome/esphome:2025.11.5@sha256:e717923f75b47c16007a8a2526786de1762e34ba8f5b8e0e689fee8f64e816c8
     restart: always
     networks:
       - t3_proxy
