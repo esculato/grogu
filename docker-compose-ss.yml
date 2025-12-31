@@ -258,20 +258,18 @@ services:
   # Calibre-Web-Automated Book Downloader
   calibre-web-automated-book-downloader:
     container_name: calibre-web-automated-book-downloader
-    image: ghcr.io/calibrain/calibre-web-automated-book-downloader:latest
+    image: ghcr.io/calibrain/calibre-web-automated-book-downloader:v0.4.0
     restart: unless-stopped
     networks:
       - socket_proxy
-#      - grogu_ss
-    #  - t3_proxy
     ports:
       - $BOOKDOWNLOADER_PORT:8084
     environment:
       - FLASK_PORT=8084
       - LOG_LEVEL='info'
-      - BOOK_LANGUAGE='en'
-      - USE_BOOK_TITLE=true
-      - APP_ENV='prod'
+     # - BOOK_LANGUAGE='en'
+     # - USE_BOOK_TITLE=true
+      - APP_ENV='dev'
       - PUID=$PUID
       - PGID=$PGID
       - TZ=$TZ
@@ -279,7 +277,7 @@ services:
       # Queue management settings
       - MAX_CONCURRENT_DOWNLOADS=3
       - DOWNLOAD_PROGRESS_UPDATE_INTERVAL=5
-      - SEARCH_MODE=universal
+#      - SEARCH_MODE=universal
       - INGEST_DIR=/bookdrop
     volumes:
       # This is where the books will be downloaded to, usually it would be
