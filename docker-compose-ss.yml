@@ -265,7 +265,7 @@ services:
 #      - grogu_ss
     #  - t3_proxy
     ports:
-      - 8084:8084
+      - $BOOKDOWNLOADER_PORT:8084
     environment:
       - FLASK_PORT=8084
       - LOG_LEVEL='info'
@@ -279,11 +279,13 @@ services:
       # Queue management settings
       - MAX_CONCURRENT_DOWNLOADS=3
       - DOWNLOAD_PROGRESS_UPDATE_INTERVAL=5
+      - SEARCH_MODE=universal
+      - INGEST_DIR=/bookdrop
     volumes:
       # This is where the books will be downloaded to, usually it would be
       # the same as whatever you gave in "calibre-web-automated"
      # - /tmp/data/calibre-web/ingest:/cwa-book-ingest
-      - $DATADIR/library/ingest:/cwa-book-ingest
+      - $DATADIR/library/bookdrop:/bookdrop
       # This is the location of CWA's app.db, which contains authentication
       # details. Comment out to disable authentication
       #- /cwa/config/path/app.db:/auth/app.db:ro
