@@ -387,8 +387,7 @@ services:
     volumes:
       - $DOCKERDIR/appdata/mariadb:/config
     healthcheck:
-     # test: [ "CMD", "mariadb-admin", "ping", "-h", "localhost" ]
-      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "-u", "root", "-p$MYSQL_ROOT_PASSWORD"]
+      test: [ "CMD", "mariadb-admin", "ping", "-h", "localhost" ]
       interval: 10s
       timeout: 10s
       retries: 10
