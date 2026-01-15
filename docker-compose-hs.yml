@@ -88,7 +88,7 @@ services:
   # Traefik 3 - Reverse Proxy
   traefik:
     container_name: traefik
-    image: traefik:v3.6.6@sha256:82d3d16dde0474a51fef00b28de143d48b67f7a27453224d5e7b5aaefff26a97
+    image: traefik:v3.6.7@sha256:2c5e029ee3638d3788b4ca7c8ef454baa8f924b91b190b3fd2742bee721ebeea
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -367,7 +367,7 @@ services:
   # Home Assistent Container
   homeassistant:
     container_name: homeassistant
-    image: ghcr.io/home-assistant/home-assistant:2026.1.0@sha256:97d63b3d0028b6b52ad8e5ac7b014c3404e69bf1656b5489eec48b59184e0bc7
+    image: ghcr.io/home-assistant/home-assistant:2026.1.1@sha256:bf1602fc889bc4e6e4c1ccf9e6657f0be968bda13e1a4d1299e3dbe0ccf9a23b
     volumes:
       - $DOCKERDIR/appdata/homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
@@ -387,7 +387,7 @@ services:
   # Homepage - Application Dashboard
   homepage:
     container_name: homepage
-    image: ghcr.io/gethomepage/homepage:v1.6.1@sha256:8c7ec6a3c9094af7ac0686aa361fed3129264a8ed2c17594d5114a5e8342f7c9
+    image: ghcr.io/gethomepage/homepage:v1.8.0@sha256:7dc099d5c6ec7fc945d858218565925b01ff8a60bcbfda990fc680a8b5cd0b6e
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -460,7 +460,7 @@ services:
   # ESPHome
   esphome:
     container_name: esphome
-    image: esphome/esphome:2025.12.5@sha256:c625ac6e9f119cd501293ce47a04aea3042a9428108209f368262d8867aa2920
+    image: esphome/esphome:2025.12.6@sha256:797375a111562df90108d7b0d0ec59bcd8b98ee1c7f164c20f8ce6350b070f42
     restart: always
     networks:
       - t3_proxy
