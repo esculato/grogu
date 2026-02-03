@@ -217,7 +217,7 @@ services:
   # Calibre-Web-Automated
   calibre-web-automated:
     container_name: calibre-web-automated
-    image: ghcr.io/crocodilestick/calibre-web-automated:latest@sha256:758f6dd9248c130fe084e93023b10b993ec84d8647dd5ffc9917fc5925b3a50c
+    image: ghcr.io/crocodilestick/calibre-web-automated:latest@sha256:e4d31ce6e5850bf978bbea22641df19adaf66dd55112e9bfe22211895803651f
     restart: unless-stopped
     networks:
       - socket_proxy
