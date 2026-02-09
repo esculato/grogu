@@ -345,7 +345,7 @@ services:
   # Uptime Kuma - Status Page & Monitoring Server
   uptime-kuma:
     container_name: uptime-kuma
-    image: louislam/uptime-kuma:2.0.2@sha256:4c364ef96aaddac7ec4c85f5e5f31c3394d35f631381ccbbf93f18fd26ac7cba
+    image: louislam/uptime-kuma:2.1.0@sha256:da418b1f5655c12d2d62aa3d189117bfad5d83c2ab99bb3e82b2eaaf5246bbc1
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -367,7 +367,7 @@ services:
   # Home Assistent Container
   homeassistant:
     container_name: homeassistant
-    image: ghcr.io/home-assistant/home-assistant:2026.2.0@sha256:043ab74ba0ad529734d7d77ca3e893f286410864619329d5e8ca0524c3d260c1
+    image: ghcr.io/home-assistant/home-assistant:2026.2.1@sha256:17441c45ba14560b4ef727ee06aac4d605cf0dc0625fc4f2e043cb2551d72749
     volumes:
       - $DOCKERDIR/appdata/homeassistant:/config
       - /etc/localtime:/etc/localtime:ro

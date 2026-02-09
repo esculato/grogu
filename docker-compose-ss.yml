@@ -258,7 +258,7 @@ services:
   # Calibre-Web-Automated Book Downloader
   calibre-web-automated-book-downloader:
     container_name: calibre-web-automated-book-downloader
-    image: ghcr.io/calibrain/calibre-web-automated-book-downloader:v1.0.3
+    image: ghcr.io/calibrain/calibre-web-automated-book-downloader:v1.0.4
     restart: unless-stopped
     networks:
       - socket_proxy
