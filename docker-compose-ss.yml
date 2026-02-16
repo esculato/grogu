@@ -70,7 +70,7 @@ services:
 
   agent:
     container_name: portainer_agent
-    image: portainer/agent:2.38.0@sha256:c17caf98b3c10b9d32c2d4c6a5ee0b3cc282b546c922848ba05f5e0dc7533a38
+    image: portainer/agent:2.38.1@sha256:088d6a4fa5ff257793ff78cdf93483186d7e7247b69335c3d80c9b2c5bf380f0
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -494,7 +494,7 @@ services:
 
   redis:
     container_name: redis
-    image: redis:8.4.0@sha256:c22af04bb576503bf16b3e34a1fd2fd82de0f765afd866d2e380145e0af30d78
+    image: redis:8.6.0@sha256:7b6fb55d8b0adcd77269dc52b3cfffe5f59ca5d43dec3c90dbe18aacce7942e1
     restart: unless-stopped
     networks:
       - socket_proxy

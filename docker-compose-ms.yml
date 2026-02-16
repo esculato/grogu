@@ -62,7 +62,7 @@ services:
       
   agent:
     container_name: portainer_agent
-    image: portainer/agent:2.38.0@sha256:c17caf98b3c10b9d32c2d4c6a5ee0b3cc282b546c922848ba05f5e0dc7533a38
+    image: portainer/agent:2.38.1@sha256:088d6a4fa5ff257793ff78cdf93483186d7e7247b69335c3d80c9b2c5bf380f0
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped

@@ -88,7 +88,7 @@ services:
   # Traefik 3 - Reverse Proxy
   traefik:
     container_name: traefik
-    image: traefik:v3.6.7@sha256:a9890c898f379c1905ee5b28342f6b408dc863f08db2dab20e46c267d1ff463a
+    image: traefik:v3.6.8@sha256:90099f8948c828ecf0ababd711a4359a2443eba12261c1df2f548a3b1d815938
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -235,7 +235,7 @@ services:
   # Portainer - WebUI for Containers
   portainer:
     container_name: portainer
-    image: portainer/portainer-ce:2.38.0@sha256:e900ea5768993a53f174c7438653fdb42ee5d00a4321ecffa7653eb146f7ae99
+    image: portainer/portainer-ce:2.38.1@sha256:c4898bb546689dc61a53e86e69669c6d41e2607f3dcbd223bc42db7f8b3b8bc7
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -482,7 +482,7 @@ services:
   # Node-RED
   node-red:
     container_name: node-red
-    image: nodered/node-red:4.1.4@sha256:926f1f116276e434dd8c74ab7ca36eb0158e1def5cf2fbe78451938ee0e58790
+    image: nodered/node-red:4.1.5@sha256:7dfe40efdd7b9f21916f083802bfe60a762bc020969d95553ffa020c97a72eb9
     restart: always
     networks:
       - socket_proxy
