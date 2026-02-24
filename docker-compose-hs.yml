@@ -460,7 +460,7 @@ services:
   # ESPHome
   esphome:
     container_name: esphome
-    image: esphome/esphome:2025.12.7@sha256:cccd0a0b3de9ea0fc167a5a3666dbcc20150aa240f5ab412d57f87ac6c605bef
+    image: esphome/esphome:2026.2.1@sha256:420db742510744543043ec5b922811b32ff1f32ab559f3fc7f3d7ceff7091f68
     restart: always
     networks:
       - t3_proxy
