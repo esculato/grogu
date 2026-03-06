@@ -90,7 +90,7 @@ services:
 
   dozzle-agent:
     container_name: dozzle_agent
-    image: amir20/dozzle:v10.0.6@sha256:4815df572d135ce24c14ec3c150e482c98693bc5cc20291693b582baab8eb0bf
+    image: amir20/dozzle:v10.0.7@sha256:d383abf0fee72a8037d6ec6474424e56d752a52208e0ed70f4805e9d86a77830
     restart: unless-stopped
     command: agent
     networks:
@@ -372,7 +372,7 @@ services:
   # MariaDB - MySQL Database
   mariadb:
     container_name: mariadb
-    image: linuxserver/mariadb:11.4.8@sha256:91de7f701bc7fc3a424b81beafca7a7c6c4c5b7c8be6afd2ae148698695c0b0c
+    image: linuxserver/mariadb:11.4.9@sha256:f13ba2646ac5b8563eeb493c402d5585fdc3ef034b0a4962f308375ef9900579
     restart: unless-stopped
     networks:
       - socket_proxy

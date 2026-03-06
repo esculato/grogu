@@ -318,7 +318,7 @@ services:
   # Dozzle - Real-time Docker Log Viewer
   dozzle:
     container_name: dozzle
-    image: amir20/dozzle:v10.0.6
+    image: amir20/dozzle:v10.0.7
     security_opt:
       - no-new-privileges:true
     restart: always
@@ -437,7 +437,7 @@ services:
   zigbee2mqtt:
     container_name: zigbee2mqtt
     restart: always
-    image: koenkk/zigbee2mqtt:2.9.0@sha256:6cce51b7328afda3670336cd385f53a2f824ac948164e60f304383d1c3c6ef87
+    image: koenkk/zigbee2mqtt:2.9.1@sha256:574b2bd0dcbb59fae6edbbb81a35b5563291d3825da0225f0078aa5575dac37f
     privileged: true
     networks:
       - default
@@ -460,7 +460,7 @@ services:
   # ESPHome
   esphome:
     container_name: esphome
-    image: esphome/esphome:2026.2.2@sha256:f4602039147c0f45371383725d99ee454ddfff11cbff191f09c19164cd3e54de
+    image: esphome/esphome:2026.2.3@sha256:aa397e2874a03f73a228824c3db0b9450dccbf1d23dfcf64744b993b902649b3
     restart: always
     networks:
       - t3_proxy
