@@ -88,7 +88,7 @@ services:
   # Traefik 3 - Reverse Proxy
   traefik:
     container_name: traefik
-    image: traefik:v3.6.9@sha256:9004e1cd1e33c5eb0b6ec02bc6cfda61fe9caca36751114b1c9c6662f01b264a
+    image: traefik:v3.6.10@sha256:c549d482c55d7a797398562064f35428cc53e748d84d7190997930e7b31bcc32
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -482,7 +482,7 @@ services:
   # Node-RED
   node-red:
     container_name: node-red
-    image: nodered/node-red:4.1.6@sha256:330d65c5d9c203df1fc4db8dc7a67cf15c3b3982c85d0f7e0f1aa90dbb8b43f9
+    image: nodered/node-red:4.1.7@sha256:cf2d5657f12faebffaf1cea10203f277a2445434dec6a997212080ec0080f6c5
     restart: always
     networks:
       - socket_proxy
