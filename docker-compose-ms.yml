@@ -62,7 +62,7 @@ services:
       
   agent:
     container_name: portainer_agent
-    image: portainer/agent:2.39.0@sha256:e3a9bcb1e5862edaca62d6e54f70efc5815dff33e955a30578b174423b19977c
+    image: portainer/agent:2.39.1@sha256:7af856876dcb2778108bf6846f3da31b176443db90e3de31fcfdf17e5ab7857e
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -79,7 +79,7 @@ services:
 
   dozzle-agent:
     container_name: dozzle_agent
-    image: amir20/dozzle:v10.1.1@sha256:0895bff1da9e54786f2875bf0538805514f162c031d16f7a07b5756de2214ce7
+    image: amir20/dozzle:v10.1.2@sha256:ca18ce13851bb5b39b4296df498eeedc59849e833a6dc43e94cb04435435a9f2
     restart: always
     command: agent
     volumes:
