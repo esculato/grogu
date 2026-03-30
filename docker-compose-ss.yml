@@ -70,7 +70,7 @@ services:
 
   agent:
     container_name: portainer_agent
-    image: portainer/agent:2.39.1@sha256:7af856876dcb2778108bf6846f3da31b176443db90e3de31fcfdf17e5ab7857e
+    image: portainer/agent:2.40.0@sha256:956f99ebb48840b7cbe502b340be1fd2bb334b2ed357663cb274d7f9f8a75911
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -90,7 +90,7 @@ services:
 
   dozzle-agent:
     container_name: dozzle_agent
-    image: amir20/dozzle:v10.2.0@sha256:34d7ad621c2c98ff86b5c708f746e44c1363c2aa56a7fd056d5ec44f65ea3335
+    image: amir20/dozzle:v10.2.1@sha256:6bdfca41441987648ea2af525f61cdde316df6c433aab6ffdfc64cdd72bfe279
     restart: unless-stopped
     command: agent
     networks:
@@ -494,7 +494,7 @@ services:
 
   redis:
     container_name: redis
-    image: redis:8.6.1@sha256:315270d166080f537bbdf1b489b603aaaa213cb55a544acfa51feb7481abb1c0
+    image: redis:8.6.2@sha256:009cc37796fbdbe1b631b4cc0582bed167e5e403ed8bcd06f77eb6cb5aeb6f93
     restart: unless-stopped
     networks:
       - socket_proxy

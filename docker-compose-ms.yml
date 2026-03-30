@@ -62,7 +62,7 @@ services:
       
   agent:
     container_name: portainer_agent
-    image: portainer/agent:2.39.1@sha256:7af856876dcb2778108bf6846f3da31b176443db90e3de31fcfdf17e5ab7857e
+    image: portainer/agent:2.40.0@sha256:956f99ebb48840b7cbe502b340be1fd2bb334b2ed357663cb274d7f9f8a75911
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -79,7 +79,7 @@ services:
 
   dozzle-agent:
     container_name: dozzle_agent
-    image: amir20/dozzle:v10.2.0@sha256:34d7ad621c2c98ff86b5c708f746e44c1363c2aa56a7fd056d5ec44f65ea3335
+    image: amir20/dozzle:v10.2.1@sha256:6bdfca41441987648ea2af525f61cdde316df6c433aab6ffdfc64cdd72bfe279
     restart: always
     command: agent
     volumes:
@@ -95,7 +95,7 @@ services:
   # For Proxmox LXC Containers - https://pve.proxmox.com/wiki/OpenVPN_in_LXC
   transmission-vpn:
     container_name: transmission-vpn
-    image: haugene/transmission-openvpn:5.4.0@sha256:61380c40aff92919d409a03e46d61e9da2a06528d08c72456495e69f1d9e3af6
+    image: haugene/transmission-openvpn:5.4.1@sha256:bdef5158b09debdca558c9eeeb87dd77c55351dea8a89e66df413db4e18099b4
     restart: always
     networks:
       t3_proxy:
