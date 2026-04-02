@@ -182,7 +182,7 @@ services:
   ## Firefly III
   fireflyiii:
     container_name: fireflyiii
-    image: fireflyiii/core:version-6.4.16@sha256:db1f8eb2203a1d13af0bff1992b0c6b0304c8462074b552eced355e2329ed9f6
+    image: fireflyiii/core:version-6.5.9@sha256:fe4ecec4c2ba2b2978a32b3defaf270407f9fddf0e789a18648121ab84bb68d2
     restart: unless-stopped
     volumes:
       - $DOCKERDIR/appdata/firefly_iii:/var/www/html/storage/upload
