@@ -261,7 +261,7 @@ services:
 
   # CrowdSec - Open-source & Collaborative IPS
   crowdsec:
-    image: crowdsecurity/crowdsec:v1.7.6@sha256:63b595fef92de1778573b375897a45dd226637ee9a3d3db9f57ac7355c369493
+    image: crowdsecurity/crowdsec:v1.7.7@sha256:6ca53ad26196ca59ddd4fa692a586b73d8fcde085046163b9ca2f04887dca563
     container_name: crowdsec
     security_opt:
       - no-new-privileges:true
@@ -367,7 +367,7 @@ services:
   # Home Assistent Container
   homeassistant:
     container_name: homeassistant
-    image: ghcr.io/home-assistant/home-assistant:2026.2.2@sha256:3e2dff545c46e91f4ab2b21597016011d76d0de58bc8eaf51d75e841f337bf88
+    image: ghcr.io/home-assistant/home-assistant:2026.4.0@sha256:7fbf6a5e006e889d7799476ad7646bd18e9dc73e8a4ccd9326b41798de6bb3bf
     volumes:
       - $DOCKERDIR/appdata/homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
@@ -387,7 +387,7 @@ services:
   # Homepage - Application Dashboard
   homepage:
     container_name: homepage
-    image: ghcr.io/gethomepage/homepage:v1.10.1@sha256:0b596092c0b55fe4c65379a428a3fe90bd192f10d1b07d189a34fe5fabe7eedb
+    image: ghcr.io/gethomepage/homepage:v1.12.3@sha256:cc84f2f5eb3c7734353701ccbaa24ed02dacb0d119114e50e4251e2005f3990a
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -437,7 +437,7 @@ services:
   zigbee2mqtt:
     container_name: zigbee2mqtt
     restart: always
-    image: koenkk/zigbee2mqtt:2.9.1@sha256:574b2bd0dcbb59fae6edbbb81a35b5563291d3825da0225f0078aa5575dac37f
+    image: koenkk/zigbee2mqtt:2.9.2@sha256:2a21bbf7a664a149024bbe1f776e3151f28ed9db15948270dcbffb89544a41f0
     privileged: true
     networks:
       - default
@@ -460,7 +460,7 @@ services:
   # ESPHome
   esphome:
     container_name: esphome
-    image: esphome/esphome:2026.3.1@sha256:cff843f2af380faff540b8655a2f973ae03c8f2ad68dd9354baf901d3f6b586e
+    image: esphome/esphome:2026.3.2@sha256:8a7d3c79736500061b4b7b24aa84515c642291093acb44127e5cd3eee6ef0feb
     restart: always
     networks:
       - t3_proxy
