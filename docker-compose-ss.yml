@@ -90,7 +90,7 @@ services:
 
   dozzle-agent:
     container_name: dozzle_agent
-    image: amir20/dozzle:v10.2.1@sha256:6bdfca41441987648ea2af525f61cdde316df6c433aab6ffdfc64cdd72bfe279
+    image: amir20/dozzle:v10.3.0@sha256:034bb79c668dbd861e8d1ea131ad9c7abfe136e423edf80efaf502f8aae9c127
     restart: unless-stopped
     command: agent
     networks:
@@ -107,7 +107,7 @@ services:
 
   syncthing:
     container_name: syncthing
-    image: linuxserver/syncthing:2.0.15@sha256:580ed2fe422253042da782cef634084e9868f7dcd449f5d6dd2b40e6e3a9dc13
+    image: linuxserver/syncthing:2.0.16@sha256:c15a770ebd879e729478638fee3a1ae383787ed2b923cb324bdab357e398a6b0
     hostname: syncthing-grogu #optional
     restart: unless-stopped
     networks:
