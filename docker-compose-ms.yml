@@ -279,6 +279,7 @@ services:
       - /mnt:/srv
       - $DOCKERDIR/appdata/filebrowser/database:/database  
       - $DOCKERDIR/appdata/filebrowser/config:/config
+      - smb://192.168.5.40:/retropie
     ports:
       - 8070:80
 
