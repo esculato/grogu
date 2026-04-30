@@ -88,7 +88,7 @@ services:
   # Traefik 3 - Reverse Proxy
   traefik:
     container_name: traefik
-    image: traefik:v3.6.14@sha256:4cda3393930dceff030e144b46260e96e1337c9cfaa4fed81c90cb8f4d498f57
+    image: traefik:v3.6.15@sha256:8cb20d16e01a53d8d7f7696ac2f1af7d200d5c9984d226ce2299731d9eab6d6c
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -235,7 +235,7 @@ services:
   # Portainer - WebUI for Containers
   portainer:
     container_name: portainer
-    image: portainer/portainer-ce:2.40.0@sha256:df76590a901e47010977ffe277473908350e13042ac304bbac0798649c63b937
+    image: portainer/portainer-ce:2.41.0@sha256:7e859a1d90eaf96b1d934ffd42972cb337747e31ff4e1fac934869d842c10151
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -367,7 +367,7 @@ services:
   # Home Assistent Container
   homeassistant:
     container_name: homeassistant
-    image: ghcr.io/home-assistant/home-assistant:2026.4.0@sha256:7fbf6a5e006e889d7799476ad7646bd18e9dc73e8a4ccd9326b41798de6bb3bf
+    image: ghcr.io/home-assistant/home-assistant:2026.4.4@sha256:c1e5f0147f4cb51ccb05bb30b62a1269cc1bd48a6274792d3b38a77ab274dfd2
     volumes:
       - $DOCKERDIR/appdata/homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
@@ -460,7 +460,7 @@ services:
   # ESPHome
   esphome:
     container_name: esphome
-    image: esphome/esphome:2026.4.2@sha256:79a0778593a5664c95530c001ed1abe7cb4cee6e865977f030f5b22b4d18acd8
+    image: esphome/esphome:2026.4.3@sha256:d9da091d4d2fc072d238177ce07e02a6cc014b31677da653a36ac68dd6caaccd
     restart: always
     networks:
       - t3_proxy
