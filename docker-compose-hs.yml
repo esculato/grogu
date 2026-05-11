@@ -88,7 +88,7 @@ services:
   # Traefik 3 - Reverse Proxy
   traefik:
     container_name: traefik
-    image: traefik:v3.6.15@sha256:8cb20d16e01a53d8d7f7696ac2f1af7d200d5c9984d226ce2299731d9eab6d6c
+    image: traefik:v3.7.0@sha256:eb328e2c806c53aafbbace6c451fa54d268961261a85452fcf0fb752a30c17be
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -318,7 +318,7 @@ services:
   # Dozzle - Real-time Docker Log Viewer
   dozzle:
     container_name: dozzle
-    image: amir20/dozzle:v10.5.1
+    image: amir20/dozzle:v10.5.2
     security_opt:
       - no-new-privileges:true
     restart: always
@@ -437,7 +437,7 @@ services:
   zigbee2mqtt:
     container_name: zigbee2mqtt
     restart: always
-    image: koenkk/zigbee2mqtt:2.10.0@sha256:e9279e580bb25c512cf6e54c36e215a5cbd2881d1f201cf2a8213a97b14be3d2
+    image: koenkk/zigbee2mqtt:2.10.1@sha256:67c26dcf8346aced02fe1380a6afd1b57268bcef10faae3f6057c13d5d3dfa80
     privileged: true
     networks:
       - default
@@ -460,7 +460,7 @@ services:
   # ESPHome
   esphome:
     container_name: esphome
-    image: esphome/esphome:2026.4.4@sha256:d2c7aaa08015e18236b3bc7a4ffb5791a02cbc232efa00d805525ecc1dd502eb
+    image: esphome/esphome:2026.4.5@sha256:c7bfa0bea64c68d5ca645b37cf98125c248a494c0f339a13fbc918f559628feb
     restart: always
     networks:
       - t3_proxy
@@ -482,7 +482,7 @@ services:
   # Node-RED
   node-red:
     container_name: node-red
-    image: nodered/node-red:4.1.8@sha256:a5cb1dcdf90a7148b02b9dba4acfe6bd98c7bf3bff1e845dcdecfd7af3a95a29
+    image: nodered/node-red:4.1.9@sha256:830e56a3a05deed2f4ef6334879a3371f2c93df320f58c518c8648c8eaf64792
     restart: always
     networks:
       - socket_proxy
