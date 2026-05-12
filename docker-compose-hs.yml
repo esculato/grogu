@@ -558,7 +558,7 @@ services:
   ## The Lounge IRC
   thelounge:
     container_name: thelounge
-    image: lscr.io/linuxserver/thelounge:4.4.3@sha256:cce5797dd9b2db867daacdac8e596318038ef5e6970e0c6c60b7fd6822eac8a5
+    image: lscr.io/linuxserver/thelounge:4.4.3@sha256:66f5c16d009f2949aa01d4935e1bf97f1c85dfe3bbce296bf0d9f6498f596c06
     restart: always
     networks:
       - socket_proxy
