@@ -261,7 +261,7 @@ services:
 
   # CrowdSec - Open-source & Collaborative IPS
   crowdsec:
-    image: crowdsecurity/crowdsec:v1.7.7@sha256:6ca53ad26196ca59ddd4fa692a586b73d8fcde085046163b9ca2f04887dca563
+    image: crowdsecurity/crowdsec:v1.7.8@sha256:2f527c9bb8b367120eb08b82890aa912ce96bfa1ada93dda0721700e4b4e0dde
     container_name: crowdsec
     security_opt:
       - no-new-privileges:true
@@ -318,7 +318,7 @@ services:
   # Dozzle - Real-time Docker Log Viewer
   dozzle:
     container_name: dozzle
-    image: amir20/dozzle:v10.5.2
+    image: amir20/dozzle:v10.5.3
     security_opt:
       - no-new-privileges:true
     restart: always
