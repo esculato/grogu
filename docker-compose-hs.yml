@@ -318,7 +318,7 @@ services:
   # Dozzle - Real-time Docker Log Viewer
   dozzle:
     container_name: dozzle
-    image: amir20/dozzle:v10.6.0
+    image: amir20/dozzle:v10.6.1
     security_opt:
       - no-new-privileges:true
     restart: always
@@ -460,7 +460,7 @@ services:
   # ESPHome
   esphome:
     container_name: esphome
-    image: esphome/esphome:2026.5.0@sha256:c0e2159c1f17f800be0f8995af801c934428598481128c8d3d6a5b3adc153dee
+    image: esphome/esphome:2026.5.1@sha256:2162b9e65fab85702548df25065077ac407a47577dda50f1563071d3c99082c9
     restart: always
     networks:
       - t3_proxy
