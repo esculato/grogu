@@ -90,7 +90,7 @@ services:
 
   dozzle-agent:
     container_name: dozzle_agent
-    image: amir20/dozzle:v10.6.1@sha256:4a5e45a15120807294d0a896ec9f89e63d8d43da4e97480fe245454e2b00403e
+    image: amir20/dozzle:v10.6.2@sha256:dac897ce93cbc0db48d9a6014ba24fb9438edc95c27e283a6fcc9260ea474d6d
     restart: unless-stopped
     command: agent
     networks:
@@ -495,7 +495,7 @@ services:
 
   redis:
     container_name: redis
-    image: redis:8.6.3@sha256:4d25e2fe601f7ffaeb4437cb6ced3518bc36edf34ebe98863c80836943d94529
+    image: redis:8.8.0@sha256:aa049e689e141a4358ad1d4562dc49c88a89fbab711fd8fcc33f684c80b26301
     restart: unless-stopped
     networks:
       - socket_proxy
