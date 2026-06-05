@@ -437,7 +437,7 @@ services:
   zigbee2mqtt:
     container_name: zigbee2mqtt
     restart: always
-    image: koenkk/zigbee2mqtt:2.10.1@sha256:67c26dcf8346aced02fe1380a6afd1b57268bcef10faae3f6057c13d5d3dfa80
+    image: koenkk/zigbee2mqtt:2.11.0@sha256:f1f5195076d771727e9ff3db638de0f54d37969a66f317cd34624a7af5faf364
     privileged: true
     networks:
       - default
@@ -460,7 +460,7 @@ services:
   # ESPHome
   esphome:
     container_name: esphome
-    image: esphome/esphome:2026.5.1@sha256:2162b9e65fab85702548df25065077ac407a47577dda50f1563071d3c99082c9
+    image: esphome/esphome:2026.5.2@sha256:1609bf4826b4625e5654c56e4aa86d3f92372beea4772b071fc8a0397edaa72b
     restart: always
     networks:
       - t3_proxy
