@@ -88,7 +88,7 @@ services:
   # Traefik 3 - Reverse Proxy
   traefik:
     container_name: traefik
-    image: traefik:v3.7.1@sha256:6b9cbca6fac42ab0075f5437d8dc1685cfd188626d8d515839ea94f8b6271c42
+    image: traefik:v3.7.3@sha256:25cd7b175a493ea66a40329e23a649b59eda38b7e2a570493bf63fc4d74fd1c1
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -318,7 +318,7 @@ services:
   # Dozzle - Real-time Docker Log Viewer
   dozzle:
     container_name: dozzle
-    image: amir20/dozzle:v10.6.3
+    image: amir20/dozzle:v10.6.5
     security_opt:
       - no-new-privileges:true
     restart: always
@@ -460,7 +460,7 @@ services:
   # ESPHome
   esphome:
     container_name: esphome
-    image: esphome/esphome:2026.5.2@sha256:1609bf4826b4625e5654c56e4aa86d3f92372beea4772b071fc8a0397edaa72b
+    image: esphome/esphome:2026.5.3@sha256:ba995aa3fc86dd7fc3d39da7bf450112fb4bf30d6f8f1e846553d94f2b4ef151
     restart: always
     networks:
       - t3_proxy
@@ -482,7 +482,7 @@ services:
   # Node-RED
   node-red:
     container_name: node-red
-    image: nodered/node-red:4.1.10@sha256:eaa2fa23f751581162a4ff9eebb28fcbfcca7935b1a839f63672718f3c816761
+    image: nodered/node-red:4.1.11@sha256:5b51c75360538a7d247ce9b77f7feef3de6aedbcb5f153ff4d89c973571dbc3e
     restart: always
     networks:
       - socket_proxy

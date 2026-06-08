@@ -79,7 +79,7 @@ services:
 
   dozzle-agent:
     container_name: dozzle_agent
-    image: amir20/dozzle:v10.6.3@sha256:3d42f4c7b27f475117004f8524b52b6ea2cc1cdc39a508892d6b81ffb2883160
+    image: amir20/dozzle:v10.6.5@sha256:fa12525776bf665147d82bf031ff262ee89a0a12454122558a353ec38ada4aaf
     restart: always
     command: agent
     volumes:
@@ -265,7 +265,7 @@ services:
   # File Browser
   filebrowser:
     container_name: filebrowser
-    image: filebrowser/filebrowser:v2.63.5@sha256:aefb0c20de10ef8b617995ca5522479ad40d41e6386bd01946a345c6026ff31c
+    image: filebrowser/filebrowser:v2.63.12@sha256:fc8c3a46c16bbdf97362b20c50164e97de9c1dd5f63230d28a4cb15248b53ec3
     restart: unless-stopped
     networks:
       - socket_proxy
@@ -322,7 +322,7 @@ services:
   # MariaDB - MySQL Database
   mariadb:
     container_name: mariadb
-    image: linuxserver/mariadb:11.4.11@sha256:2d06ae7bc1c259e0762c654f2619db0eb93925d11a6d38041f24f3bcb16408e8
+    image: linuxserver/mariadb:11.4.12@sha256:adbb0142f55abd0e913b8fdd017f637d2318d434e74755908c768399e96403ec
     restart: unless-stopped
     networks:
       - socket_proxy

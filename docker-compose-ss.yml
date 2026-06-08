@@ -90,7 +90,7 @@ services:
 
   dozzle-agent:
     container_name: dozzle_agent
-    image: amir20/dozzle:v10.6.3@sha256:3d42f4c7b27f475117004f8524b52b6ea2cc1cdc39a508892d6b81ffb2883160
+    image: amir20/dozzle:v10.6.5@sha256:fa12525776bf665147d82bf031ff262ee89a0a12454122558a353ec38ada4aaf
     restart: unless-stopped
     command: agent
     networks:
@@ -107,7 +107,7 @@ services:
 
   syncthing:
     container_name: syncthing
-    image: linuxserver/syncthing:2.1.0@sha256:833b349a4247d10c4740aa3264df289537e0091e778ceefc2998ec694770f706
+    image: linuxserver/syncthing:2.1.1@sha256:b1a5a0ea4b32ecf2672db7c4c56443c5e222cca12d397724ea93c07a6c7564d0
     hostname: syncthing-grogu #optional
     restart: unless-stopped
     networks:
@@ -373,7 +373,7 @@ services:
   # MariaDB - MySQL Database
   mariadb:
     container_name: mariadb
-    image: linuxserver/mariadb:11.4.11@sha256:2d06ae7bc1c259e0762c654f2619db0eb93925d11a6d38041f24f3bcb16408e8
+    image: linuxserver/mariadb:11.4.12@sha256:adbb0142f55abd0e913b8fdd017f637d2318d434e74755908c768399e96403ec
     restart: unless-stopped
     networks:
       - socket_proxy
