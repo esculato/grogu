@@ -88,7 +88,7 @@ services:
   # Traefik 3 - Reverse Proxy
   traefik:
     container_name: traefik
-    image: traefik:v3.7.6@sha256:21a3d83696379bac6434bb32e1dde0aff0e84ef2abd053ed3db87d3f45e749b2
+    image: traefik:v3.7.7@sha256:1cb3845d7a05e1473c9086351426597e911db49db382b6e4769f9b0744962ac8
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -318,7 +318,7 @@ services:
   # Dozzle - Real-time Docker Log Viewer
   dozzle:
     container_name: dozzle
-    image: amir20/dozzle:v10.6.7
+    image: amir20/dozzle:v10.6.8
     security_opt:
       - no-new-privileges:true
     restart: always
@@ -460,7 +460,7 @@ services:
   # ESPHome
   esphome:
     container_name: esphome
-    image: esphome/esphome:2026.6.4@sha256:3df4d482ee77ef65a1b5ae2175779529998d0cfb370f1d95ca008110a015d475
+    image: esphome/esphome:2026.6.5@sha256:1d45560790e85200458ce0b8a5870c7eca22827ec08ab5064854f2abc9905434
     restart: always
     networks:
       - t3_proxy
