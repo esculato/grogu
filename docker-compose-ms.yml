@@ -79,7 +79,7 @@ services:
 
   dozzle-agent:
     container_name: dozzle_agent
-    image: amir20/dozzle:v10.6.12@sha256:e4a8955e22dd02b7329df66354d6ffcb5010d3e1dc850e99ea8f39122daf3cbd
+    image: amir20/dozzle:v10.6.13@sha256:9b13386276490c41faf41fbe7f477964d2a6ba95dd087e7d22a890a65e58c841
     restart: always
     command: agent
     volumes:
@@ -265,7 +265,7 @@ services:
   # File Browser
   filebrowser:
     container_name: filebrowser
-    image: filebrowser/filebrowser:v2.63.21@sha256:b1d9980d79d6d0ad334e327eea3501324a07fe2bce94a4cd84187bccbcfbe3f8
+    image: filebrowser/filebrowser:v2.63.23@sha256:a469ea076d4a1b4b1d86a41d130f2f536cd9da996a2b1fb39c0d7635f9d89b9a
     restart: unless-stopped
     networks:
       - socket_proxy
