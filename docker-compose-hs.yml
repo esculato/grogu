@@ -235,7 +235,7 @@ services:
   # Portainer - WebUI for Containers
   portainer:
     container_name: portainer
-    image: portainer/portainer-ce:2.43.0@sha256:707366c811956fe077135a6633af67e698529612869711cdb24896c892b28feb
+    image: portainer/portainer-ce:2.44.0@sha256:f49255cd9378827fadfde46062ad0395050237c51d03a93a3dc1dbc6050dda3e
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -318,7 +318,7 @@ services:
   # Dozzle - Real-time Docker Log Viewer
   dozzle:
     container_name: dozzle
-    image: amir20/dozzle:v10.6.13
+    image: amir20/dozzle:v10.6.14
     security_opt:
       - no-new-privileges:true
     restart: always
@@ -460,7 +460,7 @@ services:
   # ESPHome
   esphome:
     container_name: esphome
-    image: esphome/esphome:2026.7.2@sha256:fc149ed99a3d907135f9dc5a5ee5ae76109b009979d04d0e05718151f492451a
+    image: esphome/esphome:2026.7.3@sha256:1445f14341cf0c40f29ab8c019b4c89bfb38bd8f6bb275af3b4b0ab1fb40fbd9
     restart: always
     networks:
       - t3_proxy
@@ -482,7 +482,7 @@ services:
   # Node-RED
   node-red:
     container_name: node-red
-    image: nodered/node-red:5.0.1@sha256:6cb1b27fa5a83deec6a662db62eec8bb32e55ac5412d6b7a653e874ce62055d5
+    image: nodered/node-red:5.0.4@sha256:10f40d0a83e7e5852b13d4d472b2006b05b1cca6d55e2f29a55a12c25a630cb6
     restart: always
     networks:
       - socket_proxy
