@@ -339,7 +339,8 @@ services:
 
   booklore:
     container_name: booklore
-    image: booklore/booklore:v2.2.0@sha256:346064cb1fef6149dad2d8a373ea5fd1a7e3b61c22540995e40e8452136e202b
+ #   image: booklore/booklore:v2.2.0@sha256:346064cb1fef6149dad2d8a373ea5fd1a7e3b61c22540995e40e8452136e202b
+    image: ghcr.io/booklore-app/booklore:v2.3.1@sha256:d3d3af34bc2cc44349178535ce19e86049968fba2e7d2acf965f770bf37bad01
     restart: unless-stopped
     networks:
       - socket_proxy
