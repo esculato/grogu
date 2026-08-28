@@ -367,7 +367,7 @@ services:
   # Home Assistent Container
   homeassistant:
     container_name: homeassistant
-    image: ghcr.io/home-assistant/home-assistant:2026.4.4@sha256:c1e5f0147f4cb51ccb05bb30b62a1269cc1bd48a6274792d3b38a77ab274dfd2
+    image: ghcr.io/home-assistant/home-assistant:2026.8.3
     volumes:
       - $DOCKERDIR/appdata/homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
