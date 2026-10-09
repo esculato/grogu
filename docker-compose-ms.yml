@@ -322,7 +322,7 @@ services:
   # MariaDB - MySQL Database
   mariadb:
     container_name: mariadb
-    image: linuxserver/mariadb:11.8.8@sha256:2497453facccec79cd5e3bb3c1bd304a9def22af2f48a8d6b2fc8377904ce2d5
+    image: linuxserver/mariadb:11.8.8@sha256:7f993451c80a8984dabda504bce9660f4809f6aa1dc9ae4d534462af7058fd4b
     restart: unless-stopped
     networks:
       - socket_proxy
