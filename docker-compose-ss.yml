@@ -190,7 +190,7 @@ services:
     env_file: .env.firefly
     networks:
       - socket_proxy
-   #   - grogu_ss
+      - grogu_ss
     #  - t3_proxy
     ports:
       - $FIREFLY_PORT:8080
