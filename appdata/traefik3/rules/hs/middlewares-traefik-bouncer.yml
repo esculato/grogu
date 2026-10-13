@@ -9,7 +9,7 @@ http:
     middlewares-traefik-bouncer:
       plugin:
         bouncer:
-          crowdsecLapiKey: "Tcnt+sJU+Ik2c0pQqp8FeDWbd5YhVvhf0vOM7w7WYKw"
+          crowdsecLapiKey: "o0PRF9G9aeTXLhBRX66yLHjzdcfhlM9bDxHmMON62+E
           crowdsecLapiScheme: http
           crowdsecLapiHost: crowdsec:8080
           enabled: true
