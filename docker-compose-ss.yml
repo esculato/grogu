@@ -217,7 +217,7 @@ services:
   # Calibre-Web-Automated
   calibre-web-automated:
     container_name: calibre-web-automated
-    image: ghcr.io/crocodilestick/calibre-web-automated:latest@sha256:5e00373854247750cc3e4479b492ae09293ff5e06ed10177f226634d97888679
+    image: ghcr.io/crocodilestick/calibre-web-automated:v4.0.8@sha256:5e00373854247750cc3e4479b492ae09293ff5e06ed10177f226634d97888679
     restart: unless-stopped
     networks:
       - socket_proxy
@@ -315,7 +315,7 @@ services:
   # Audiobookshelf
   audiobookshelf:
     container_name: audiobookshelf  
-    image: ghcr.io/advplyr/audiobookshelf:latest
+    image: ghcr.io/advplyr/audiobookshelf:2.37.1@sha256:581d68b2a6fc7ebf58d81c878a9f387cbbc0d88ac9d37b298b9cee10168af85b
     restart: unless-stopped
     networks:
       - socket_proxy
@@ -396,7 +396,7 @@ services:
   # PHPMyAdmin
   phpmyadmin:
     container_name: phpmyadmin
-    image: lscr.io/linuxserver/phpmyadmin:latest
+    image: lscr.io/linuxserver/phpmyadmin:5.2.3@sha256:bce97a14b30f2fe1794490a2a6dbf64889f67664b26461b11505b297c0a48bd5
     restart: unless-stopped
     networks:
       - socket_proxy
