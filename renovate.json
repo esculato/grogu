@@ -30,8 +30,14 @@
     {
       "description": "LinuxServer.io tags: <version>-r<alpine>-ls<build>",
       "matchDatasources": ["docker"],
-      "matchPackageNames": ["linuxserver/socket-proxy"],
+      "matchPackageNames": ["linuxserver/*"],
       "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-r(?<build>\\d+)-ls(?<revision>\\d+)$"
+    },
+    {
+      "description": "LinuxServer Jellyfin: <version>ubu<ubuntu>-ls<build>",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["linuxserver/jellyfin"],
+      "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)(?:\\.(?<patch>\\d+))?(?<compatibility>ubu\\d+)-ls(?<build>\\d+)$"
     },
     {
       "groupName": "Docker minor/patch updates",
