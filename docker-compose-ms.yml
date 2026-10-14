@@ -152,7 +152,7 @@ services:
   # Jackett
   jackett:
     container_name: jackett
-    image: lscr.io/linuxserver/jackett:latest@sha256:656499137fa1bb3208dbfdba03bcd694cb40a6c57f169d60f50aded862923495
+    image: lscr.io/linuxserver/jackett:0.24.2830@sha256:0e6a81ff643e0e28c33136b94891be14855208af1aba14867c818e7cffac1ed7
     restart: unless-stopped
     networks:
       t3_proxy:
