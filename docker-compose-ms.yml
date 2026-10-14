@@ -26,7 +26,7 @@ services:
   # Docker Socket Proxy - Security Enchanced Proxy for Docker Socket
   socket-proxy:
     container_name: socket-proxy
-    image: lscr.io/linuxserver/socket-proxy:3.2.6-r0-ls57@sha256:7a462f90c5bc04c262e756310fcf564e670fa2ce8496fe8c3cd9945147b80ee3
+    image: linuxserver/socket-proxy:3.2.6-r0-ls57@sha256:7a462f90c5bc04c262e756310fcf564e670fa2ce8496fe8c3cd9945147b80ee3
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -152,7 +152,7 @@ services:
   # Jackett
   jackett:
     container_name: jackett
-    image: lscr.io/linuxserver/jackett:0.24.2830@sha256:0e6a81ff643e0e28c33136b94891be14855208af1aba14867c818e7cffac1ed7
+    image: linuxserver/jackett:0.24.2830@sha256:0e6a81ff643e0e28c33136b94891be14855208af1aba14867c818e7cffac1ed7
     restart: unless-stopped
     networks:
       t3_proxy:
@@ -177,7 +177,7 @@ services:
   # Radarr
   radarr:
     container_name: radarr
-    image: lscr.io/linuxserver/radarr:5.27.5.10198-ls284@sha256:f174546a0ad7eb9a9170e4142bef6f74ef3ebfe6209528fded40630369406dc0
+    image: linuxserver/radarr:6.4.4@sha256:cfbc4fa09dc9d78f7cedc898f4ec48c6277cacedc523c4e159db6ff1c741959c
     restart: unless-stopped
     networks:
       socket_proxy:
@@ -197,7 +197,7 @@ services:
   # Sonarr
   sonarr:
     container_name: sonarr
-    image: lscr.io/linuxserver/sonarr:4.0.15.2941-ls293@sha256:328d322af2bb8d7211a9c43a26ff5e658ba3e6f47a695e8fb9ff806bfeab0f04
+    image: linuxserver/sonarr:4.0.20@sha256:0deb8db6c839ac475e9cd86277712772c40ba7f929a003d7e1de36c4b666bc13
     restart: unless-stopped
     networks:
       socket_proxy:
@@ -217,7 +217,7 @@ services:
   # Bazarr
   bazarr:
     container_name: bazarr
-    image: lscr.io/linuxserver/bazarr:v1.5.3-ls322@sha256:750251d7dcf245d05ad6b2b0c39685282df43a8582875fa31ab2a9328af64e26
+    image: linuxserver/bazarr:1.6.2@sha256:fb0437897eaa7f96cf6ac42f795f8dcc208d34ec969eac5d366454e767304eb9
     restart: unless-stopped
     networks:
       socket_proxy:
@@ -237,7 +237,7 @@ services:
   # Jellyfin
   jellyfin:
     container_name: jellyfin
-    image: lscr.io/linuxserver/jellyfin:10.10.7ubu2404-ls80@sha256:68e012f4bf5aeb114632e9045f5b2f2f6713536693093f70fcb338179f84f86c
+    image: linuxserver/jellyfin:12.2ubu2604-ls54@sha256:799509f8ef3be7037478699cc6fd14d19dd75faac5e474ed219e98ae78a5b3e4
     restart: unless-stopped
     networks:
       - socket_proxy
@@ -309,7 +309,7 @@ services:
   # Guacamole deamon
   guacd:
     container_name: guacd
-    image: guacamole/guacd:latest
+    image: guacamole/guacd:1.6.0@sha256:8974eaa9ba32f713daf311e7cc8cd7e4cdfba1edea39eed75524e78ef4b08f4f
     restart: unless-stopped
     networks:
       - socket_proxy
