@@ -258,7 +258,7 @@ services:
   # Calibre-Web-Automated Book Downloader
   calibre-web-automated-book-downloader:
     container_name: calibre-web-automated-book-downloader
-    image: ghcr.io/calibrain/calibre-web-automated-book-downloader:v1.4.0
+    image: ghcr.io/calibrain/calibre-web-automated-book-downloader:v1.4.0@sha256:4ef757349c3c7a7d90ba95b1e2a46ce4dd460a4776efbcf2aa1b1c476e7d5de5
     restart: unless-stopped
     networks:
       - socket_proxy
@@ -293,7 +293,7 @@ services:
   # LazyLibrarian
   lazylibrarian:
     container_name: lazylibrarian
-    image: lscr.io/linuxserver/lazylibrarian:version-4df10815@sha256:7d504b7be4a43e04cb952e2bf93d4f9fde0b05f357d003acd00a66a1edcd67ac
+    image: linuxserver/lazylibrarian:latest@sha256:e6146064aa61bdd0482d5844abbeba26622ece06e1f7b0f9eca49db1f94823f3
     restart: unless-stopped
     networks:
       - socket_proxy
