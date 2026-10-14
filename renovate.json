@@ -21,6 +21,19 @@
   "platformAutomerge": true,
   "packageRules": [
     {
+      "description": "Firefly III uses version- prefixed tags",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["fireflyiii/core"],
+      "extractVersion": "^version-(?<version>.+)$",
+      "versioning": "semver"
+    },
+    {
+      "description": "LinuxServer.io tags: <version>-r<alpine>-ls<build>",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["linuxserver/socket-proxy"],
+      "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-r(?<build>\\d+)-ls(?<revision>\\d+)$"
+    },
+    {
       "groupName": "Docker minor/patch updates",
       "matchManagers": [
         "docker-compose"
