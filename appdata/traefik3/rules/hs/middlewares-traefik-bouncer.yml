@@ -13,4 +13,6 @@ http:
 #          crowdsecLapiKey: "see .env TRAEFIK_BOUNCER_API_KEY"
           crowdsecLapiScheme: http
           crowdsecLapiHost: crowdsec:8080
+          crowdsecMode: live
+          metricsTemplate: ""
           enabled: true
