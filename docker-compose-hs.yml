@@ -182,6 +182,11 @@ services:
       - HTPASSWD_FILE=/run/secrets/basic_auth_credentials # HTTP Basic Auth Credentials
       - DOMAINNAME # Passing the domain name to traefik container to be able to use the variable in rules.
       # - TRAEFIK_AUTH_BYPASS_KEY
+  # Middleware definitie met de omgevingsvariabele:
+      - "traefik.http.middlewares.crowdsec-bouncer.plugin.crowdsec-bouncer.enabled=true"
+      - "traefik.http.middlewares.crowdsec-bouncer.plugin.crowdsec-bouncer.crowdseclapischeme=http"
+      - "traefik.http.middlewares.crowdsec-bouncer.plugin.crowdsec-bouncer.crowdseclapihost=crowdsec:8080"
+      - "traefik.http.middlewares.crowdsec-bouncer.plugin.crowdsec-bouncer.crowdseclapikey=${TRAEFIK_BOUNCER_API_KEY}"
     secrets:
       - cf_dns_api_token
       - basic_auth_credentials
