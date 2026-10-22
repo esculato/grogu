@@ -4,12 +4,13 @@
 #      forwardAuth:
 #        address: "http://traefik-bouncer:8080/api/v1/forwardAuth"
 #        trustForwardHeader: true
-#http:
-#  middlewares:
-#    middlewares-traefik-bouncer:
-#      plugin:
-#        bouncer:
+http:
+  middlewares:
+    middlewares-traefik-bouncer:
+      plugin:
+        bouncer:
+          crowdsecLapiKey: '{{ env "TRAEFIK_BOUNCER_API_KEY" }}'
 #          crowdsecLapiKey: "see .env TRAEFIK_BOUNCER_API_KEY"
-#          crowdsecLapiScheme: http
-#          crowdsecLapiHost: crowdsec:8080
-#          enabled: true
+          crowdsecLapiScheme: http
+          crowdsecLapiHost: crowdsec:8080
+          enabled: true
