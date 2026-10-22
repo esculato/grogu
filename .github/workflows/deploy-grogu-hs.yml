@@ -13,6 +13,10 @@ jobs:
       run:
         working-directory: /home/medivh/docker
     steps:    
+      - name: Fix file permissions before git pull
+        run: |
+          sudo chown -R medivh:medivh /home/medivh/docker
+          git reset --hard origin/main    
       - name: Sync repo into /home/medivh/docker
         run: |
           if [ ! -d "/home/medivh/docker/.git" ]; then
