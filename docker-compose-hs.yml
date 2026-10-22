@@ -346,6 +346,8 @@ services:
     #  - /var/run/docker.sock:/var/run/docker.sock # Use Docker Socket Proxy instead for improved security
     labels:
       - "traefik.enable=true"
+      # Koppel hier de CrowdSec middleware:
+      - "traefik.http.routers.dozzle.middlewares=crowdsec-bouncer@docker"
 
   # Uptime Kuma - Status Page & Monitoring Server
   uptime-kuma:
