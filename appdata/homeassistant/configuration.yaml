@@ -1,10 +1,10 @@
-http:
-  use_x_forwarded_for: true
-  trusted_proxies:
-    - 172.0.0.0/24
-    - 192.168.14.0/24
-    - 192.168.15.0/24
-    - 192.168.5.0/24
+#http:
+#  use_x_forwarded_for: true
+#  trusted_proxies:
+#    - 172.0.0.0/24
+#    - 192.168.14.0/24
+#    - 192.168.15.0/24
+#    - 192.168.5.0/24
 
 # Loads default set of integrations. Do not remove.
 default_config:
