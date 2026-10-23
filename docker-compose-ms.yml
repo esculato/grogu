@@ -177,7 +177,7 @@ services:
   # Radarr
   radarr:
     container_name: radarr
-    image: linuxserver/radarr:6.4.4@sha256:cfbc4fa09dc9d78f7cedc898f4ec48c6277cacedc523c4e159db6ff1c741959c
+    image: linuxserver/radarr:6.4.4@sha256:fc0ae3c50f8128b97e84381903ec8d6845c3a569641cb7117c124376cccb57c1
     restart: unless-stopped
     networks:
       socket_proxy:
