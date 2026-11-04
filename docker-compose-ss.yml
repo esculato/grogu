@@ -293,7 +293,7 @@ services:
   # LazyLibrarian
   lazylibrarian:
     container_name: lazylibrarian
-    image: linuxserver/lazylibrarian:latest@sha256:c3f85478fd1e04da83adcdbfc1f7c3b409340db05e6ddb7bceb0731691248d7b
+    image: linuxserver/lazylibrarian:latest@sha256:0dc24a630cf23c877db0e8c634e391521bc892f578120d94aa73abc2fa8e5349
     restart: unless-stopped
     networks:
       - socket_proxy
