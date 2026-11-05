@@ -396,7 +396,7 @@ services:
   # PHPMyAdmin
   phpmyadmin:
     container_name: phpmyadmin
-    image: lscr.io/linuxserver/phpmyadmin:5.2.3@sha256:bce97a14b30f2fe1794490a2a6dbf64889f67664b26461b11505b297c0a48bd5
+    image: lscr.io/linuxserver/phpmyadmin:5.2.3@sha256:3964e223a0fa71ef7d79445c277511b11454680e017ae6e642c6f0b79e75159b
     restart: unless-stopped
     networks:
       - socket_proxy
