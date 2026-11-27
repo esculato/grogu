@@ -31,7 +31,7 @@ services:
   # Docker Socket Proxy - Security Enchanced Proxy for Docker Socket
   socket-proxy:
     container_name: socket_proxy
-    image: linuxserver/socket-proxy:3.4.7-r0-ls103@sha256:e5d819de59b343c01b2fe7adc7fad3c7a60e5dba08e45f1ac317352bc08599b5
+    image: linuxserver/socket-proxy:3.4.8-r0-ls107@sha256:6beb1743581ec3b2ed1a2bafd617e8c7a1d7ae2fe835293e333327618fc2b925
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -463,7 +463,7 @@ services:
   ### Wallabag
   wallabag:
     container_name: wallabag
-    image: wallabag/wallabag:2.6.14@sha256:4a527e027e0d59e87c14225ef11e005af3d4890374202ad319ce5e63dfc66709
+    image: wallabag/wallabag:2.6.19@sha256:957dd984804462367132482c37d7bd1512cabe8a9503ec22e06efddc2872942b
     restart: unless-stopped
     networks:
       - socket_proxy

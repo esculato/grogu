@@ -26,7 +26,7 @@ services:
   # Docker Socket Proxy - Security Enchanced Proxy for Docker Socket
   socket-proxy:
     container_name: socket-proxy
-    image: linuxserver/socket-proxy:3.4.7-r0-ls103@sha256:e5d819de59b343c01b2fe7adc7fad3c7a60e5dba08e45f1ac317352bc08599b5
+    image: linuxserver/socket-proxy:3.4.8-r0-ls107@sha256:6beb1743581ec3b2ed1a2bafd617e8c7a1d7ae2fe835293e333327618fc2b925
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped

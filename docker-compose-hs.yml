@@ -34,7 +34,7 @@ services:
 ############# CORE
   # Docker Socket Proxy - Security Enchanced Proxy for Docker Socket
   socket-proxy:
-    image: linuxserver/socket-proxy:3.4.7-r0-ls103@sha256:e5d819de59b343c01b2fe7adc7fad3c7a60e5dba08e45f1ac317352bc08599b5
+    image: linuxserver/socket-proxy:3.4.8-r0-ls107@sha256:6beb1743581ec3b2ed1a2bafd617e8c7a1d7ae2fe835293e333327618fc2b925
     container_name: socket-proxy
     security_opt:
       - no-new-privileges:true
@@ -262,7 +262,7 @@ services:
 
   # CrowdSec - Open-source & Collaborative IPS
   crowdsec:
-    image: crowdsecurity/crowdsec:v1.8.1@sha256:0f2523fa61ef507f15d953045cface490cc880670c62f2755ced17524107f71a
+    image: crowdsecurity/crowdsec:v1.8.2@sha256:65b74942f7e7ed5c60fde4ac15fc4ba715904c398c8b16dd451f4907d90347d4
     container_name: crowdsec
     security_opt:
       - no-new-privileges:true
@@ -346,7 +346,7 @@ services:
   # Uptime Kuma - Status Page & Monitoring Server
   uptime-kuma:
     container_name: uptime-kuma
-    image: louislam/uptime-kuma:2.5.6@sha256:9912da7d7d9b6ddc0c2d904beb84d24689c1ed9c33b81419eb9008663a92a329
+    image: louislam/uptime-kuma:2.5.12@sha256:8e4b6bef96417ec98a35dc103c99cc64fc229a01e584e56d95d9004d2003c02a
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -417,7 +417,7 @@ services:
   # dexec mosquitto /bin/sh -> mosquitto_passwd -b /mosquitto/config/passwd username passwd
   mosquitto:
     container_name: mosquitto
-    image: eclipse-mosquitto:2.0.22@sha256:81a6193ae693942a3231cd3ac52875b02b7e3a19da671b2fb4b55cc874c5b279
+    image: eclipse-mosquitto:2.0.23@sha256:6a332cc7a8dbe011cbc076180cbb76b37c6f0f55809682ea08e7980ef0112ad9
     restart: always
     #network_mode: host
     networks:
@@ -438,7 +438,7 @@ services:
   zigbee2mqtt:
     container_name: zigbee2mqtt
     restart: always
-    image: koenkk/zigbee2mqtt:2.14.2@sha256:addbfb08fcef2e4477de1535636118241e10d13e898fbe4d9faba8a4d7396311
+    image: koenkk/zigbee2mqtt:2.14.3@sha256:fb4a6b0f6868ad1cd6a9996479802b2420e599c3463b62bbff8c8cd9a908f43a
     privileged: true
     networks:
       - default
